@@ -1,0 +1,16 @@
+!define BLANK ""
+D:\git\lpw_c\c_code\windows_app\windows_app.exe : .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\c_code\windows_app
+ @%write windows_app.lk1 
+ @%append windows_app.lk1 
+!ifneq BLANK ""
+ *wlib -q -n -b windows_app.imp 
+ @%append windows_app.lk1 LIBR windows_app.imp
+!endif
+!ifneq BLANK ""
+ @%append windows_app.lk1 
+!endif
+ *wlink name windows_app d all sys nt_win op m op maxe=25 op q op symf @wind&
+ows_app.lk1
+
