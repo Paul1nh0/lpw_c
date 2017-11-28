@@ -1,0 +1,9 @@
+本编译器提取自 Microsoft 的 Visual Studio 10.0 SP1 旗舰版;
+
+!!!!仅供学习之用，由使用者自行承担使用风险以及法律责任!!!!
+
+优化精简: Skyfore.Lofter.Com
+
+适用于 Windows XP 以上的操作系统进行 SDK 编程！
+
+Portable Ver By Skyfore At 2014/9/20 18:44:10
