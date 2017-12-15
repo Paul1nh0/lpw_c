@@ -4,12 +4,14 @@ OUTDIR=vc_debug
 
 OBJS1=.\$(OUTDIR)\main.obj \
 .\$(OUTDIR)\dlgxp_templet.obj \
-.\$(OUTDIR)\encoder.obj
+.\$(OUTDIR)\encoder.obj \
+.\$(OUTDIR)\gbk_string.obj
 			
 
 SOURCES1 = main.c \
 dlgxp_templet.c \
-encoder.c
+encoder.c \
+gbk_string.c
 					
 
 RESOBJ1= resource.res
@@ -18,16 +20,16 @@ RESOURCE1 = resource.rc
 
 INCLUCEDIR=/I"D:\git\lpw_c\VS7\Include" \
 					/I"D:\git\lpw_c\VS7\WinSDK\Include" \
-					/I"D:\git\lpw_c\lpw_self\xlsx_parse\libopc\include"
+					/I"D:\git\lpw_c\lpw_self\xlsx_parse\libxl-3.6.5.0\include_c"
 					
 LIBRARYDIR=/libpath:"D:\git\lpw_c\VS7\Lib"  \
           /libpath:"D:\git\lpw_c\VS7\WinSDK\Lib" \
-          /libpath:"D:\git\lpw_c\lpw_self\xlsx_parse\libopc\lib"
+          /libpath:"D:\git\lpw_c\lpw_self\xlsx_parse\libxl-3.6.5.0\lib"
 
-LIBRARIES=user32.lib comctl32.lib wsock32.lib mce.lib opc.lib plib.lib xml.lib zlib.lib
+LIBRARIES=user32.lib shell32.lib comdlg32.lib comctl32.lib wsock32.lib libxl.lib
 RCFLAGS = /n $(INCLUCEDIR)
 CFLAGS = /nologo /Zi /W3 /TC /Ox /GA /D"WIN32" /D"_DEBUG" /Fd"$(OUTDIR)/vcpdb" /Fo"$(OUTDIR)/" $(INCLUCEDIR)
-LINKFLAGS = /subsystem:windows /machine:X86 /NODEFAULTLIB:libcmt.lib /debug /incremental:no \
+LINKFLAGS = /subsystem:windows /machine:X86  /debug /incremental:no \
  /pdb:".\$(OUTDIR)\$(TARGET1).pdb" /map:".\$(OUTDIR)\$(TARGET1).map" /out:".\$(OUTDIR)\$(TARGET1).exe" \
  $(LIBRARYDIR) $(LIBRARIES)
 
