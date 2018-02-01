@@ -1,0 +1,3 @@
+set solib-search-path ./obj/local/armeabi
+source F:/android-ndk-r10d/prebuilt/common/gdb/common.setup
+directory F:/android-ndk-r10d/platforms/android-3/arch-arm/usr/include jni F:/android-ndk-r10d/sources/cxx-stl/system

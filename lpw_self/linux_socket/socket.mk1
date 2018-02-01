@@ -1,0 +1,16 @@
+!define BLANK ""
+D:\git\lpw_c\lpw_self\linux_socket\main.obj : D:\git\lpw_c\lpw_self\linux_so&
+cket\main.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\linux_socket
+ *wcc386 main.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -od -d2 -6r -bt=li&
+nux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\linux_socket\socket.elf : D:\git\lpw_c\lpw_self\linux_&
+socket\main.obj .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\linux_socket
+ @%write socket.lk1 FIL main.obj
+ @%append socket.lk1 
+ *wlink name socket d all sys linux op m op maxe=25 op q op symf @socket.lk1
+
