@@ -1,0 +1,18 @@
+[16:32:22][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[16:32:22][cul_interface.c][L110][mod_interface]cul_init success
+[16:32:22][cul_mis.wjj][L454][mod_lua_lua]{
+	"TranType":	"10"
+}
+[16:32:22][cul_mis.wjj][L455][mod_lua_lua]0
+[16:32:22][cul_mis.wjj][L457][mod_lua_lua]
++TranType [10]
+[16:32:22][cul_wjj.c][L455][mod_lua_c]error running function D:\git\lpw_c\lpw_self\culmis_std_win\vc_debug\cul_mis.wjj:463: attempt to call a nil value (field '?')
+[16:40:16][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[16:40:16][cul_interface.c][L110][mod_interface]cul_init success
+[16:40:16][cul_mis.wjj][L454][mod_lua_lua]{
+	"TranType":	"10"
+}
+[16:40:16][cul_mis.wjj][L455][mod_lua_lua]0
+[16:40:16][cul_mis.wjj][L457][mod_lua_lua]
++TranType [10]
+[16:40:16][cul_wjj.c][L460][mod_lua_c]result is {"RespCode":"X1","RespInfo":"不支持的交易类型"}

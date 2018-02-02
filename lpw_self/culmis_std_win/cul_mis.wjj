@@ -456,6 +456,11 @@ function lua_do_fields(req_string,mode)
 	local req_table = json.decode(req_string)
 	print_table(req_table)
 	tran_init()
+	if tran_table[req_table.TranType] == nil then
+	    rsp_table.RespCode = "X1"
+	    rsp_table.RespInfo = "不支持的交易类型"
+	    return json.encode(rsp_table)
+	end
 	rsp_table.RespCode = tran_table[req_table.TranType](req_table)
 	if rsp_table.RespCode ~= "00" then
 		rsp_table.RespInfo = RSP_CODE[rsp_table.RespCode]
