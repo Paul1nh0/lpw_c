@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name ="idet0MchtNo" type = "id"/>
+    <item name ="idet1TermNo" type = "id"/>
+    <item name ="idet2IP" type = "id"/>
+    <item name ="idet3Port" type = "id"/>
+    <item name ="idet4Tpdu" type = "id"/>
+    <item name ="idet5Index" type = "id"/>
+    <item name ="idet6SettleDate" type = "id"/>
+    <item name ="idet7TraceNo" type = "id"/>
+    <item name ="idet8LoginDate" type = "id"/>
+</resources>

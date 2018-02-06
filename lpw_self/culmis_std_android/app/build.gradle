@@ -1,0 +1,53 @@
+apply plugin: 'com.android.model.application'
+
+model {
+    android {
+        compileSdkVersion = 23
+        buildToolsVersion = "23.0.3"
+        defaultConfig.with {
+            applicationId = "com.culmis.zero.culmis"
+            minSdkVersion.apiLevel = 11
+            targetSdkVersion.apiLevel = 23
+            versionCode = 4
+            versionName = "4.0"
+        }
+        tasks.withType(JavaCompile) {
+            sourceCompatibility = JavaVersion.VERSION_1_7
+            targetCompatibility = JavaVersion.VERSION_1_7
+        }
+    }
+    android.sources {
+        main {
+            assets.source.srcDirs += 'src/main/assets'
+        }
+    }
+    android.ndk {
+        moduleName = "CulInterface" //这是将来so文件的名称，自己取
+        // cppFlags += "-std=c++11"
+        //  cppFlags += "-fexceptions"
+        //  cppFlags += "-I${file("src/main/jni//include")}".toString()
+        //  ldLibs += ["android", "log"]
+        //   stl = "gnustl_shared"
+    }
+    android.buildTypes {
+        release {
+            minifyEnabled = true
+           // proguardFiles = getDefaultProguardFile('proguard-android.txt')
+            proguardFiles.add(file("proguard-rules.pro")) //紫色代码是改过了的
+        }
+    }
+    //  android.productFlavors {
+    //     create("arm7") {
+    //        ndk.abiFilters.add("armeabi-v7a")
+    //   }
+    //   create("arm8") {
+    //       ndk.abiFilters.add("arm64-v8a")
+    //   }
+    //}
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //   testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+}
+

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+
+    tools:context="com.culmis.zero.culmis.SettingActivity">
+    <ScrollView android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_weight="1">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="终端号"
+                android:id="@+id/idstMchtNo"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet0MchtNo"
+                android:maxLength="8"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="请输入银商资讯提供的终端号"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商户号"
+                android:id="@+id/idstTermNo"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet1TermNo"
+                android:maxLength="15"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="请输入银商资讯提供的商户号"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主机IP"
+                android:id="@+id/idstIP"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet2IP"
+                android:maxLength="15"
+                android:inputType="number" android:digits="0123456789."
+                android:hint="请输入主机IP地址"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主机端口"
+                android:id="@+id/idstPort"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet3Port"
+                android:maxLength="5"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="请输入主机端口号"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TPDU"
+                android:id="@+id/idstTpdu"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet4Tpdu"
+                android:maxLength="10"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="请输入TPDU"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="密钥索引"
+                android:id="@+id/idstIndex"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet5Index"
+                android:maxLength="3"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="请输入密钥索引"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="门店名称"
+                android:id="@+id/idstLoginDate"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet8LoginDate"
+                android:maxLength="99"
+                android:hint="大商"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打印模式"
+                android:id="@+id/idstSettleDate"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet6SettleDate"
+                android:maxLength="1"
+                android:inputType="number" android:digits="01"
+                android:hint="交易前是否删除打印文件"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="流水号"
+                android:id="@+id/idstTrace"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idet7TraceNo"
+                android:maxLength="6"
+                android:inputType="number" android:digits="0123456789"
+                android:hint="输入流水号"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_column="1" />
+
+        </TableRow>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:id="@+id/idbCertain"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:id="@+id/idbGiveup"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </TableLayout>
+    </ScrollView>
+
+</RelativeLayout>
