@@ -184,7 +184,17 @@ local function tran_resume(req_table)
 end
 
 local function tran_resume_void(req_table)
-	
+	local tran_file = io.open(cul_get_path() .. "tran_data","r+")
+	if tran_file ~= nil then
+		local org_tran = tran_file:read("*line")
+		print_log(org_tran)
+		local tran_table = json.decode(org_tran)
+		tran_table.has_void="1"
+		org_tran = json.encode(tran_table)
+		print_log(org_tran)
+	else
+		return "Y4"
+	end
 end
 
 local function tran_balance(req_table)
@@ -235,6 +245,7 @@ local function tran_settle(req_table)
 end
 
 local function tran_refund(req_table)
+
 end
 
 local function tran_reprint(req_table)
@@ -362,6 +373,7 @@ local function process_field63_resume(field62_table)
 	print_table(field63_table)
 	return field63_table
 end
+
 local function tran_process(rsp_table)
 	rsp_table.RespCode = rsp_fields.field39
 	rsp_table.RespInfo = RSP_CODE[rsp_table.RespCode]
@@ -406,6 +418,28 @@ local function process_resume(rsp_table)
 		rsp_table.Remark = field62_table.RM
 	end
 end
+
+local function process_resume_void(rsp_table)
+	local field62_table = process_field62()
+	local field63_table = process_field63_resume(field62_table)
+	rsp_table.Channel = field62_table.ch
+	rsp_table.CardNo = rsp_fields.field2
+	rsp_table.CardName = field63_table.card_name
+	rsp_table.CardClub = field63_table.card_club
+	rsp_table.Expr = field63_table.expr
+	rsp_table.Balance = field63_table.use_balance
+	rsp_table.TranAmount = field63_table.redeem_amount
+	if 1 == check_reserved_info(field63_table.reserved) then
+		rsp_table.Reserved = field63_table.reserved
+	end
+	if 1 == check_special_day_info(field63_table.special_day_info) then
+		rsp_table.SpecialDay = field63_table.special_day_info
+	end
+	if 1 ==  check_remark_info(field62_table.RM) then
+		rsp_table.Remark = field62_table.RM
+	end
+end
+
 
 local function process_balance(rsp_table)
 	local field62_table = process_field62()
@@ -483,7 +517,7 @@ function lua_do_fields(req_string,mode)
 		return json.encode(rsp_table)
 	end
 	req_fields.field11 = string.format("%06d",req_fields.field11 + 1)
-	local recv_buf = cul_socket_recv(ISO_8583_LEN,10)
+	local recv_buf = cul_socket_recv(ISO_8583_LEN,60)
 	if recv_buf == nil then
 		write_cul_data()
 		rsp_table.RespCode = "Z1"
