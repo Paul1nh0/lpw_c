@@ -1,6 +1,6 @@
  culmis_tool
 
- Timestamp is 5a67fab5 (Wed Jan 24 11:17:09 2018)
+ Timestamp is 5a7bf67b (Thu Feb 08 15:04:27 2018)
 
  Preferred load address is 00400000
 
@@ -20,7 +20,7 @@
  0002:000001ec 00000004H .CRT$XTA                DATA
  0002:000001f0 00000004H .CRT$XTZ                DATA
  0002:00000200 00005e30H .rdata                  DATA
- 0002:00006030 00000052H .rdata$debug            DATA
+ 0002:00006030 00000056H .rdata$debug            DATA
  0002:00006090 0000000cH .rdata$sxdata           DATA
  0002:0000609c 00000004H .rtc$IAA                DATA
  0002:000060a0 00000004H .rtc$IZZ                DATA

@@ -2,9 +2,9 @@
 echo vs7 Environment
 set vs7=D:\git\lpw_c\VS7
 echo vs7 environment is %vs7%
-SET PATH=%vs7%\bin;D:\git\lpw_c\gnu_make;D:\git\lpw_c\lpw_self\culmis_std\wjjcode\bin;D:\git\lpw_c\lpw_self\culmis_std\7z;%PATH%
+SET PATH=%vs7%\bin;D:\git\lpw_c\gnu_make;D:\git\lpw_c\lpw_self\culmis_std_win\wjjcode\bin;D:\git\lpw_c\lpw_self\culmis_std_win\7z;%PATH%
 SET INCLUDE=%vs7%\include;%vs7%\WinSDK\Include;%INCLUDE%
-SET LIB=%vs7%\Lib;%vs7%\WinSDK\Lib;D:\git\lpw_c\lpw_self\culmis_std\wjjcode\bin;%LIB%
+SET LIB=%vs7%\Lib;%vs7%\WinSDK\Lib;D:\git\lpw_c\lpw_self\culmis_std_win\wjjcode\bin;%LIB%
 del /Q vc_debug
 make -f vc_debug.mak
 copy cul_config.ini vc_debug\cul_config.ini

@@ -105,25 +105,25 @@ int cul_set_json_req_text(HWND hwnd,int trantype)
         break;
     case CUL_REDEEM:
         cJSON_AddStringToObject(p_root,"TranType","01");
-        cJSON_AddStringToObject(p_root,"MediumInfo","2336113390200060941=99125014790000");
-        cJSON_AddStringToObject(p_root,"PassWord","888888");
+        cJSON_AddStringToObject(p_root,"MediumInfo","2336022700000008792=99122011230000");
+        cJSON_AddStringToObject(p_root,"PassWord","512493");
         cJSON_AddStringToObject(p_root,"OrderAmount","000000000001");
         break;
     case CUL_VOID:
         cJSON_AddStringToObject(p_root,"TranType","02");
-        cJSON_AddStringToObject(p_root,"MediumInfo","2336113390200060941=99125014790000");
-        cJSON_AddStringToObject(p_root,"PassWord","888888");
+        cJSON_AddStringToObject(p_root,"MediumInfo","2336022700000008792=99122011230000");
+        cJSON_AddStringToObject(p_root,"PassWord","512493");
         cJSON_AddStringToObject(p_root,"OrderAmount","000000000001");
         cJSON_AddStringToObject(p_root,"OrgTrace","000000");
         break;
     case CUL_BALANCE:
         cJSON_AddStringToObject(p_root,"TranType","04");
-        cJSON_AddStringToObject(p_root,"MediumInfo","2336113390200060941=99125014790000");
-        cJSON_AddStringToObject(p_root,"PassWord","888888");
+        cJSON_AddStringToObject(p_root,"MediumInfo","2336022700000008792=99122011230000");
+        cJSON_AddStringToObject(p_root,"PassWord","512493");
         break;
     case CUL_REFUND:
         cJSON_AddStringToObject(p_root,"TranType","03");
-        cJSON_AddStringToObject(p_root,"MediumInfo","2336112700100014113=99125018240000");
+        cJSON_AddStringToObject(p_root,"MediumInfo","2336022700000008792=99122011230000");
         cJSON_AddStringToObject(p_root,"OrderAmount","000000000001");
         cJSON_AddStringToObject(p_root,"OrgRef","000000000001");
         cJSON_AddStringToObject(p_root,"OrgDate","20160918");

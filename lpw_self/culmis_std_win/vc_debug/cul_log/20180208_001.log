@@ -1,0 +1,707 @@
+[10:03:36][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:03:36][cul_interface.c][L110][mod_interface]cul_init success
+[10:03:36][cul_mis.wjj][L490][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:03:36][cul_mis.wjj][L491][mod_lua_lua]0
+[10:03:36][cul_mis.wjj][L493][mod_lua_lua]
++TranType [02]
++OrgTrace [000000]
++OrderAmount [000000000001]
++MediumInfo [2336113390200060941=99125014790000]
++PassWord [888888]
+[10:03:36][cul_wjj.c][L455][mod_lua_c]error running function D:\git\lpw_c\lpw_self\culmis_std_win\vc_debug\cul_mis.wjj:190: attempt to call a nil value (method 'tell')
+[10:24:25][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:24:25][cul_interface.c][L110][mod_interface]cul_init success
+[10:24:25][cul_mis.wjj][L491][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:24:25][cul_mis.wjj][L492][mod_lua_lua]0
+[10:24:25][cul_mis.wjj][L494][mod_lua_lua]
++OrderAmount [000000000001]
++MediumInfo [2336113390200060941=99125014790000]
++PassWord [888888]
++OrgTrace [000000]
++TranType [02]
+[10:24:25][cul_mis.wjj][L191][mod_lua_lua]221
+[10:24:25][cul_wjj.c][L460][mod_lua_c]result is []
+[10:26:01][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:26:01][cul_interface.c][L110][mod_interface]cul_init success
+[10:26:01][cul_mis.wjj][L492][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:26:01][cul_mis.wjj][L493][mod_lua_lua]0
+[10:26:01][cul_mis.wjj][L495][mod_lua_lua]
++TranType [02]
++OrgTrace [000000]
++MediumInfo [2336113390200060941=99125014790000]
++PassWord [888888]
++OrderAmount [000000000001]
+[10:26:01][cul_mis.wjj][L191][mod_lua_lua]221
+[10:26:01][cul_mis.wjj][L197][mod_lua_lua]{"TranType":"01","RespCode":"39","MchtName":"≤‚ ‘…Ãªß","BatchNo":"000272","TraceNo":"000002","TranDate":"0207","MchtNo":"102021000010194","TranTime":"141734","RefNo":"922973000002","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TermNo":"02721129","has_void":"1"}
+[10:26:01][cul_wjj.c][L460][mod_lua_c]result is []
+[10:27:36][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:27:36][cul_interface.c][L110][mod_interface]cul_init success
+[10:27:36][cul_mis.wjj][L493][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:27:36][cul_mis.wjj][L494][mod_lua_lua]0
+[10:27:36][cul_mis.wjj][L496][mod_lua_lua]
++TranType [02]
++OrderAmount [000000000001]
++PassWord [888888]
++MediumInfo [2336113390200060941=99125014790000]
++OrgTrace [000000]
+[10:27:36][cul_mis.wjj][L191][mod_lua_lua]221
+[10:27:36][cul_mis.wjj][L197][mod_lua_lua]{"TranType":"01","BatchNo":"000272","TermNo":"02721129","RespCode":"39","RefNo":"922973000002","has_void":"1","MchtNo":"102021000010194","TranTime":"141734","MchtName":"≤‚ ‘…Ãªß","TraceNo":"000002","TranDate":"0207","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß"}
+[10:27:36][cul_wjj.c][L460][mod_lua_c]result is []
+[10:45:55][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:45:55][cul_interface.c][L110][mod_interface]cul_init success
+[10:45:55][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:45:55][cul_mis.wjj][L495][mod_lua_lua]0
+[10:45:55][cul_mis.wjj][L497][mod_lua_lua]
++TranType [02]
++OrderAmount [000000000001]
++PassWord [888888]
++OrgTrace [000000]
++MediumInfo [2336113390200060941=99125014790000]
+[10:45:55][cul_mis.wjj][L191][mod_lua_lua]221
+[10:45:55][cul_mis.wjj][L197][mod_lua_lua]{"TranTime":"141734","TranType":"01","MchtName":"≤‚ ‘…Ãªß","MchtNo":"102021000010194","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","BatchNo":"000272","has_void":"1","RespCode":"39","RefNo":"922973000002","TranDate":"0207","TermNo":"02721129","TraceNo":"000002"}
+[10:45:55][cul_wjj.c][L455][mod_lua_c]error running function D:\git\lpw_c\lpw_self\culmis_std_win\vc_debug\cul_mis.wjj:198: bad argument #1 to 'seek' (invalid option '221')
+[10:48:40][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:48:40][cul_interface.c][L110][mod_interface]cul_init success
+[10:48:40][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:48:40][cul_mis.wjj][L495][mod_lua_lua]0
+[10:48:40][cul_mis.wjj][L497][mod_lua_lua]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
++TranType [02]
++OrgTrace [000000]
++PassWord [888888]
+[10:48:40][cul_mis.wjj][L191][mod_lua_lua]221
+[10:48:40][cul_mis.wjj][L197][mod_lua_lua]{"TranDate":"0207","TraceNo":"000002","RespCode":"39","RefNo":"922973000002","TermNo":"02721129","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","BatchNo":"000272","has_void":"1","MchtNo":"102021000010194","TranType":"01","TranTime":"141734","MchtName":"≤‚ ‘…Ãªß"}
+[10:48:40][cul_wjj.c][L460][mod_lua_c]result is []
+[10:51:47][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:51:47][cul_interface.c][L110][mod_interface]cul_init success
+[10:51:47][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"00"
+}
+[10:51:47][cul_mis.wjj][L495][mod_lua_lua]0
+[10:51:47][cul_mis.wjj][L497][mod_lua_lua]
++TranType [00]
+[10:51:47][cul_mis.wjj][L509][mod_lua_lua]
++message_type [0800]
++field60 [00000272001]
++pin_key [èg’!¡Y¶]
++login_date [0207]
++field11 [000004]
++settle_date [0000]
++tpdu [6000310000]
++mac_key [–‡ŒÈ;ùÀï]
++field42 [102021000010194]
++package_head [440476000000]
++batch_no [000272]
++field41 [02721129]
+[10:51:47][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[10:51:47][cul_iso8583.c][L458][mod_8583]field11=000004
+[10:51:47][cul_iso8583.c][L458][mod_8583]field41=02721129
+[10:51:47][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[10:51:47][cul_iso8583.c][L458][mod_8583]field60=00000272001
+[10:51:47][cul_mis.wjj][L518][mod_lua_lua]00 37 60 00 31 00 00 44 04 76 00 00 00 08 00 00 20 00 00 00 C0 00 10 00 00 04 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 00 11 00 00 02 72 00 10 
+[10:51:47][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[10:51:47][cul_wjj.c][L278][mod_lua_c]socket recv len 105
+[10:51:47][cul_mis.wjj][L534][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 08 10 00 38 00 01 0A C0 00 14 00 00 04 10 51 46 02 08 08 70 00 00 01 39 32 33 32 32 31 30 30 30 30 30 34 30 30 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 00 11 00 00 02 72 00 10 00 24 30 9B E0 08 84 48 C5 75 CF 66 DA 35 40 E6 21 05 77 6B 81 E4 E7 19 FC 2B 
+[10:51:47][cul_mis.wjj][L536][mod_lua_lua]
++message_type [0810]
++field60 [00000272001]
++field39 [00]
++field12 [105146]
++field11 [000004]
++field62 [0õ‡ÑH≈uœf⁄5@Ê!wkÅ‰Á¸+]
++tpdu [6000000031]
++field37 [923221000004]
++field32 [70000001]
++package_head [440476000000]
++field42 [102021000010194]
++field41 [02721129]
++field13 [0208]
+[10:51:47][cul_wjj.c][L103][mod_lua_c]mk_index 013
+[10:51:47][cul_mis.wjj][L548][mod_lua_lua]
++RespInfo [≥…π¶]
++TranTime [105146]
++TranType [00]
++MchtNo [102021000010194]
++RefNo [923221000004]
++TranDate [0208]
++BatchNo [000272]
++RespCode [00]
++TraceNo [000004]
++MchtName [≤‚ ‘…Ãªß]
++TermNo [02721129]
+[10:51:47][cul_wjj.c][L460][mod_lua_c]result is {"RespInfo":"≥…π¶","TranTime":"105146","TranType":"00","MchtNo":"102021000010194","RefNo":"923221000004","TranDate":"0208","BatchNo":"000272","RespCode":"00","TraceNo":"000004","MchtName":"≤‚ ‘…Ãªß","TermNo":"02721129"}
+[10:51:53][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:51:53][cul_interface.c][L110][mod_interface]cul_init success
+[10:51:53][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"01",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001"
+}
+[10:51:53][cul_mis.wjj][L495][mod_lua_lua]0
+[10:51:53][cul_mis.wjj][L497][mod_lua_lua]
++PassWord [888888]
++TranType [01]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
+[10:51:53][cul_mis.wjj][L509][mod_lua_lua]
++field53 [2000000000000000]
++field35 [2336113390200060941=99125014790000]
++pin_key [0õ‡ÑH≈u]
++field26 [06]
++field2 [2336113390200060941]
++field3 [000808]
++mac_key [@Ê!wkÅ‰]
++field22 [021]
++field41 [02721129]
++field64 [1]
++field11 [000005]
++field60 [10000272]
++field42 [102021000010194]
++field49 [156]
++field63 [01192336113390200060941000000000000000100001]
++login_date [0208]
++tpdu [6000310000]
++message_type [0200]
++field52 [G—ÙÏ»]
++settle_date [0000]
++field25 [00]
++package_head [440476000000]
++batch_no [000272]
+[10:51:53][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[10:51:53][cul_iso8583.c][L458][mod_8583]field2=2336113390200060941
+[10:51:53][cul_iso8583.c][L458][mod_8583]field3=000808
+[10:51:53][cul_iso8583.c][L458][mod_8583]field11=000005
+[10:51:53][cul_iso8583.c][L458][mod_8583]field22=021
+[10:51:53][cul_iso8583.c][L458][mod_8583]field25=00
+[10:51:53][cul_iso8583.c][L458][mod_8583]field26=06
+[10:51:53][cul_iso8583.c][L458][mod_8583]field35=2336113390200060941=99125014790000
+[10:51:53][cul_iso8583.c][L458][mod_8583]field41=02721129
+[10:51:53][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[10:51:53][cul_iso8583.c][L458][mod_8583]field49=156
+[10:51:53][cul_iso8583.c][L458][mod_8583]field52=G—ÙÏ»
+[10:51:53][cul_iso8583.c][L458][mod_8583]field53=2000000000000000
+[10:51:53][cul_iso8583.c][L458][mod_8583]field60=10000272
+[10:51:53][cul_iso8583.c][L458][mod_8583]field63=01192336113390200060941000000000000000100001
+[10:51:53][cul_mis.wjj][L518][mod_lua_lua]00 A2 60 00 31 00 00 44 04 76 00 00 00 02 00 60 20 04 C0 20 C0 98 13 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 05 02 10 00 06 34 23 36 11 33 90 20 00 60 94 1D 99 12 50 14 79 00 00 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 31 35 36 1C 47 05 D1 F4 EC 05 C8 20 00 00 00 00 00 00 00 00 08 10 00 02 72 00 44 30 31 31 39 32 33 33 36 31 31 33 33 39 30 32 30 30 30 36 30 39 34 31 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 30 31 39 38 38 41 34 41 37 44 
+[10:51:53][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[10:51:53][cul_wjj.c][L278][mod_lua_c]socket recv len 125
+[10:51:53][cul_mis.wjj][L534][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 02 10 60 3E 00 80 0A D0 80 11 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 05 10 51 52 02 08 99 12 02 08 00 39 32 33 32 32 32 30 30 30 30 30 35 33 39 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 22 30 30 30 31 36 30 30 30 20 20 20 37 30 30 30 30 30 30 31 20 20 20 31 35 36 00 08 10 00 02 72 44 42 43 33 30 30 31 43 
+[10:51:53][cul_mis.wjj][L536][mod_lua_lua]
++field60 [10000272]
++field37 [923222000005]
++field13 [0208]
++field2 [2336113390200060941]
++field3 [000808]
++field15 [0208]
++field14 [9912]
++field41 [02721129]
++field12 [105152]
++message_type [0210]
++field11 [000005]
++field42 [102021000010194]
++tpdu [6000000031]
++field49 [156]
++field44 [00016000   70000001   ]
++field25 [00]
++package_head [440476000000]
++field39 [39]
+[10:51:53][cul_mis.wjj][L548][mod_lua_lua]
++MchtNo [102021000010194]
++TranDate [0208]
++RespInfo [Œﬁ¥À–≈”√ø®’ ªß]
++RespCode [39]
++RefNo [923222000005]
++TermNo [02721129]
++TraceNo [000005]
++MchtName [≤‚ ‘…Ãªß]
++TranTime [105152]
++BatchNo [000272]
++TranType [01]
+[10:51:53][cul_wjj.c][L460][mod_lua_c]result is {"MchtNo":"102021000010194","TranDate":"0208","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","RespCode":"39","RefNo":"923222000005","TermNo":"02721129","TraceNo":"000005","MchtName":"≤‚ ‘…Ãªß","TranTime":"105152","BatchNo":"000272","TranType":"01"}
+[10:51:55][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:51:55][cul_interface.c][L110][mod_interface]cul_init success
+[10:51:55][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"01",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001"
+}
+[10:51:55][cul_mis.wjj][L495][mod_lua_lua]0
+[10:51:55][cul_mis.wjj][L497][mod_lua_lua]
++TranType [01]
++PassWord [888888]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
+[10:51:55][cul_mis.wjj][L509][mod_lua_lua]
++field52 [G—ÙÏ»]
++field49 [156]
++settle_date [0000]
++field2 [2336113390200060941]
++field53 [2000000000000000]
++package_head [440476000000]
++field41 [02721129]
++field64 [1]
++field3 [000808]
++field42 [102021000010194]
++tpdu [6000310000]
++field63 [01192336113390200060941000000000000000100001]
++field22 [021]
++login_date [0208]
++message_type [0200]
++field25 [00]
++pin_key [0õ‡ÑH≈u]
++field11 [000006]
++field60 [10000272]
++field26 [06]
++batch_no [000272]
++mac_key [@Ê!wkÅ‰]
++field35 [2336113390200060941=99125014790000]
+[10:51:55][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[10:51:55][cul_iso8583.c][L458][mod_8583]field2=2336113390200060941
+[10:51:55][cul_iso8583.c][L458][mod_8583]field3=000808
+[10:51:55][cul_iso8583.c][L458][mod_8583]field11=000006
+[10:51:55][cul_iso8583.c][L458][mod_8583]field22=021
+[10:51:55][cul_iso8583.c][L458][mod_8583]field25=00
+[10:51:55][cul_iso8583.c][L458][mod_8583]field26=06
+[10:51:55][cul_iso8583.c][L458][mod_8583]field35=2336113390200060941=99125014790000
+[10:51:55][cul_iso8583.c][L458][mod_8583]field41=02721129
+[10:51:55][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[10:51:55][cul_iso8583.c][L458][mod_8583]field49=156
+[10:51:55][cul_iso8583.c][L458][mod_8583]field52=G—ÙÏ»
+[10:51:55][cul_iso8583.c][L458][mod_8583]field53=2000000000000000
+[10:51:55][cul_iso8583.c][L458][mod_8583]field60=10000272
+[10:51:55][cul_iso8583.c][L458][mod_8583]field63=01192336113390200060941000000000000000100001
+[10:51:55][cul_mis.wjj][L518][mod_lua_lua]00 A2 60 00 31 00 00 44 04 76 00 00 00 02 00 60 20 04 C0 20 C0 98 13 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 06 02 10 00 06 34 23 36 11 33 90 20 00 60 94 1D 99 12 50 14 79 00 00 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 31 35 36 1C 47 05 D1 F4 EC 05 C8 20 00 00 00 00 00 00 00 00 08 10 00 02 72 00 44 30 31 31 39 32 33 33 36 31 31 33 33 39 30 32 30 30 30 36 30 39 34 31 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 30 31 31 36 30 35 41 34 45 30 
+[10:51:55][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[10:51:55][cul_wjj.c][L278][mod_lua_c]socket recv len 125
+[10:51:55][cul_mis.wjj][L534][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 02 10 60 3E 00 80 0A D0 80 11 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 06 10 51 54 02 08 99 12 02 08 00 39 32 33 32 32 33 30 30 30 30 30 36 33 39 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 22 30 30 30 31 36 30 30 30 20 20 20 37 30 30 30 30 30 30 31 20 20 20 31 35 36 00 08 10 00 02 72 35 31 36 32 30 35 36 43 
+[10:51:55][cul_mis.wjj][L536][mod_lua_lua]
++field49 [156]
++field13 [0208]
++field2 [2336113390200060941]
++message_type [0210]
++package_head [440476000000]
++field39 [39]
++field41 [02721129]
++field25 [00]
++field3 [000808]
++field42 [102021000010194]
++field12 [105154]
++tpdu [6000000031]
++field44 [00016000   70000001   ]
++field11 [000006]
++field60 [10000272]
++field37 [923223000006]
++field15 [0208]
++field14 [9912]
+[10:51:55][cul_mis.wjj][L548][mod_lua_lua]
++TranType [01]
++MchtNo [102021000010194]
++RespCode [39]
++TermNo [02721129]
++RespInfo [Œﬁ¥À–≈”√ø®’ ªß]
++TranDate [0208]
++TranTime [105154]
++RefNo [923223000006]
++MchtName [≤‚ ‘…Ãªß]
++BatchNo [000272]
++TraceNo [000006]
+[10:51:55][cul_wjj.c][L460][mod_lua_c]result is {"TranType":"01","MchtNo":"102021000010194","RespCode":"39","TermNo":"02721129","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TranDate":"0208","TranTime":"105154","RefNo":"923223000006","MchtName":"≤‚ ‘…Ãªß","BatchNo":"000272","TraceNo":"000006"}
+[10:52:02][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:52:02][cul_interface.c][L110][mod_interface]cul_init success
+[10:52:02][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:52:02][cul_mis.wjj][L495][mod_lua_lua]0
+[10:52:02][cul_mis.wjj][L497][mod_lua_lua]
++OrderAmount [000000000001]
++TranType [02]
++PassWord [888888]
++OrgTrace [000000]
++MediumInfo [2336113390200060941=99125014790000]
+[10:52:02][cul_mis.wjj][L191][mod_lua_lua]221
+[10:52:02][cul_mis.wjj][L197][mod_lua_lua]{"RespCode":"39","TranType":"01","TermNo":"02721129","TranDate":"0208","RefNo":"923222000005","TranTime":"105152","TraceNo":"000005","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","resp_code":"YY","MchtNo":"102021000010194","MchtName":"≤‚ ‘…Ãªß","BatchNo":"000272"}
+[10:52:02][cul_wjj.c][L460][mod_lua_c]result is []
+[10:53:30][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:53:30][cul_interface.c][L110][mod_interface]cul_init success
+[10:53:30][cul_mis.wjj][L494][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[10:53:30][cul_mis.wjj][L495][mod_lua_lua]0
+[10:53:30][cul_mis.wjj][L497][mod_lua_lua]
++PassWord [888888]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
++TranType [02]
++OrgTrace [000000]
+[10:53:30][cul_wjj.c][L460][mod_lua_c]result is {"RespInfo":"Œ¥’“µΩ‘≠Ωª“◊","RespCode":"Y4"}
+[13:26:14][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:26:14][cul_interface.c][L110][mod_interface]cul_init success
+[13:26:14][cul_mis.wjj][L500][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[13:26:14][cul_mis.wjj][L501][mod_lua_lua]0
+[13:26:14][cul_mis.wjj][L503][mod_lua_lua]
++PassWord [888888]
++MediumInfo [2336113390200060941=99125014790000]
++TranType [02]
++OrgTrace [000000]
++OrderAmount [000000000001]
+[13:26:14][cul_wjj.c][L460][mod_lua_c]result is {"RespInfo":"Œ¥’“µΩ‘≠Ωª“◊","RespCode":"Y4"}
+[13:26:24][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:26:24][cul_interface.c][L110][mod_interface]cul_init success
+[13:26:24][cul_mis.wjj][L500][mod_lua_lua]{
+	"TranType":	"01",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001"
+}
+[13:26:24][cul_mis.wjj][L501][mod_lua_lua]0
+[13:26:24][cul_mis.wjj][L503][mod_lua_lua]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
++TranType [01]
++PassWord [888888]
+[13:26:24][cul_mis.wjj][L515][mod_lua_lua]
++settle_date [0000]
++field42 [102021000010194]
++tpdu [6000310000]
++field53 [2000000000000000]
++field63 [01192336113390200060941000000000000000100001]
++field60 [10000272]
++field49 [156]
++field25 [00]
++field3 [000808]
++field41 [02721129]
++field64 [1]
++field26 [06]
++pin_key [0õ‡ÑH≈u]
++package_head [440476000000]
++field22 [021]
++message_type [0200]
++field11 [000007]
++mac_key [@Ê!wkÅ‰]
++field35 [2336113390200060941=99125014790000]
++field52 [G—ÙÏ»]
++field2 [2336113390200060941]
++login_date [0208]
++batch_no [000272]
+[13:26:24][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[13:26:24][cul_iso8583.c][L458][mod_8583]field2=2336113390200060941
+[13:26:24][cul_iso8583.c][L458][mod_8583]field3=000808
+[13:26:24][cul_iso8583.c][L458][mod_8583]field11=000007
+[13:26:24][cul_iso8583.c][L458][mod_8583]field22=021
+[13:26:24][cul_iso8583.c][L458][mod_8583]field25=00
+[13:26:24][cul_iso8583.c][L458][mod_8583]field26=06
+[13:26:24][cul_iso8583.c][L458][mod_8583]field35=2336113390200060941=99125014790000
+[13:26:24][cul_iso8583.c][L458][mod_8583]field41=02721129
+[13:26:24][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[13:26:24][cul_iso8583.c][L458][mod_8583]field49=156
+[13:26:24][cul_iso8583.c][L458][mod_8583]field52=G—ÙÏ»
+[13:26:24][cul_iso8583.c][L458][mod_8583]field53=2000000000000000
+[13:26:24][cul_iso8583.c][L458][mod_8583]field60=10000272
+[13:26:24][cul_iso8583.c][L458][mod_8583]field63=01192336113390200060941000000000000000100001
+[13:26:24][cul_mis.wjj][L524][mod_lua_lua]00 A2 60 00 31 00 00 44 04 76 00 00 00 02 00 60 20 04 C0 20 C0 98 13 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 07 02 10 00 06 34 23 36 11 33 90 20 00 60 94 1D 99 12 50 14 79 00 00 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 31 35 36 1C 47 05 D1 F4 EC 05 C8 20 00 00 00 00 00 00 00 00 08 10 00 02 72 00 44 30 31 31 39 32 33 33 36 31 31 33 33 39 30 32 30 30 30 36 30 39 34 31 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 30 31 38 42 41 44 41 36 34 30 
+[13:26:24][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[13:26:24][cul_wjj.c][L278][mod_lua_c]socket recv len 125
+[13:26:24][cul_mis.wjj][L540][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 02 10 60 3E 00 80 0A D0 80 11 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 07 13 26 23 02 08 99 12 02 08 00 39 32 33 32 33 37 30 30 30 30 30 37 33 39 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 22 30 30 30 31 36 30 30 30 20 20 20 37 30 30 30 30 30 30 31 20 20 20 31 35 36 00 08 10 00 02 72 32 32 42 42 32 38 35 46 
+[13:26:24][cul_mis.wjj][L542][mod_lua_lua]
++field37 [923237000007]
++field60 [10000272]
++field42 [102021000010194]
++tpdu [6000000031]
++field49 [156]
++field44 [00016000   70000001   ]
++field41 [02721129]
++field25 [00]
++field39 [39]
++field15 [0208]
++message_type [0210]
++field11 [000007]
++package_head [440476000000]
++field14 [9912]
++field3 [000808]
++field2 [2336113390200060941]
++field12 [132623]
++field13 [0208]
+[13:26:24][cul_mis.wjj][L554][mod_lua_lua]
++RespInfo [Œﬁ¥À–≈”√ø®’ ªß]
++TermNo [02721129]
++TraceNo [000007]
++RespCode [39]
++TranDate [0208]
++MchtNo [102021000010194]
++TranTime [132623]
++RefNo [923237000007]
++BatchNo [000272]
++TranType [01]
++MchtName [≤‚ ‘…Ãªß]
+[13:26:24][cul_wjj.c][L460][mod_lua_c]result is {"RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TermNo":"02721129","TraceNo":"000007","RespCode":"39","TranDate":"0208","MchtNo":"102021000010194","TranTime":"132623","RefNo":"923237000007","BatchNo":"000272","TranType":"01","MchtName":"≤‚ ‘…Ãªß"}
+[13:26:25][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:26:25][cul_interface.c][L110][mod_interface]cul_init success
+[13:26:25][cul_mis.wjj][L500][mod_lua_lua]{
+	"TranType":	"01",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001"
+}
+[13:26:25][cul_mis.wjj][L501][mod_lua_lua]0
+[13:26:25][cul_mis.wjj][L503][mod_lua_lua]
++TranType [01]
++OrderAmount [000000000001]
++MediumInfo [2336113390200060941=99125014790000]
++PassWord [888888]
+[13:26:25][cul_mis.wjj][L515][mod_lua_lua]
++field2 [2336113390200060941]
++field3 [000808]
++pin_key [0õ‡ÑH≈u]
++field64 [1]
++field35 [2336113390200060941=99125014790000]
++tpdu [6000310000]
++field63 [01192336113390200060941000000000000000100001]
++field60 [10000272]
++batch_no [000272]
++field11 [000008]
++field52 [G—ÙÏ»]
++message_type [0200]
++login_date [0208]
++field53 [2000000000000000]
++field26 [06]
++field41 [02721129]
++field49 [156]
++field22 [021]
++mac_key [@Ê!wkÅ‰]
++field25 [00]
++package_head [440476000000]
++field42 [102021000010194]
++settle_date [0000]
+[13:26:25][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[13:26:25][cul_iso8583.c][L458][mod_8583]field2=2336113390200060941
+[13:26:25][cul_iso8583.c][L458][mod_8583]field3=000808
+[13:26:25][cul_iso8583.c][L458][mod_8583]field11=000008
+[13:26:25][cul_iso8583.c][L458][mod_8583]field22=021
+[13:26:25][cul_iso8583.c][L458][mod_8583]field25=00
+[13:26:25][cul_iso8583.c][L458][mod_8583]field26=06
+[13:26:25][cul_iso8583.c][L458][mod_8583]field35=2336113390200060941=99125014790000
+[13:26:25][cul_iso8583.c][L458][mod_8583]field41=02721129
+[13:26:25][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[13:26:25][cul_iso8583.c][L458][mod_8583]field49=156
+[13:26:25][cul_iso8583.c][L458][mod_8583]field52=G—ÙÏ»
+[13:26:25][cul_iso8583.c][L458][mod_8583]field53=2000000000000000
+[13:26:25][cul_iso8583.c][L458][mod_8583]field60=10000272
+[13:26:25][cul_iso8583.c][L458][mod_8583]field63=01192336113390200060941000000000000000100001
+[13:26:25][cul_mis.wjj][L524][mod_lua_lua]00 A2 60 00 31 00 00 44 04 76 00 00 00 02 00 60 20 04 C0 20 C0 98 13 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 08 02 10 00 06 34 23 36 11 33 90 20 00 60 94 1D 99 12 50 14 79 00 00 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 31 35 36 1C 47 05 D1 F4 EC 05 C8 20 00 00 00 00 00 00 00 00 08 10 00 02 72 00 44 30 31 31 39 32 33 33 36 31 31 33 33 39 30 32 30 30 30 36 30 39 34 31 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 30 31 42 45 41 37 44 31 45 38 
+[13:26:25][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[13:26:25][cul_wjj.c][L278][mod_lua_c]socket recv len 125
+[13:26:25][cul_mis.wjj][L540][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 02 10 60 3E 00 80 0A D0 80 11 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 08 13 26 24 02 08 99 12 02 08 00 39 32 33 32 33 38 30 30 30 30 30 38 33 39 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 22 30 30 30 31 36 30 30 30 20 20 20 37 30 30 30 30 30 30 31 20 20 20 31 35 36 00 08 10 00 02 72 34 41 30 35 43 34 31 33 
+[13:26:25][cul_mis.wjj][L542][mod_lua_lua]
++field2 [2336113390200060941]
++field37 [923238000008]
++field15 [0208]
++field49 [156]
++tpdu [6000000031]
++field39 [39]
++field60 [10000272]
++field11 [000008]
++message_type [0210]
++field13 [0208]
++package_head [440476000000]
++field14 [9912]
++field44 [00016000   70000001   ]
++field3 [000808]
++field25 [00]
++field42 [102021000010194]
++field41 [02721129]
++field12 [132624]
+[13:26:25][cul_mis.wjj][L554][mod_lua_lua]
++TranType [01]
++TranTime [132624]
++RefNo [923238000008]
++TraceNo [000008]
++BatchNo [000272]
++TermNo [02721129]
++MchtNo [102021000010194]
++MchtName [≤‚ ‘…Ãªß]
++RespInfo [Œﬁ¥À–≈”√ø®’ ªß]
++TranDate [0208]
++RespCode [39]
+[13:26:25][cul_wjj.c][L460][mod_lua_c]result is {"TranType":"01","TranTime":"132624","RefNo":"923238000008","TraceNo":"000008","BatchNo":"000272","TermNo":"02721129","MchtNo":"102021000010194","MchtName":"≤‚ ‘…Ãªß","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TranDate":"0208","RespCode":"39"}
+[13:26:26][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:26:26][cul_interface.c][L110][mod_interface]cul_init success
+[13:26:26][cul_mis.wjj][L500][mod_lua_lua]{
+	"TranType":	"01",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001"
+}
+[13:26:26][cul_mis.wjj][L501][mod_lua_lua]0
+[13:26:26][cul_mis.wjj][L503][mod_lua_lua]
++MediumInfo [2336113390200060941=99125014790000]
++TranType [01]
++PassWord [888888]
++OrderAmount [000000000001]
+[13:26:26][cul_mis.wjj][L515][mod_lua_lua]
++field42 [102021000010194]
++field11 [000009]
++settle_date [0000]
++field25 [00]
++field41 [02721129]
++package_head [440476000000]
++field3 [000808]
++tpdu [6000310000]
++login_date [0208]
++field53 [2000000000000000]
++pin_key [0õ‡ÑH≈u]
++field63 [01192336113390200060941000000000000000100001]
++field60 [10000272]
++field2 [2336113390200060941]
++field64 [1]
++message_type [0200]
++field35 [2336113390200060941=99125014790000]
++field52 [G—ÙÏ»]
++field49 [156]
++mac_key [@Ê!wkÅ‰]
++field26 [06]
++field22 [021]
++batch_no [000272]
+[13:26:26][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[13:26:26][cul_iso8583.c][L458][mod_8583]field2=2336113390200060941
+[13:26:26][cul_iso8583.c][L458][mod_8583]field3=000808
+[13:26:26][cul_iso8583.c][L458][mod_8583]field11=000009
+[13:26:26][cul_iso8583.c][L458][mod_8583]field22=021
+[13:26:26][cul_iso8583.c][L458][mod_8583]field25=00
+[13:26:26][cul_iso8583.c][L458][mod_8583]field26=06
+[13:26:26][cul_iso8583.c][L458][mod_8583]field35=2336113390200060941=99125014790000
+[13:26:26][cul_iso8583.c][L458][mod_8583]field41=02721129
+[13:26:26][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[13:26:26][cul_iso8583.c][L458][mod_8583]field49=156
+[13:26:26][cul_iso8583.c][L458][mod_8583]field52=G—ÙÏ»
+[13:26:26][cul_iso8583.c][L458][mod_8583]field53=2000000000000000
+[13:26:26][cul_iso8583.c][L458][mod_8583]field60=10000272
+[13:26:26][cul_iso8583.c][L458][mod_8583]field63=01192336113390200060941000000000000000100001
+[13:26:26][cul_mis.wjj][L524][mod_lua_lua]00 A2 60 00 31 00 00 44 04 76 00 00 00 02 00 60 20 04 C0 20 C0 98 13 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 09 02 10 00 06 34 23 36 11 33 90 20 00 60 94 1D 99 12 50 14 79 00 00 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 31 35 36 1C 47 05 D1 F4 EC 05 C8 20 00 00 00 00 00 00 00 00 08 10 00 02 72 00 44 30 31 31 39 32 33 33 36 31 31 33 33 39 30 32 30 30 30 36 30 39 34 31 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 30 31 34 42 36 31 41 34 46 46 
+[13:26:26][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[13:26:26][cul_wjj.c][L278][mod_lua_c]socket recv len 125
+[13:26:26][cul_mis.wjj][L540][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 02 10 60 3E 00 80 0A D0 80 11 19 23 36 11 33 90 20 00 60 94 10 00 08 08 00 00 09 13 26 25 02 08 99 12 02 08 00 39 32 33 32 33 39 30 30 30 30 30 39 33 39 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 22 30 30 30 31 36 30 30 30 20 20 20 37 30 30 30 30 30 30 31 20 20 20 31 35 36 00 08 10 00 02 72 32 45 41 42 44 46 42 44 
+[13:26:26][cul_mis.wjj][L542][mod_lua_lua]
++field42 [102021000010194]
++field37 [923239000009]
++field11 [000009]
++field14 [9912]
++field25 [00]
++field41 [02721129]
++package_head [440476000000]
++field3 [000808]
++tpdu [6000000031]
++field60 [10000272]
++field2 [2336113390200060941]
++field15 [0208]
++field44 [00016000   70000001   ]
++field49 [156]
++message_type [0210]
++field13 [0208]
++field12 [132625]
++field39 [39]
+[13:26:26][cul_mis.wjj][L554][mod_lua_lua]
++TraceNo [000009]
++RespCode [39]
++TranDate [0208]
++TranTime [132625]
++BatchNo [000272]
++TranType [01]
++MchtNo [102021000010194]
++RefNo [923239000009]
++TermNo [02721129]
++MchtName [≤‚ ‘…Ãªß]
++RespInfo [Œﬁ¥À–≈”√ø®’ ªß]
+[13:26:26][cul_wjj.c][L460][mod_lua_c]result is {"TraceNo":"000009","RespCode":"39","TranDate":"0208","TranTime":"132625","BatchNo":"000272","TranType":"01","MchtNo":"102021000010194","RefNo":"923239000009","TermNo":"02721129","MchtName":"≤‚ ‘…Ãªß","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß"}
+[13:27:40][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:27:40][cul_interface.c][L110][mod_interface]cul_init success
+[13:27:40][cul_mis.wjj][L500][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[13:27:40][cul_mis.wjj][L501][mod_lua_lua]0
+[13:27:40][cul_mis.wjj][L503][mod_lua_lua]
++OrgTrace [000000]
++TranType [02]
++OrderAmount [000000000001]
++PassWord [888888]
++MediumInfo [2336113390200060941=99125014790000]
+[13:27:40][cul_wjj.c][L455][mod_lua_c]error running function D:\git\lpw_c\lpw_self\culmis_std_win\vc_debug\cul_mis.wjj:190: attempt to index a nil value (global 'file')
+[13:28:53][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[13:28:53][cul_interface.c][L110][mod_interface]cul_init success
+[13:28:53][cul_mis.wjj][L499][mod_lua_lua]{
+	"TranType":	"02",
+	"MediumInfo":	"2336113390200060941=99125014790000",
+	"PassWord":	"888888",
+	"OrderAmount":	"000000000001",
+	"OrgTrace":	"000000"
+}
+[13:28:53][cul_mis.wjj][L500][mod_lua_lua]0
+[13:28:53][cul_mis.wjj][L502][mod_lua_lua]
++TranType [02]
++PassWord [888888]
++OrgTrace [000000]
++MediumInfo [2336113390200060941=99125014790000]
++OrderAmount [000000000001]
+[13:28:53][cul_mis.wjj][L192][mod_lua_lua]{"RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TermNo":"02721129","TraceNo":"000007","RespCode":"39","TranDate":"0208","MchtNo":"102021000010194","TranTime":"132623","RefNo":"923237000007","BatchNo":"000272","TranType":"01","MchtName":"≤‚ ‘…Ãªß"}
+[13:28:53][cul_mis.wjj][L193][mod_lua_lua]231
+[13:28:53][cul_mis.wjj][L192][mod_lua_lua]{"TranType":"01","TranTime":"132624","RefNo":"923238000008","TraceNo":"000008","BatchNo":"000272","TermNo":"02721129","MchtNo":"102021000010194","MchtName":"≤‚ ‘…Ãªß","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß","TranDate":"0208","RespCode":"39"}
+[13:28:53][cul_mis.wjj][L193][mod_lua_lua]462
+[13:28:53][cul_mis.wjj][L192][mod_lua_lua]{"TraceNo":"000009","RespCode":"39","TranDate":"0208","TranTime":"132625","BatchNo":"000272","TranType":"01","MchtNo":"102021000010194","RefNo":"923239000009","TermNo":"02721129","MchtName":"≤‚ ‘…Ãªß","RespInfo":"Œﬁ¥À–≈”√ø®’ ªß"}
+[13:28:53][cul_mis.wjj][L193][mod_lua_lua]693
+[13:28:53][cul_wjj.c][L460][mod_lua_c]result is []

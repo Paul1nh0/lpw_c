@@ -1,3 +1,0 @@
-{"BatchNo":"000272","RespCode":"00","RespInfo":"成功","MchtNo":"102021000010194","MchtName":"测试商户","TranTime":"141625","TranDate":"0207","TraceNo":"000001","TermNo":"02721129","TranType":"00","RefNo":"922972000001"}
-{"RespCode":"39","RespInfo":"无此信用卡帐户","TermNo":"02721129","MchtNo":"102021000010194","TraceNo":"000002","TranType":"01","RefNo":"922973000002","BatchNo":"000272","TranDate":"0207","MchtName":"测试商户","TranTime":"141734"}
-{"TranType":"00","BatchNo":"000272","TermNo":"02721129","RespCode":"00","TraceNo":"000003","RefNo":"922992000003","TranTime":"152322","MchtName":"测试商户","MchtNo":"102021000010194","TranDate":"0207","RespInfo":"成功"}

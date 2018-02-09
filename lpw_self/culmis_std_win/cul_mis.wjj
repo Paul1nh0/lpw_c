@@ -186,14 +186,77 @@ end
 local function tran_resume_void(req_table)
 	local tran_file = io.open(cul_get_path() .. "tran_data","r+")
 	if tran_file ~= nil then
-		local org_tran = tran_file:read("*line")
-		print_log(org_tran)
-		local tran_table = json.decode(org_tran)
-		tran_table.has_void="1"
-		org_tran = json.encode(tran_table)
-		print_log(org_tran)
+		local offset = 0
+		local is_find = 0
+		local org_tran_table
+		--从流水文件中找原始交易
+		for line in tran_file:lines() do  
+			org_tran_table = json.decode(line)
+			if req_table.OrgTrace == org_tran_table.TraceNo and org_tran_table.TranType == "01" and org_tran_table.RespCode == "00" then
+				if org_tran_table.RespCode == "YY" then
+					return "YY"
+				end
+				is_find = 1
+				break
+			else
+				offset = tran_file:seek();
+			end
+		end  
+		if is_find == 1 then
+			req_fields.field64 = 1	
+			req_fields.field2,result = check_medium_info(req_table.MediumInfo)
+			if result == 0 then
+				return "N1"
+			end
+			if result == 1 then --刷磁道交易
+				req_fields.field35 = req_table.MediumInfo
+				req_fields.field22 = "02"
+			elseif result == 2 or result == 3 then --手输卡号
+				req_fields.field22 = "01"
+			else
+				return "N1"
+			end
+			--判断本地流水中卡号
+			if req_fields.field2 ~= org_tran_table.CardNo then
+			    return "NH"
+			end
+			
+			if req_table.PassWord == nil then
+				req_fields.field22 = req_fields.field22 .. "2"
+			elseif #req_table.PassWord == 6 then
+				req_fields.field22 = req_fields.field22 .. "1"
+				req_fields.field26 = "06"
+				req_fields.field53 = "2000000000000000"
+				req_fields.field52 = cul_soft_pin(TERM_CONFIG.MkIndex,req_fields.pin_key,req_fields.field2,req_table.PassWord)
+			else
+				return "A3"
+			end
+
+			if 0 == check_amount(req_table.OrderAmount) then
+				return "M3"
+			end
+		    --org_tran_table.RespCode = "YY"
+		    --local org_tran = json.encode(org_tran_table)
+		    --print_log(org_tran)
+		    --tran_file:seek("set",offset)
+		    --tran_file:write(org_tran)
+		else
+			return "Y4"
+		end
+		--local org_tran = tran_file:read("*line")
+		--local offset = tran_file:seek()
+		--print_log(offset)
+		--local org_tran = tran_file:read("*line")
+		--print_log(org_tran)
+		--local tran_table = json.decode(org_tran)
+		--tran_table.resp_code="YY"
+		--org_tran = json.encode(tran_table)
+		--print_log(org_tran)
+		--tran_file:seek("set",offset)
+		--tran_file:write(org_tran)
+		assert(io.close(tran_file))
 	else
-		return "Y4"
+		return "YX"
 	end
 end
 
@@ -439,7 +502,6 @@ local function process_resume_void(rsp_table)
 		rsp_table.Remark = field62_table.RM
 	end
 end
-
 
 local function process_balance(rsp_table)
 	local field62_table = process_field62()
