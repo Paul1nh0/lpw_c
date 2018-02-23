@@ -1,0 +1,63 @@
+[10:42:45][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:42:45][cul_interface.c][L110][mod_interface]cul_init success
+[10:42:45][@cul_mis.wjj][L516][mod_lua_lua]
+[10:42:45][@cul_mis.wjj][L517][mod_lua_lua]0
+[10:42:45][cul_wjj.c][L455][mod_lua_c]error running function cul_json.wjj:97: Unterminated JSON encoded object found at position in []
+[10:53:01][cul_interface.c][L99][mod_interface]iso8583 buf is 4096
+[10:53:01][cul_interface.c][L110][mod_interface]cul_init success
+[10:53:10][@cul_mis.wjj][L550][mod_lua_lua]{
+	"TranType":	"00"
+}
+[10:53:10][@cul_mis.wjj][L551][mod_lua_lua]0
+[10:53:10][@cul_mis.wjj][L553][mod_lua_lua]
++TranType [00]
+[10:53:10][@cul_mis.wjj][L565][mod_lua_lua]
++batch_no [000001]
++message_type [0800]
++login_date [0000]
++tpdu [6000310000]
++package_head [440476000000]
++field42 [102021000010194]
++field41 [02721129]
++settle_date [0000]
++mac_key [00000000]
++field60 [00000001001]
++pin_key [00000000]
++field11 [000001]
+[10:53:10][cul_wjj.c][L143][mod_lua_c]buf len is 4096
+[10:53:10][cul_iso8583.c][L458][mod_8583]field11=000001
+[10:53:10][cul_iso8583.c][L458][mod_8583]field41=02721129
+[10:53:10][cul_iso8583.c][L458][mod_8583]field42=102021000010194
+[10:53:10][cul_iso8583.c][L458][mod_8583]field60=00000001001
+[10:53:10][@cul_mis.wjj][L574][mod_lua_lua]00 37 60 00 31 00 00 44 04 76 00 00 00 08 00 00 20 00 00 00 C0 00 10 00 00 01 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 00 11 00 00 00 01 00 10 
+[10:53:10][cul_socket.c][L31][mod_socket]socket_init ip:180.168.71.178,port:6601
+[10:53:11][cul_wjj.c][L278][mod_lua_c]socket recv len 105
+[10:53:11][@cul_mis.wjj][L590][mod_lua_lua]60 00 00 00 31 44 04 76 00 00 00 08 10 00 38 00 01 0A C0 00 14 00 00 01 10 53 10 02 23 08 70 00 00 01 39 32 36 30 39 33 30 30 30 30 30 31 30 30 30 32 37 32 31 31 32 39 31 30 32 30 32 31 30 30 30 30 31 30 31 39 34 00 11 00 00 02 73 00 10 00 24 76 61 F6 91 90 C5 CD D7 EF 74 3E D9 B5 49 D5 44 C3 20 CD 36 0F E5 11 BA 
+[10:53:11][@cul_mis.wjj][L592][mod_lua_lua]
++field39 [00]
++field62 [vaˆëê≈Õ◊Ôt>ŸµI’D√ Õ6Â∫]
++message_type [0810]
++field60 [00000273001]
++tpdu [6000000031]
++package_head [440476000000]
++field37 [926093000001]
++field32 [70000001]
++field42 [102021000010194]
++field41 [02721129]
++field12 [105310]
++field13 [0223]
++field11 [000001]
+[10:53:11][cul_wjj.c][L103][mod_lua_c]mk_index 013
+[10:53:11][@cul_mis.wjj][L604][mod_lua_lua]
++TranTime [105310]
++MchtName [≤‚ ‘…Ãªß]
++TraceNo [000001]
++RespCode [00]
++RespInfo [≥…π¶]
++TranType [00]
++RefNo [926093000001]
++TermNo [02721129]
++BatchNo [000273]
++TranDate [0223]
++MchtNo [102021000010194]
+[10:53:11][cul_wjj.c][L460][mod_lua_c]result is {"TranTime":"105310","MchtName":"≤‚ ‘…Ãªß","TraceNo":"000001","RespCode":"00","RespInfo":"≥…π¶","TranType":"00","RefNo":"926093000001","TermNo":"02721129","BatchNo":"000273","TranDate":"0223","MchtNo":"102021000010194"}
