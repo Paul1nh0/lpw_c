@@ -1,1 +1,0 @@
-taskkill /im windbg.exe \ & start  D:\git\lpw_tool\WinDbg\x86\windbg.exe data1.exe -srcpath "D:\git\lpw_c\c_code\0003_data" -y "D:\git\lpw_c\c_code\0003_data" & exit

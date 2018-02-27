@@ -1,0 +1,1 @@
+taskkill /im windbg.exe \ & start  D:\git\lpw_tool\WinDbg\x86\windbg.exe data_integer.exe -srcpath "D:\git\lpw_c\c_code\0003_data_integer" -y "D:\git\lpw_c\c_code\0003_data_integer" & exit
