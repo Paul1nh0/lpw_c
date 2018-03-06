@@ -290,7 +290,7 @@ S32 cul_lua_init(S8* file_name)
         return ERROR_LUA_CREATE;
     }
     luaL_openlibs(L);
-    /*扩大lua堆栈 否则lua执行时会出现莫名其妙的崩溃*/
+    /*扩大lua堆栈*/
     lua_checkstack(L, 1024);
     /*注册lua函数*/
     lua_register(L, "cul_debug", cul_debug);
