@@ -34,7 +34,8 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        String strCfg = jniInterface.GetCfg();
+        String strCfg = "11";
+/*
         for(int i =0;i<9;i++)
         {
             editText[i] =(EditText)findViewById(R.id.idet0MchtNo+i);
@@ -45,10 +46,11 @@ public class SettingActivity extends AppCompatActivity {
         {
             editText[i].setText(spliteS[i]);
         }
+        */
         Button btnCertain = (Button)findViewById(R.id.idbCertain);
         assert btnCertain != null;
         btnCertain.setOnClickListener(new View.OnClickListener() {
-            //重载
+
             public void onClick(View v) {
                 int result = -1;
                 String strReq[] = new String[9];
@@ -74,14 +76,14 @@ public class SettingActivity extends AppCompatActivity {
                     strRequest += " ";
                 }
                 //  jniInterface.culinterface("12345678");
-                result = jniInterface.SetCfg(strRequest);
+                strRequest = jniInterface.CulInterface(strRequest);
                 finish();
             }
         });
         Button btnGiveup = (Button)findViewById(R.id.idbGiveup);
         assert btnGiveup != null;
         btnGiveup.setOnClickListener(new View.OnClickListener() {
-            //重载
+
             public void onClick(View v) {
                 finish();
             }

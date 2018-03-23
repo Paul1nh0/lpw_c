@@ -1,0 +1,288 @@
+!define BLANK ""
+D:\git\lpw_c\lpw_self\culmis_std_dos\lapi.obj : D:\git\lpw_c\lpw_self\culmis&
+_std_dos\lapi.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lapi.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -f&
+o=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lauxlib.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lauxlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lauxlib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lbaselib.obj : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lbaselib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lbaselib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=do&
+s -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lbitlib.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lbitlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lbitlib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lcode.obj : D:\git\lpw_c\lpw_self\culmi&
+s_std_dos\lcode.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lcode.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -&
+fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lcorolib.obj : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lcorolib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lcorolib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=do&
+s -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lctype.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\lctype.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lctype.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ldblib.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\ldblib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ldblib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ldebug.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\ldebug.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ldebug.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ldo.obj : D:\git\lpw_c\lpw_self\culmis_&
+std_dos\ldo.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ldo.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -fo&
+=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ldump.obj : D:\git\lpw_c\lpw_self\culmi&
+s_std_dos\ldump.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ldump.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -&
+fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lfunc.obj : D:\git\lpw_c\lpw_self\culmi&
+s_std_dos\lfunc.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lfunc.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -&
+fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lgc.obj : D:\git\lpw_c\lpw_self\culmis_&
+std_dos\lgc.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lgc.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -fo&
+=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\linit.obj : D:\git\lpw_c\lpw_self\culmi&
+s_std_dos\linit.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc linit.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -&
+fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\liolib.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\liolib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc liolib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\llex.obj : D:\git\lpw_c\lpw_self\culmis&
+_std_dos\llex.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc llex.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -f&
+o=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lmathlib.obj : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lmathlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lmathlib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=do&
+s -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lmem.obj : D:\git\lpw_c\lpw_self\culmis&
+_std_dos\lmem.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lmem.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -f&
+o=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\loadlib.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\loadlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc loadlib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lobject.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lobject.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lobject.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lopcodes.obj : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lopcodes.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lopcodes.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=do&
+s -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\loslib.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\loslib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc loslib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lparser.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lparser.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lparser.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lstate.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\lstate.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lstate.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lstring.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lstring.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lstring.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lstrlib.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lstrlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lstrlib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ltable.obj : D:\git\lpw_c\lpw_self\culm&
+is_std_dos\ltable.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ltable.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos &
+-fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ltablib.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\ltablib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ltablib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\ltm.obj : D:\git\lpw_c\lpw_self\culmis_&
+std_dos\ltm.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc ltm.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -fo&
+=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lua.obj : D:\git\lpw_c\lpw_self\culmis_&
+std_dos\lua.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lua.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -fo&
+=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lundump.obj : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lundump.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lundump.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos&
+ -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lutf8lib.obj : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lutf8lib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lutf8lib.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=do&
+s -fo=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lvm.obj : D:\git\lpw_c\lpw_self\culmis_&
+std_dos\lvm.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lvm.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -fo&
+=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\lzio.obj : D:\git\lpw_c\lpw_self\culmis&
+_std_dos\lzio.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ *wcc lzio.c -i="D:\git\lpw_c\WATCOM\/h" -w4 -e25 -zq -otexan -d1 -bt=dos -f&
+o=.obj -ml
+
+D:\git\lpw_c\lpw_self\culmis_std_dos\dos_lua.exe : D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lapi.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lauxlib.obj D:\git&
+\lpw_c\lpw_self\culmis_std_dos\lbaselib.obj D:\git\lpw_c\lpw_self\culmis_std&
+_dos\lbitlib.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lcode.obj D:\git\lpw_c&
+\lpw_self\culmis_std_dos\lcorolib.obj D:\git\lpw_c\lpw_self\culmis_std_dos\l&
+ctype.obj D:\git\lpw_c\lpw_self\culmis_std_dos\ldblib.obj D:\git\lpw_c\lpw_s&
+elf\culmis_std_dos\ldebug.obj D:\git\lpw_c\lpw_self\culmis_std_dos\ldo.obj D&
+:\git\lpw_c\lpw_self\culmis_std_dos\ldump.obj D:\git\lpw_c\lpw_self\culmis_s&
+td_dos\lfunc.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lgc.obj D:\git\lpw_c\l&
+pw_self\culmis_std_dos\linit.obj D:\git\lpw_c\lpw_self\culmis_std_dos\liolib&
+.obj D:\git\lpw_c\lpw_self\culmis_std_dos\llex.obj D:\git\lpw_c\lpw_self\cul&
+mis_std_dos\lmathlib.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lmem.obj D:\gi&
+t\lpw_c\lpw_self\culmis_std_dos\loadlib.obj D:\git\lpw_c\lpw_self\culmis_std&
+_dos\lobject.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lopcodes.obj D:\git\lp&
+w_c\lpw_self\culmis_std_dos\loslib.obj D:\git\lpw_c\lpw_self\culmis_std_dos\&
+lparser.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lstate.obj D:\git\lpw_c\lpw&
+_self\culmis_std_dos\lstring.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lstrli&
+b.obj D:\git\lpw_c\lpw_self\culmis_std_dos\ltable.obj D:\git\lpw_c\lpw_self\&
+culmis_std_dos\ltablib.obj D:\git\lpw_c\lpw_self\culmis_std_dos\ltm.obj D:\g&
+it\lpw_c\lpw_self\culmis_std_dos\lua.obj D:\git\lpw_c\lpw_self\culmis_std_do&
+s\lundump.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lutf8lib.obj D:\git\lpw_c&
+\lpw_self\culmis_std_dos\lvm.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lzio.o&
+bj D:\git\lpw_c\lpw_self\culmis_std_dos\lapi.h D:\git\lpw_c\lpw_self\culmis_&
+std_dos\lauxlib.h D:\git\lpw_c\lpw_self\culmis_std_dos\lcode.h D:\git\lpw_c\&
+lpw_self\culmis_std_dos\lctype.h D:\git\lpw_c\lpw_self\culmis_std_dos\ldebug&
+.h D:\git\lpw_c\lpw_self\culmis_std_dos\ldo.h D:\git\lpw_c\lpw_self\culmis_s&
+td_dos\lfunc.h D:\git\lpw_c\lpw_self\culmis_std_dos\lgc.h D:\git\lpw_c\lpw_s&
+elf\culmis_std_dos\llex.h D:\git\lpw_c\lpw_self\culmis_std_dos\llimits.h D:\&
+git\lpw_c\lpw_self\culmis_std_dos\lmem.h D:\git\lpw_c\lpw_self\culmis_std_do&
+s\lobject.h D:\git\lpw_c\lpw_self\culmis_std_dos\lopcodes.h D:\git\lpw_c\lpw&
+_self\culmis_std_dos\lparser.h D:\git\lpw_c\lpw_self\culmis_std_dos\lprefix.&
+h D:\git\lpw_c\lpw_self\culmis_std_dos\lstate.h D:\git\lpw_c\lpw_self\culmis&
+_std_dos\lstring.h D:\git\lpw_c\lpw_self\culmis_std_dos\ltable.h D:\git\lpw_&
+c\lpw_self\culmis_std_dos\ltm.h D:\git\lpw_c\lpw_self\culmis_std_dos\lua.h D&
+:\git\lpw_c\lpw_self\culmis_std_dos\luaconf.h D:\git\lpw_c\lpw_self\culmis_s&
+td_dos\lualib.h D:\git\lpw_c\lpw_self\culmis_std_dos\lundump.h D:\git\lpw_c\&
+lpw_self\culmis_std_dos\lvm.h D:\git\lpw_c\lpw_self\culmis_std_dos\lzio.h .A&
+UTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ @%write dos_lua.lk1 FIL lapi.obj,lauxlib.obj,lbaselib.obj,lbitlib.obj,lcode&
+.obj,lcorolib.obj,lctype.obj,ldblib.obj,ldebug.obj,ldo.obj,ldump.obj,lfunc.o&
+bj,lgc.obj,linit.obj,liolib.obj,llex.obj,lmathlib.obj,lmem.obj,loadlib.obj,l&
+object.obj,lopcodes.obj,loslib.obj,lparser.obj,lstate.obj,lstring.obj,lstrli&
+b.obj,ltable.obj,ltablib.obj,ltm.obj,lua.obj,lundump.obj,lutf8lib.obj,lvm.ob&
+j,lzio.obj
+ @%append dos_lua.lk1 
+ *wlink name dos_lua sys dos op m op maxe=25 op q op symf @dos_lua.lk1
+

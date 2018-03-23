@@ -1,0 +1,16 @@
+!define BLANK ""
+D:\git\lpw_c\lpw_self\culmis_std_linux\cul_common.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\cul_common.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux
+ *wcc386 cul_common.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 &
+-6r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\linux_mis.elf : D:\git\lpw_c\lpw_self&
+\culmis_std_linux\cul_common.obj .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux
+ @%write linux_mis.lk1 FIL cul_common.obj
+ @%append linux_mis.lk1 
+ *wlink name linux_mis sys linux op maxe=25 op q op symf @linux_mis.lk1
+

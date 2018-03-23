@@ -1,0 +1,2326 @@
+Module: D:\git\lpw_c\lpw_self\linux_socket\lua\ldblib.c
+GROUP: 'DGROUP' CONST,CONST2,_DATA
+
+Segment: _TEXT PARA USE32 00000E3B bytes
+
+/*
+** $Id: ldblib.c,v 1.151 2015/11/23 11:29:43 roberto Exp $
+** Interface from Lua to its debug API
+** See Copyright Notice in lua.h
+*/
+
+#define ldblib_c
+#define LUA_LIB
+
+#include "lprefix.h"
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "lua.h"
+
+#include "lauxlib.h"
+#include "lualib.h"
+
+
+/*
+** The hook table at registry[&HOOKKEY] maps threads to their current
+** hook function. (We only need the unique address of 'HOOKKEY'.)
+*/
+static const int HOOKKEY = 0;
+
+
+/*
+** If L1 != L, L1 can be in any state, and therefore there are no
+** guarantees about its stack space; any push in L1 must be
+** checked.
+*/
+static void checkstack (lua_State *L, lua_State *L1, int n) {
+0000                          checkstack_:
+0000    51                        push        ecx 
+0001    89 C1                     mov         ecx,eax 
+0003    89 D0                     mov         eax,edx 
+0005    89 DA                     mov         edx,ebx 
+
+  if (L != L1 && !lua_checkstack(L1, n))
+0007    39 C1                     cmp         ecx,eax 
+0009    75 02                     jne         L$2 
+
+    luaL_error(L, "stack overflow");
+}
+000B                          L$1:
+000B    59                        pop         ecx 
+000C    C3                        ret         
+000D                          L$2:
+000D    E8 00 00 00 00            call        lua_checkstack_ 
+0012    85 C0                     test        eax,eax 
+0014    75 F5                     jne         L$1 
+
+0016    68 C7 00 00 00            push        offset L$106 
+001B    51                        push        ecx 
+001C    E8 00 00 00 00            call        luaL_error_ 
+0021    83 C4 08                  add         esp,0x00000008 
+0024    59                        pop         ecx 
+0025    C3                        ret         
+0026    8D 80 00 00 00 00         lea         eax,[eax] 
+002C    8D 54 22 00               lea         edx,[edx] 
+
+
+
+static int db_getregistry (lua_State *L) {
+0030                          db_getregistry_:
+0030    52                        push        edx 
+
+  lua_pushvalue(L, LUA_REGISTRYINDEX);
+0031    BA D8 B9 F0 FF            mov         edx,0xfff0b9d8 
+0036    E8 00 00 00 00            call        lua_pushvalue_ 
+
+  return 1;
+}
+003B    B8 01 00 00 00            mov         eax,0x00000001 
+0040    5A                        pop         edx 
+0041    C3                        ret         
+0042    8D 80 00 00 00 00         lea         eax,[eax] 
+0048    8D 92 00 00 00 00         lea         edx,[edx] 
+004E    8B C0                     mov         eax,eax 
+
+
+
+static int db_getmetatable (lua_State *L) {
+0050                          db_getmetatable_:
+0050    51                        push        ecx 
+0051    52                        push        edx 
+0052    89 C1                     mov         ecx,eax 
+
+  luaL_checkany(L, 1);
+0054    BA 01 00 00 00            mov         edx,0x00000001 
+0059    E8 00 00 00 00            call        luaL_checkany_ 
+
+  if (!lua_getmetatable(L, 1)) {
+005E    BA 01 00 00 00            mov         edx,0x00000001 
+0063    89 C8                     mov         eax,ecx 
+0065    E8 00 00 00 00            call        lua_getmetatable_ 
+006A    85 C0                     test        eax,eax 
+006C    74 08                     je          L$3 
+
+    lua_pushnil(L);  /* no metatable */
+  }
+  return 1;
+}
+006E    B8 01 00 00 00            mov         eax,0x00000001 
+0073    5A                        pop         edx 
+0074    59                        pop         ecx 
+0075    C3                        ret         
+
+0076                          L$3:
+0076    89 C8                     mov         eax,ecx 
+0078    E8 00 00 00 00            call        lua_pushnil_ 
+007D    B8 01 00 00 00            mov         eax,0x00000001 
+0082    5A                        pop         edx 
+0083    59                        pop         ecx 
+0084    C3                        ret         
+0085    8D 80 00 00 00 00         lea         eax,[eax] 
+008B    8D 52 00                  lea         edx,[edx] 
+008E    8B DB                     mov         ebx,ebx 
+
+
+
+static int db_setmetatable (lua_State *L) {
+0090                          db_setmetatable_:
+0090    53                        push        ebx 
+0091    51                        push        ecx 
+0092    52                        push        edx 
+0093    89 C1                     mov         ecx,eax 
+
+  int t = lua_type(L, 2);
+0095    BA 02 00 00 00            mov         edx,0x00000002 
+009A    E8 00 00 00 00            call        lua_type_ 
+
+  luaL_argcheck(L, t == LUA_TNIL || t == LUA_TTABLE, 2,
+                    "nil or table expected");
+009F    85 C0                     test        eax,eax 
+00A1    74 05                     je          L$4 
+00A3    83 F8 05                  cmp         eax,0x00000005 
+00A6    75 21                     jne         L$5 
+
+  lua_settop(L, 2);
+00A8                          L$4:
+00A8    BA 02 00 00 00            mov         edx,0x00000002 
+00AD    89 C8                     mov         eax,ecx 
+00AF    E8 00 00 00 00            call        lua_settop_ 
+
+  lua_setmetatable(L, 1);
+00B4    BA 01 00 00 00            mov         edx,0x00000001 
+00B9    89 C8                     mov         eax,ecx 
+00BB    E8 00 00 00 00            call        lua_setmetatable_ 
+
+  return 1;  /* return 1st argument */
+}
+00C0    B8 01 00 00 00            mov         eax,0x00000001 
+00C5    5A                        pop         edx 
+00C6    59                        pop         ecx 
+00C7    5B                        pop         ebx 
+00C8    C3                        ret         
+00C9                          L$5:
+00C9    BB D6 00 00 00            mov         ebx,offset L$107 
+00CE    BA 02 00 00 00            mov         edx,0x00000002 
+00D3    89 C8                     mov         eax,ecx 
+00D5    E8 00 00 00 00            call        luaL_argerror_ 
+00DA    EB CC                     jmp         L$4 
+00DC    8D 44 20 00               lea         eax,[eax] 
+
+
+
+static int db_getuservalue (lua_State *L) {
+00E0                          db_getuservalue_:
+00E0    51                        push        ecx 
+00E1    52                        push        edx 
+00E2    89 C1                     mov         ecx,eax 
+
+  if (lua_type(L, 1) != LUA_TUSERDATA)
+00E4    BA 01 00 00 00            mov         edx,0x00000001 
+00E9    E8 00 00 00 00            call        lua_type_ 
+00EE    83 F8 07                  cmp         eax,0x00000007 
+00F1    74 0F                     je          L$6 
+
+    lua_pushnil(L);
+00F3    89 C8                     mov         eax,ecx 
+00F5    E8 00 00 00 00            call        lua_pushnil_ 
+
+  else
+    lua_getuservalue(L, 1);
+  return 1;
+}
+00FA    B8 01 00 00 00            mov         eax,0x00000001 
+00FF    5A                        pop         edx 
+0100    59                        pop         ecx 
+0101    C3                        ret         
+
+0102                          L$6:
+0102    BA 01 00 00 00            mov         edx,0x00000001 
+0107    89 C8                     mov         eax,ecx 
+0109    E8 00 00 00 00            call        lua_getuservalue_ 
+010E    B8 01 00 00 00            mov         eax,0x00000001 
+0113    5A                        pop         edx 
+0114    59                        pop         ecx 
+0115    C3                        ret         
+0116    8D 80 00 00 00 00         lea         eax,[eax] 
+011C    8D 54 22 00               lea         edx,[edx] 
+
+
+
+static int db_setuservalue (lua_State *L) {
+0120                          db_setuservalue_:
+0120    53                        push        ebx 
+0121    51                        push        ecx 
+0122    52                        push        edx 
+0123    89 C1                     mov         ecx,eax 
+
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+0125    BB 07 00 00 00            mov         ebx,0x00000007 
+012A    BA 01 00 00 00            mov         edx,0x00000001 
+012F    E8 00 00 00 00            call        luaL_checktype_ 
+
+  luaL_checkany(L, 2);
+0134    BA 02 00 00 00            mov         edx,0x00000002 
+0139    89 C8                     mov         eax,ecx 
+013B    E8 00 00 00 00            call        luaL_checkany_ 
+
+  lua_settop(L, 2);
+0140    BA 02 00 00 00            mov         edx,0x00000002 
+0145    89 C8                     mov         eax,ecx 
+0147    E8 00 00 00 00            call        lua_settop_ 
+
+  lua_setuservalue(L, 1);
+014C    BA 01 00 00 00            mov         edx,0x00000001 
+0151    89 C8                     mov         eax,ecx 
+0153    E8 00 00 00 00            call        lua_setuservalue_ 
+
+  return 1;
+}
+0158    B8 01 00 00 00            mov         eax,0x00000001 
+015D    5A                        pop         edx 
+015E    59                        pop         ecx 
+015F    5B                        pop         ebx 
+0160    C3                        ret         
+0161    8D 80 00 00 00 00         lea         eax,[eax] 
+0167    8D 92 00 00 00 00         lea         edx,[edx] 
+016D    8D 40 00                  lea         eax,[eax] 
+
+
+
+/*
+** Auxiliary function used by several library functions: check for
+** an optional thread as function's first argument and set 'arg' with
+** 1 if this argument is present (so that functions can skip it to
+** access their other arguments)
+*/
+static lua_State *getthread (lua_State *L, int *arg) {
+0170                          getthread_:
+0170    53                        push        ebx 
+0171    51                        push        ecx 
+0172    89 C1                     mov         ecx,eax 
+0174    89 D3                     mov         ebx,edx 
+
+  if (lua_isthread(L, 1)) {
+0176    BA 01 00 00 00            mov         edx,0x00000001 
+017B    E8 00 00 00 00            call        lua_type_ 
+0180    83 F8 08                  cmp         eax,0x00000008 
+0183    74 0B                     je          L$7 
+
+    *arg = 1;
+    return lua_tothread(L, 1);
+  }
+  else {
+    *arg = 0;
+    return L;  /* function will operate over current thread */
+0185    89 C8                     mov         eax,ecx 
+
+0187    C7 03 00 00 00 00         mov         dword ptr [ebx],0x00000000 
+
+  }
+}
+018D    59                        pop         ecx 
+018E    5B                        pop         ebx 
+018F    C3                        ret         
+
+0190                          L$7:
+0190    BA 01 00 00 00            mov         edx,0x00000001 
+0195    89 C8                     mov         eax,ecx 
+
+0197    C7 03 01 00 00 00         mov         dword ptr [ebx],0x00000001 
+019D    E8 00 00 00 00            call        lua_tothread_ 
+01A2    59                        pop         ecx 
+01A3    5B                        pop         ebx 
+01A4    C3                        ret         
+01A5    8D 80 00 00 00 00         lea         eax,[eax] 
+01AB    8D 52 00                  lea         edx,[edx] 
+01AE    8B DB                     mov         ebx,ebx 
+
+
+
+/*
+** Variations of 'lua_settable', used by 'db_getinfo' to put results
+** from 'lua_getinfo' into result table. Key is always a string;
+** value can be a string, an int, or a boolean.
+*/
+static void settabss (lua_State *L, const char *k, const char *v) {
+  lua_pushstring(L, v);
+  lua_setfield(L, -2, k);
+}
+
+static void settabsi (lua_State *L, const char *k, int v) {
+01B0                          settabsi_:
+01B0    51                        push        ecx 
+01B1    56                        push        esi 
+01B2    57                        push        edi 
+01B3    89 C6                     mov         esi,eax 
+01B5    89 D7                     mov         edi,edx 
+01B7    89 D8                     mov         eax,ebx 
+
+  lua_pushinteger(L, v);
+01B9    99                        cdq         
+01BA    89 C3                     mov         ebx,eax 
+01BC    89 D1                     mov         ecx,edx 
+01BE    89 F0                     mov         eax,esi 
+01C0    BA FE FF FF FF            mov         edx,0xfffffffe 
+01C5    E8 00 00 00 00            call        lua_pushinteger_ 
+
+  lua_setfield(L, -2, k);
+01CA    89 FB                     mov         ebx,edi 
+01CC    89 F0                     mov         eax,esi 
+01CE    E8 00 00 00 00            call        lua_setfield_ 
+
+}
+01D3    5F                        pop         edi 
+01D4    5E                        pop         esi 
+01D5    59                        pop         ecx 
+01D6    C3                        ret         
+01D7    8D 80 00 00 00 00         lea         eax,[eax] 
+01DD    8D 52 00                  lea         edx,[edx] 
+
+
+static void settabsb (lua_State *L, const char *k, int v) {
+  lua_pushboolean(L, v);
+  lua_setfield(L, -2, k);
+}
+
+
+/*
+** In function 'db_getinfo', the call to 'lua_getinfo' may push
+** results on the stack; later it creates the result table to put
+** these objects. Function 'treatstackoption' puts the result from
+** 'lua_getinfo' on top of the result table so that it can call
+** 'lua_setfield'.
+*/
+static void treatstackoption (lua_State *L, lua_State *L1, const char *fname) {
+01E0                          treatstackoption_:
+01E0    51                        push        ecx 
+01E1    56                        push        esi 
+01E2    89 C1                     mov         ecx,eax 
+01E4    89 DE                     mov         esi,ebx 
+01E6    89 D0                     mov         eax,edx 
+
+  if (L == L1)
+01E8    39 D1                     cmp         ecx,edx 
+01EA    75 20                     jne         L$8 
+
+    lua_rotate(L, -2, 1);  /* exchange object and table */
+01EC    BB 01 00 00 00            mov         ebx,0x00000001 
+01F1    BA FE FF FF FF            mov         edx,0xfffffffe 
+01F6    E8 00 00 00 00            call        lua_rotate_ 
+
+  else
+01FB    BA FE FF FF FF            mov         edx,0xfffffffe 
+
+    lua_xmove(L1, L, 1);  /* move object to the "main" stack */
+  lua_setfield(L, -2, fname);  /* put object into table */
+0200    89 F3                     mov         ebx,esi 
+0202    89 C8                     mov         eax,ecx 
+0204    E8 00 00 00 00            call        lua_setfield_ 
+
+}
+0209    5E                        pop         esi 
+020A    59                        pop         ecx 
+020B    C3                        ret         
+
+020C                          L$8:
+020C    BB 01 00 00 00            mov         ebx,0x00000001 
+0211    89 CA                     mov         edx,ecx 
+0213    E8 00 00 00 00            call        lua_xmove_ 
+0218    BA FE FF FF FF            mov         edx,0xfffffffe 
+021D    89 F3                     mov         ebx,esi 
+021F    89 C8                     mov         eax,ecx 
+0221    E8 00 00 00 00            call        lua_setfield_ 
+0226    5E                        pop         esi 
+0227    59                        pop         ecx 
+0228    C3                        ret         
+0229    8D 80 00 00 00 00         lea         eax,[eax] 
+022F    90                        nop         
+
+
+
+/*
+** Calls 'lua_getinfo' and collects all results in a new table.
+** L1 needs stack space for an optional input (function) plus
+** two optional outputs (function and line table) from function
+** 'lua_getinfo'.
+*/
+static int db_getinfo (lua_State *L) {
+0230                          db_getinfo_:
+0230    53                        push        ebx 
+0231    51                        push        ecx 
+0232    52                        push        edx 
+0233    56                        push        esi 
+0234    57                        push        edi 
+0235    55                        push        ebp 
+0236    83 EC 68                  sub         esp,0x00000068 
+0239    89 C7                     mov         edi,eax 
+
+  lua_Debug ar;
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+023B    8D 54 24 64               lea         edx,0x64[esp] 
+023F    BB EC 00 00 00            mov         ebx,offset L$108 
+0244    E8 00 00 00 00            call        getthread_ 
+0249    31 C9                     xor         ecx,ecx 
+
+  const char *options = luaL_optstring(L, arg+2, "flnStu");
+024B    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+024F    89 C6                     mov         esi,eax 
+0251    89 C5                     mov         ebp,eax 
+0253    83 C2 02                  add         edx,0x00000002 
+0256    89 F8                     mov         eax,edi 
+0258    E8 00 00 00 00            call        luaL_optlstring_ 
+
+  checkstack(L, L1, 3);
+025D    BB 03 00 00 00            mov         ebx,0x00000003 
+0262    89 C1                     mov         ecx,eax 
+0264    89 F2                     mov         edx,esi 
+0266    89 F8                     mov         eax,edi 
+0268    E8 00 00 00 00            call        checkstack_ 
+
+  if (lua_isfunction(L, arg + 1)) {  /* info about a function? */
+026D    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0271    89 F8                     mov         eax,edi 
+0273    42                        inc         edx 
+0274    E8 00 00 00 00            call        lua_type_ 
+0279    83 F8 06                  cmp         eax,0x00000006 
+027C    0F 85 6E 02 00 00         jne         L$38 
+
+    options = lua_pushfstring(L, ">%s", options);  /* add '>' to 'options' */
+0282    89 C8                     mov         eax,ecx 
+0284    50                        push        eax 
+0285    68 F3 00 00 00            push        offset L$109 
+028A    57                        push        edi 
+028B    E8 00 00 00 00            call        lua_pushfstring_ 
+0290    83 C4 0C                  add         esp,0x0000000c 
+0293    89 C1                     mov         ecx,eax 
+
+    lua_pushvalue(L, arg + 1);  /* move function to 'L1' stack */
+0295    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0299    89 F8                     mov         eax,edi 
+029B    42                        inc         edx 
+
+    lua_xmove(L, L1, 1);
+029C    BB 01 00 00 00            mov         ebx,0x00000001 
+02A1    E8 00 00 00 00            call        lua_pushvalue_ 
+02A6    89 F2                     mov         edx,esi 
+02A8    89 F8                     mov         eax,edi 
+02AA    E8 00 00 00 00            call        lua_xmove_ 
+
+  }
+  else {  /* stack level */
+    if (!lua_getstack(L1, (int)luaL_checkinteger(L, arg + 1), &ar)) {
+      lua_pushnil(L);  /* level out of range */
+      return 1;
+    }
+  }
+  if (!lua_getinfo(L1, options, &ar))
+02AF                          L$9:
+02AF    89 E3                     mov         ebx,esp 
+02B1    89 CA                     mov         edx,ecx 
+02B3    89 E8                     mov         eax,ebp 
+02B5    E8 00 00 00 00            call        lua_getinfo_ 
+02BA    85 C0                     test        eax,eax 
+02BC    0F 84 63 02 00 00         je          L$39 
+02C2    89 F8                     mov         eax,edi 
+
+    return luaL_argerror(L, arg+2, "invalid option");
+  lua_newtable(L);  /* table to collect results */
+02C4    31 DB                     xor         ebx,ebx 
+02C6    31 D2                     xor         edx,edx 
+02C8    E8 00 00 00 00            call        lua_createtable_ 
+02CD    89 CE                     mov         esi,ecx 
+
+  if (strchr(options, 'S')) {
+02CF    B2 53                     mov         dl,0x53 
+02D1                          L$10:
+02D1    8A 06                     mov         al,byte ptr [esi] 
+02D3    3A C2                     cmp         al,dl 
+02D5    74 12                     je          L$12 
+02D7    3C 00                     cmp         al,0x00 
+02D9    74 0C                     je          L$11 
+02DB    46                        inc         esi 
+02DC    8A 06                     mov         al,byte ptr [esi] 
+02DE    3A C2                     cmp         al,dl 
+02E0    74 07                     je          L$12 
+02E2    46                        inc         esi 
+02E3    3C 00                     cmp         al,0x00 
+02E5    75 EA                     jne         L$10 
+02E7                          L$11:
+02E7    2B F6                     sub         esi,esi 
+02E9                          L$12:
+02E9    85 F6                     test        esi,esi 
+02EB    74 74                     je          L$13 
+
+02ED    8B 54 24 10               mov         edx,dword ptr 0x10[esp] 
+02F1    89 F8                     mov         eax,edi 
+
+02F3    BB 06 01 00 00            mov         ebx,offset L$111 
+02F8    E8 00 00 00 00            call        lua_pushstring_ 
+02FD    BA FE FF FF FF            mov         edx,0xfffffffe 
+0302    89 F8                     mov         eax,edi 
+0304    E8 00 00 00 00            call        lua_setfield_ 
+
+0309    8D 54 24 24               lea         edx,0x24[esp] 
+030D    89 F8                     mov         eax,edi 
+
+030F    BB 0D 01 00 00            mov         ebx,offset L$112 
+0314    E8 00 00 00 00            call        lua_pushstring_ 
+0319    BA FE FF FF FF            mov         edx,0xfffffffe 
+031E    89 F8                     mov         eax,edi 
+0320    E8 00 00 00 00            call        lua_setfield_ 
+
+    settabss(L, "source", ar.source);
+    settabss(L, "short_src", ar.short_src);
+    settabsi(L, "linedefined", ar.linedefined);
+0325    8B 5C 24 18               mov         ebx,dword ptr 0x18[esp] 
+0329    BA 17 01 00 00            mov         edx,offset L$113 
+032E    89 F8                     mov         eax,edi 
+0330    E8 00 00 00 00            call        settabsi_ 
+
+    settabsi(L, "lastlinedefined", ar.lastlinedefined);
+0335    8B 5C 24 1C               mov         ebx,dword ptr 0x1c[esp] 
+0339    BA 23 01 00 00            mov         edx,offset L$114 
+033E    89 F8                     mov         eax,edi 
+0340    E8 00 00 00 00            call        settabsi_ 
+
+0345    8B 54 24 0C               mov         edx,dword ptr 0xc[esp] 
+0349    89 F8                     mov         eax,edi 
+
+034B    BB 33 01 00 00            mov         ebx,offset L$115 
+0350    E8 00 00 00 00            call        lua_pushstring_ 
+0355    BA FE FF FF FF            mov         edx,0xfffffffe 
+035A    89 F8                     mov         eax,edi 
+035C    E8 00 00 00 00            call        lua_setfield_ 
+
+    settabss(L, "what", ar.what);
+  }
+  if (strchr(options, 'l'))
+0361                          L$13:
+0361    B2 6C                     mov         dl,0x6c 
+0363    89 CE                     mov         esi,ecx 
+0365                          L$14:
+0365    8A 06                     mov         al,byte ptr [esi] 
+0367    3A C2                     cmp         al,dl 
+0369    74 12                     je          L$16 
+036B    3C 00                     cmp         al,0x00 
+036D    74 0C                     je          L$15 
+036F    46                        inc         esi 
+0370    8A 06                     mov         al,byte ptr [esi] 
+0372    3A C2                     cmp         al,dl 
+0374    74 07                     je          L$16 
+0376    46                        inc         esi 
+0377    3C 00                     cmp         al,0x00 
+0379    75 EA                     jne         L$14 
+037B                          L$15:
+037B    2B F6                     sub         esi,esi 
+037D                          L$16:
+037D    85 F6                     test        esi,esi 
+037F    74 10                     je          L$17 
+
+    settabsi(L, "currentline", ar.currentline);
+0381    8B 5C 24 14               mov         ebx,dword ptr 0x14[esp] 
+0385    BA 38 01 00 00            mov         edx,offset L$116 
+038A    89 F8                     mov         eax,edi 
+038C    E8 00 00 00 00            call        settabsi_ 
+
+  if (strchr(options, 'u')) {
+0391                          L$17:
+0391    B2 75                     mov         dl,0x75 
+0393    89 CE                     mov         esi,ecx 
+0395                          L$18:
+0395    8A 06                     mov         al,byte ptr [esi] 
+0397    3A C2                     cmp         al,dl 
+0399    74 12                     je          L$20 
+039B    3C 00                     cmp         al,0x00 
+039D    74 0C                     je          L$19 
+039F    46                        inc         esi 
+03A0    8A 06                     mov         al,byte ptr [esi] 
+03A2    3A C2                     cmp         al,dl 
+03A4    74 07                     je          L$20 
+03A6    46                        inc         esi 
+03A7    3C 00                     cmp         al,0x00 
+03A9    75 EA                     jne         L$18 
+03AB                          L$19:
+03AB    2B F6                     sub         esi,esi 
+03AD                          L$20:
+03AD    85 F6                     test        esi,esi 
+03AF    74 3F                     je          L$21 
+
+    settabsi(L, "nups", ar.nups);
+03B1    0F B6 5C 24 20            movzx       ebx,byte ptr 0x20[esp] 
+03B6    BA 44 01 00 00            mov         edx,offset L$117 
+03BB    89 F8                     mov         eax,edi 
+03BD    E8 00 00 00 00            call        settabsi_ 
+
+    settabsi(L, "nparams", ar.nparams);
+03C2    0F B6 5C 24 21            movzx       ebx,byte ptr 0x21[esp] 
+03C7    BA 49 01 00 00            mov         edx,offset L$118 
+03CC    89 F8                     mov         eax,edi 
+03CE    E8 00 00 00 00            call        settabsi_ 
+
+    settabsb(L, "isvararg", ar.isvararg);
+03D3    0F B6 54 24 22            movzx       edx,byte ptr 0x22[esp] 
+
+03D8    89 F8                     mov         eax,edi 
+
+03DA    BB 51 01 00 00            mov         ebx,offset L$119 
+03DF    E8 00 00 00 00            call        lua_pushboolean_ 
+03E4    BA FE FF FF FF            mov         edx,0xfffffffe 
+03E9    89 F8                     mov         eax,edi 
+03EB    E8 00 00 00 00            call        lua_setfield_ 
+
+  }
+  if (strchr(options, 'n')) {
+03F0                          L$21:
+03F0    B2 6E                     mov         dl,0x6e 
+03F2    89 CE                     mov         esi,ecx 
+03F4                          L$22:
+03F4    8A 06                     mov         al,byte ptr [esi] 
+03F6    3A C2                     cmp         al,dl 
+03F8    74 12                     je          L$24 
+03FA    3C 00                     cmp         al,0x00 
+03FC    74 0C                     je          L$23 
+03FE    46                        inc         esi 
+03FF    8A 06                     mov         al,byte ptr [esi] 
+0401    3A C2                     cmp         al,dl 
+0403    74 07                     je          L$24 
+0405    46                        inc         esi 
+0406    3C 00                     cmp         al,0x00 
+0408    75 EA                     jne         L$22 
+040A                          L$23:
+040A    2B F6                     sub         esi,esi 
+040C                          L$24:
+040C    85 F6                     test        esi,esi 
+040E    74 38                     je          L$25 
+
+0410    8B 54 24 04               mov         edx,dword ptr 0x4[esp] 
+0414    89 F8                     mov         eax,edi 
+
+0416    BB 5A 01 00 00            mov         ebx,offset L$120 
+041B    E8 00 00 00 00            call        lua_pushstring_ 
+0420    BA FE FF FF FF            mov         edx,0xfffffffe 
+0425    89 F8                     mov         eax,edi 
+0427    E8 00 00 00 00            call        lua_setfield_ 
+
+042C    8B 54 24 08               mov         edx,dword ptr 0x8[esp] 
+0430    89 F8                     mov         eax,edi 
+
+0432    BB 5F 01 00 00            mov         ebx,offset L$121 
+0437    E8 00 00 00 00            call        lua_pushstring_ 
+043C    BA FE FF FF FF            mov         edx,0xfffffffe 
+0441    89 F8                     mov         eax,edi 
+0443    E8 00 00 00 00            call        lua_setfield_ 
+
+    settabss(L, "name", ar.name);
+    settabss(L, "namewhat", ar.namewhat);
+  }
+  if (strchr(options, 't'))
+0448                          L$25:
+0448    B2 74                     mov         dl,0x74 
+044A    89 CE                     mov         esi,ecx 
+044C                          L$26:
+044C    8A 06                     mov         al,byte ptr [esi] 
+044E    3A C2                     cmp         al,dl 
+0450    74 12                     je          L$28 
+0452    3C 00                     cmp         al,0x00 
+0454    74 0C                     je          L$27 
+0456    46                        inc         esi 
+0457    8A 06                     mov         al,byte ptr [esi] 
+0459    3A C2                     cmp         al,dl 
+045B    74 07                     je          L$28 
+045D    46                        inc         esi 
+045E    3C 00                     cmp         al,0x00 
+0460    75 EA                     jne         L$26 
+0462                          L$27:
+0462    2B F6                     sub         esi,esi 
+0464                          L$28:
+0464    85 F6                     test        esi,esi 
+0466    74 1D                     je          L$29 
+
+    settabsb(L, "istailcall", ar.istailcall);
+0468    0F B6 54 24 23            movzx       edx,byte ptr 0x23[esp] 
+
+046D    89 F8                     mov         eax,edi 
+
+046F    BB 68 01 00 00            mov         ebx,offset L$122 
+0474    E8 00 00 00 00            call        lua_pushboolean_ 
+0479    BA FE FF FF FF            mov         edx,0xfffffffe 
+047E    89 F8                     mov         eax,edi 
+0480    E8 00 00 00 00            call        lua_setfield_ 
+
+  if (strchr(options, 'L'))
+0485                          L$29:
+0485    B2 4C                     mov         dl,0x4c 
+0487    89 CE                     mov         esi,ecx 
+0489                          L$30:
+0489    8A 06                     mov         al,byte ptr [esi] 
+048B    3A C2                     cmp         al,dl 
+048D    74 12                     je          L$32 
+048F    3C 00                     cmp         al,0x00 
+0491    74 0C                     je          L$31 
+0493    46                        inc         esi 
+0494    8A 06                     mov         al,byte ptr [esi] 
+0496    3A C2                     cmp         al,dl 
+0498    74 07                     je          L$32 
+049A    46                        inc         esi 
+049B    3C 00                     cmp         al,0x00 
+049D    75 EA                     jne         L$30 
+049F                          L$31:
+049F    2B F6                     sub         esi,esi 
+04A1                          L$32:
+04A1    85 F6                     test        esi,esi 
+04A3    74 0E                     je          L$33 
+
+    treatstackoption(L, L1, "activelines");
+04A5    BB 73 01 00 00            mov         ebx,offset L$123 
+04AA    89 EA                     mov         edx,ebp 
+04AC    89 F8                     mov         eax,edi 
+04AE    E8 00 00 00 00            call        treatstackoption_ 
+
+  if (strchr(options, 'f'))
+04B3                          L$33:
+04B3    B2 66                     mov         dl,0x66 
+04B5    89 CE                     mov         esi,ecx 
+04B7                          L$34:
+04B7    8A 06                     mov         al,byte ptr [esi] 
+04B9    3A C2                     cmp         al,dl 
+04BB    74 12                     je          L$36 
+04BD    3C 00                     cmp         al,0x00 
+04BF    74 0C                     je          L$35 
+04C1    46                        inc         esi 
+04C2    8A 06                     mov         al,byte ptr [esi] 
+04C4    3A C2                     cmp         al,dl 
+04C6    74 07                     je          L$36 
+04C8    46                        inc         esi 
+04C9    3C 00                     cmp         al,0x00 
+04CB    75 EA                     jne         L$34 
+04CD                          L$35:
+04CD    2B F6                     sub         esi,esi 
+04CF                          L$36:
+04CF    85 F6                     test        esi,esi 
+04D1    74 0E                     je          L$37 
+
+    treatstackoption(L, L1, "func");
+04D3    BB 7F 01 00 00            mov         ebx,offset L$124 
+04D8    89 EA                     mov         edx,ebp 
+04DA    89 F8                     mov         eax,edi 
+04DC    E8 00 00 00 00            call        treatstackoption_ 
+
+  return 1;  /* return table */
+04E1                          L$37:
+04E1    B8 01 00 00 00            mov         eax,0x00000001 
+
+}
+04E6    83 C4 68                  add         esp,0x00000068 
+04E9    5D                        pop         ebp 
+04EA    5F                        pop         edi 
+04EB    5E                        pop         esi 
+04EC    5A                        pop         edx 
+04ED    59                        pop         ecx 
+04EE    5B                        pop         ebx 
+04EF    C3                        ret         
+
+04F0                          L$38:
+04F0    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+04F4    89 F8                     mov         eax,edi 
+04F6    42                        inc         edx 
+04F7    89 E3                     mov         ebx,esp 
+04F9    E8 00 00 00 00            call        luaL_checkinteger_ 
+04FE    89 C2                     mov         edx,eax 
+0500    89 F0                     mov         eax,esi 
+0502    E8 00 00 00 00            call        lua_getstack_ 
+0507    85 C0                     test        eax,eax 
+0509    0F 85 A0 FD FF FF         jne         L$9 
+
+050F    89 F8                     mov         eax,edi 
+0511    E8 00 00 00 00            call        lua_pushnil_ 
+0516    B8 01 00 00 00            mov         eax,0x00000001 
+051B    83 C4 68                  add         esp,0x00000068 
+051E    5D                        pop         ebp 
+051F    5F                        pop         edi 
+0520    5E                        pop         esi 
+0521    5A                        pop         edx 
+0522    59                        pop         ecx 
+0523    5B                        pop         ebx 
+0524    C3                        ret         
+
+0525                          L$39:
+0525    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0529    BB F7 00 00 00            mov         ebx,offset L$110 
+052E    89 F8                     mov         eax,edi 
+0530    83 C2 02                  add         edx,0x00000002 
+0533    E8 00 00 00 00            call        luaL_argerror_ 
+0538    83 C4 68                  add         esp,0x00000068 
+053B    5D                        pop         ebp 
+053C    5F                        pop         edi 
+053D    5E                        pop         esi 
+053E    5A                        pop         edx 
+053F    59                        pop         ecx 
+0540    5B                        pop         ebx 
+0541    C3                        ret         
+0542    8D 80 00 00 00 00         lea         eax,[eax] 
+0548    8D 92 00 00 00 00         lea         edx,[edx] 
+054E    8B C0                     mov         eax,eax 
+
+
+
+static int db_getlocal (lua_State *L) {
+0550                          db_getlocal_:
+0550    53                        push        ebx 
+0551    51                        push        ecx 
+0552    52                        push        edx 
+0553    56                        push        esi 
+0554    57                        push        edi 
+0555    83 EC 68                  sub         esp,0x00000068 
+0558    89 C1                     mov         ecx,eax 
+
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+055A    8D 54 24 64               lea         edx,0x64[esp] 
+055E    E8 00 00 00 00            call        getthread_ 
+
+  lua_Debug ar;
+  const char *name;
+  int nvar = (int)luaL_checkinteger(L, arg + 2);  /* local-variable index */
+0563    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0567    89 C6                     mov         esi,eax 
+0569    83 C2 02                  add         edx,0x00000002 
+056C    89 C8                     mov         eax,ecx 
+056E    E8 00 00 00 00            call        luaL_checkinteger_ 
+
+  if (lua_isfunction(L, arg + 1)) {  /* function argument? */
+0573    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0577    89 C7                     mov         edi,eax 
+0579    42                        inc         edx 
+057A    89 C8                     mov         eax,ecx 
+057C    E8 00 00 00 00            call        lua_type_ 
+0581    89 C2                     mov         edx,eax 
+0583    8B 44 24 64               mov         eax,dword ptr 0x64[esp] 
+0587    40                        inc         eax 
+0588    83 FA 06                  cmp         edx,0x00000006 
+058B    74 71                     je          L$41 
+
+    lua_pushvalue(L, arg + 1);  /* push function */
+    lua_pushstring(L, lua_getlocal(L, NULL, nvar));  /* push local name */
+    return 1;  /* return only name (there is no value) */
+  }
+  else {  /* stack-level argument */
+    int level = (int)luaL_checkinteger(L, arg + 1);
+058D    89 C2                     mov         edx,eax 
+058F    89 C8                     mov         eax,ecx 
+
+    if (!lua_getstack(L1, level, &ar))  /* out of range? */
+0591    89 E3                     mov         ebx,esp 
+0593    E8 00 00 00 00            call        luaL_checkinteger_ 
+0598    89 C2                     mov         edx,eax 
+059A    89 F0                     mov         eax,esi 
+059C    E8 00 00 00 00            call        lua_getstack_ 
+05A1    85 C0                     test        eax,eax 
+05A3    0F 84 79 00 00 00         je          L$42 
+
+      return luaL_argerror(L, arg+1, "level out of range");
+    checkstack(L, L1, 1);
+05A9    BB 01 00 00 00            mov         ebx,0x00000001 
+05AE    89 F2                     mov         edx,esi 
+05B0    89 C8                     mov         eax,ecx 
+05B2    E8 00 00 00 00            call        checkstack_ 
+05B7    89 E2                     mov         edx,esp 
+
+    name = lua_getlocal(L1, &ar, nvar);
+05B9    89 FB                     mov         ebx,edi 
+05BB    89 F0                     mov         eax,esi 
+05BD    E8 00 00 00 00            call        lua_getlocal_ 
+05C2    89 C7                     mov         edi,eax 
+
+    if (name) {
+05C4    85 C0                     test        eax,eax 
+05C6    74 6D                     je          L$43 
+
+      lua_xmove(L1, L, 1);  /* move local value */
+05C8    BB 01 00 00 00            mov         ebx,0x00000001 
+05CD    89 CA                     mov         edx,ecx 
+05CF    89 F0                     mov         eax,esi 
+05D1    E8 00 00 00 00            call        lua_xmove_ 
+
+      lua_pushstring(L, name);  /* push name */
+05D6    89 FA                     mov         edx,edi 
+05D8    89 C8                     mov         eax,ecx 
+
+      lua_rotate(L, -2, 1);  /* re-order */
+05DA    BB 01 00 00 00            mov         ebx,0x00000001 
+05DF    E8 00 00 00 00            call        lua_pushstring_ 
+05E4    BA FE FF FF FF            mov         edx,0xfffffffe 
+05E9    89 C8                     mov         eax,ecx 
+05EB    E8 00 00 00 00            call        lua_rotate_ 
+
+      return 2;
+05F0    B8 02 00 00 00            mov         eax,0x00000002 
+
+    }
+    else {
+      lua_pushnil(L);  /* no name (nor value) */
+      return 1;
+    }
+  }
+}
+05F5                          L$40:
+05F5    83 C4 68                  add         esp,0x00000068 
+05F8    5F                        pop         edi 
+05F9    5E                        pop         esi 
+05FA    5A                        pop         edx 
+05FB    59                        pop         ecx 
+05FC    5B                        pop         ebx 
+05FD    C3                        ret         
+
+05FE                          L$41:
+05FE    89 C2                     mov         edx,eax 
+0600    89 C8                     mov         eax,ecx 
+
+0602    89 FB                     mov         ebx,edi 
+0604    E8 00 00 00 00            call        lua_pushvalue_ 
+0609    89 C8                     mov         eax,ecx 
+060B    31 D2                     xor         edx,edx 
+060D    E8 00 00 00 00            call        lua_getlocal_ 
+0612    89 C2                     mov         edx,eax 
+0614    89 C8                     mov         eax,ecx 
+0616    E8 00 00 00 00            call        lua_pushstring_ 
+
+061B    B8 01 00 00 00            mov         eax,0x00000001 
+0620    EB D3                     jmp         L$40 
+
+0622                          L$42:
+0622    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0626    BB 84 01 00 00            mov         ebx,offset L$125 
+062B    89 C8                     mov         eax,ecx 
+062D    42                        inc         edx 
+062E    E8 00 00 00 00            call        luaL_argerror_ 
+0633    EB C0                     jmp         L$40 
+
+0635                          L$43:
+0635    89 C8                     mov         eax,ecx 
+0637    E8 00 00 00 00            call        lua_pushnil_ 
+
+063C    B8 01 00 00 00            mov         eax,0x00000001 
+0641    83 C4 68                  add         esp,0x00000068 
+0644    5F                        pop         edi 
+0645    5E                        pop         esi 
+0646    5A                        pop         edx 
+0647    59                        pop         ecx 
+0648    5B                        pop         ebx 
+0649    C3                        ret         
+064A    8D 80 00 00 00 00         lea         eax,[eax] 
+
+
+
+static int db_setlocal (lua_State *L) {
+0650                          db_setlocal_:
+0650    53                        push        ebx 
+0651    51                        push        ecx 
+0652    52                        push        edx 
+0653    56                        push        esi 
+0654    57                        push        edi 
+0655    55                        push        ebp 
+0656    83 EC 68                  sub         esp,0x00000068 
+0659    89 C1                     mov         ecx,eax 
+
+  int arg;
+  const char *name;
+  lua_State *L1 = getthread(L, &arg);
+065B    8D 54 24 64               lea         edx,0x64[esp] 
+065F    E8 00 00 00 00            call        getthread_ 
+
+  lua_Debug ar;
+  int level = (int)luaL_checkinteger(L, arg + 1);
+0664    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0668    89 C6                     mov         esi,eax 
+066A    42                        inc         edx 
+066B    89 C8                     mov         eax,ecx 
+066D    E8 00 00 00 00            call        luaL_checkinteger_ 
+
+  int nvar = (int)luaL_checkinteger(L, arg + 2);
+0672    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0676    89 C5                     mov         ebp,eax 
+0678    83 C2 02                  add         edx,0x00000002 
+067B    89 C8                     mov         eax,ecx 
+
+  if (!lua_getstack(L1, level, &ar))  /* out of range? */
+067D    89 E3                     mov         ebx,esp 
+067F    E8 00 00 00 00            call        luaL_checkinteger_ 
+0684    89 C7                     mov         edi,eax 
+0686    89 EA                     mov         edx,ebp 
+0688    89 F0                     mov         eax,esi 
+068A    E8 00 00 00 00            call        lua_getstack_ 
+068F    85 C0                     test        eax,eax 
+0691    74 6D                     je          L$45 
+
+    return luaL_argerror(L, arg+1, "level out of range");
+  luaL_checkany(L, arg+3);
+0693    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0697    89 C8                     mov         eax,ecx 
+0699    83 C2 03                  add         edx,0x00000003 
+069C    E8 00 00 00 00            call        luaL_checkany_ 
+
+  lua_settop(L, arg+3);
+06A1    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+06A5    89 C8                     mov         eax,ecx 
+06A7    83 C2 03                  add         edx,0x00000003 
+
+  checkstack(L, L1, 1);
+06AA    BB 01 00 00 00            mov         ebx,0x00000001 
+06AF    E8 00 00 00 00            call        lua_settop_ 
+06B4    89 F2                     mov         edx,esi 
+06B6    89 C8                     mov         eax,ecx 
+06B8    E8 00 00 00 00            call        checkstack_ 
+
+  lua_xmove(L, L1, 1);
+06BD    BB 01 00 00 00            mov         ebx,0x00000001 
+06C2    89 F2                     mov         edx,esi 
+06C4    89 C8                     mov         eax,ecx 
+06C6    E8 00 00 00 00            call        lua_xmove_ 
+06CB    89 E2                     mov         edx,esp 
+
+  name = lua_setlocal(L1, &ar, nvar);
+06CD    89 FB                     mov         ebx,edi 
+06CF    89 F0                     mov         eax,esi 
+06D1    E8 00 00 00 00            call        lua_setlocal_ 
+06D6    89 C3                     mov         ebx,eax 
+
+  if (name == NULL)
+06D8    85 C0                     test        eax,eax 
+06DA    75 0C                     jne         L$44 
+
+    lua_pop(L1, 1);  /* pop value (if not popped by 'lua_setlocal') */
+06DC    BA FE FF FF FF            mov         edx,0xfffffffe 
+06E1    89 F0                     mov         eax,esi 
+06E3    E8 00 00 00 00            call        lua_settop_ 
+
+  lua_pushstring(L, name);
+06E8                          L$44:
+06E8    89 DA                     mov         edx,ebx 
+06EA    89 C8                     mov         eax,ecx 
+06EC    E8 00 00 00 00            call        lua_pushstring_ 
+
+  return 1;
+06F1    B8 01 00 00 00            mov         eax,0x00000001 
+
+}
+06F6    83 C4 68                  add         esp,0x00000068 
+06F9    5D                        pop         ebp 
+06FA    5F                        pop         edi 
+06FB    5E                        pop         esi 
+06FC    5A                        pop         edx 
+06FD    59                        pop         ecx 
+06FE    5B                        pop         ebx 
+06FF    C3                        ret         
+
+0700                          L$45:
+0700    8B 54 24 64               mov         edx,dword ptr 0x64[esp] 
+0704    BB 84 01 00 00            mov         ebx,offset L$125 
+0709    89 C8                     mov         eax,ecx 
+070B    42                        inc         edx 
+070C    E8 00 00 00 00            call        luaL_argerror_ 
+0711    83 C4 68                  add         esp,0x00000068 
+0714    5D                        pop         ebp 
+0715    5F                        pop         edi 
+0716    5E                        pop         esi 
+0717    5A                        pop         edx 
+0718    59                        pop         ecx 
+0719    5B                        pop         ebx 
+071A    C3                        ret         
+071B    8D 40 00                  lea         eax,[eax] 
+071E    8B C9                     mov         ecx,ecx 
+
+
+
+/*
+** get (if 'get' is true) or set an upvalue from a closure
+*/
+static int auxupvalue (lua_State *L, int get) {
+0720                          auxupvalue_:
+0720    53                        push        ebx 
+0721    51                        push        ecx 
+0722    56                        push        esi 
+0723    57                        push        edi 
+0724    89 C1                     mov         ecx,eax 
+0726    89 D7                     mov         edi,edx 
+
+  const char *name;
+  int n = (int)luaL_checkinteger(L, 2);  /* upvalue index */
+0728    BA 02 00 00 00            mov         edx,0x00000002 
+
+  luaL_checktype(L, 1, LUA_TFUNCTION);  /* closure */
+072D    BB 06 00 00 00            mov         ebx,0x00000006 
+0732    E8 00 00 00 00            call        luaL_checkinteger_ 
+0737    BA 01 00 00 00            mov         edx,0x00000001 
+073C    89 C6                     mov         esi,eax 
+073E    89 C8                     mov         eax,ecx 
+0740    E8 00 00 00 00            call        luaL_checktype_ 
+
+  name = get ? lua_getupvalue(L, 1, n) : lua_setupvalue(L, 1, n);
+0745    85 FF                     test        edi,edi 
+0747    75 1B                     jne         L$46 
+0749    BA 01 00 00 00            mov         edx,0x00000001 
+074E    89 F3                     mov         ebx,esi 
+0750    89 C8                     mov         eax,ecx 
+0752    E8 00 00 00 00            call        lua_setupvalue_ 
+0757    89 C2                     mov         edx,eax 
+
+  if (name == NULL) return 0;
+0759    85 D2                     test        edx,edx 
+075B    75 22                     jne         L$47 
+075D    31 C0                     xor         eax,eax 
+075F    5F                        pop         edi 
+0760    5E                        pop         esi 
+0761    59                        pop         ecx 
+0762    5B                        pop         ebx 
+0763    C3                        ret         
+0764                          L$46:
+0764    BA 01 00 00 00            mov         edx,0x00000001 
+0769    89 F3                     mov         ebx,esi 
+076B    89 C8                     mov         eax,ecx 
+076D    E8 00 00 00 00            call        lua_getupvalue_ 
+0772    89 C2                     mov         edx,eax 
+0774    85 D2                     test        edx,edx 
+0776    75 07                     jne         L$47 
+0778    31 C0                     xor         eax,eax 
+077A    5F                        pop         edi 
+077B    5E                        pop         esi 
+077C    59                        pop         ecx 
+077D    5B                        pop         ebx 
+077E    C3                        ret         
+077F                          L$47:
+077F    BB 01 00 00 00            mov         ebx,0x00000001 
+
+  lua_pushstring(L, name);
+0784    89 C8                     mov         eax,ecx 
+
+  lua_insert(L, -(get+1));  /* no-op if get is false */
+0786    47                        inc         edi 
+0787    E8 00 00 00 00            call        lua_pushstring_ 
+078C    89 FA                     mov         edx,edi 
+078E    89 C8                     mov         eax,ecx 
+0790    F7 DA                     neg         edx 
+0792    E8 00 00 00 00            call        lua_rotate_ 
+
+  return get + 1;
+0797    89 F8                     mov         eax,edi 
+0799    5F                        pop         edi 
+079A    5E                        pop         esi 
+079B    59                        pop         ecx 
+079C    5B                        pop         ebx 
+079D    C3                        ret         
+079E    8B C0                     mov         eax,eax 
+
+}
+
+
+static int db_getupvalue (lua_State *L) {
+07A0                          db_getupvalue_:
+07A0    52                        push        edx 
+
+  return auxupvalue(L, 1);
+07A1    BA 01 00 00 00            mov         edx,0x00000001 
+07A6    E8 00 00 00 00            call        auxupvalue_ 
+
+}
+07AB    5A                        pop         edx 
+07AC    C3                        ret         
+07AD    8D 40 00                  lea         eax,[eax] 
+
+
+
+static int db_setupvalue (lua_State *L) {
+07B0                          db_setupvalue_:
+07B0    51                        push        ecx 
+07B1    52                        push        edx 
+07B2    89 C1                     mov         ecx,eax 
+
+  luaL_checkany(L, 3);
+07B4    BA 03 00 00 00            mov         edx,0x00000003 
+07B9    E8 00 00 00 00            call        luaL_checkany_ 
+07BE    89 C8                     mov         eax,ecx 
+
+  return auxupvalue(L, 0);
+07C0    31 D2                     xor         edx,edx 
+07C2    E8 00 00 00 00            call        auxupvalue_ 
+
+}
+07C7    5A                        pop         edx 
+07C8    59                        pop         ecx 
+07C9    C3                        ret         
+07CA    8D 80 00 00 00 00         lea         eax,[eax] 
+
+
+
+/*
+** Check whether a given upvalue from a given closure exists and
+** returns its index
+*/
+static int checkupval (lua_State *L, int argf, int argnup) {
+07D0                          checkupval_:
+07D0    51                        push        ecx 
+07D1    56                        push        esi 
+07D2    57                        push        edi 
+07D3    55                        push        ebp 
+07D4    83 EC 04                  sub         esp,0x00000004 
+07D7    89 C1                     mov         ecx,eax 
+07D9    89 D7                     mov         edi,edx 
+07DB    89 DE                     mov         esi,ebx 
+
+  int nup = (int)luaL_checkinteger(L, argnup);  /* upvalue index */
+07DD    89 DA                     mov         edx,ebx 
+07DF    E8 00 00 00 00            call        luaL_checkinteger_ 
+
+  luaL_checktype(L, argf, LUA_TFUNCTION);  /* closure */
+07E4    BB 06 00 00 00            mov         ebx,0x00000006 
+07E9    89 C5                     mov         ebp,eax 
+07EB    89 04 24                  mov         dword ptr [esp],eax 
+07EE    89 FA                     mov         edx,edi 
+07F0    89 C8                     mov         eax,ecx 
+07F2    E8 00 00 00 00            call        luaL_checktype_ 
+
+  luaL_argcheck(L, (lua_getupvalue(L, argf, nup) != NULL), argnup,
+                   "invalid upvalue index");
+07F7    89 EB                     mov         ebx,ebp 
+07F9    89 FA                     mov         edx,edi 
+07FB    89 C8                     mov         eax,ecx 
+07FD    E8 00 00 00 00            call        lua_getupvalue_ 
+0802    85 C0                     test        eax,eax 
+0804    74 0B                     je          L$48 
+
+  return nup;
+}
+0806    8B 04 24                  mov         eax,dword ptr [esp] 
+0809    83 C4 04                  add         esp,0x00000004 
+080C    5D                        pop         ebp 
+080D    5F                        pop         edi 
+080E    5E                        pop         esi 
+080F    59                        pop         ecx 
+0810    C3                        ret         
+0811                          L$48:
+0811    BB 97 01 00 00            mov         ebx,offset L$126 
+0816    89 F2                     mov         edx,esi 
+0818    89 C8                     mov         eax,ecx 
+081A    E8 00 00 00 00            call        luaL_argerror_ 
+081F    8B 04 24                  mov         eax,dword ptr [esp] 
+0822    83 C4 04                  add         esp,0x00000004 
+0825    5D                        pop         ebp 
+0826    5F                        pop         edi 
+0827    5E                        pop         esi 
+0828    59                        pop         ecx 
+0829    C3                        ret         
+082A    8D 80 00 00 00 00         lea         eax,[eax] 
+
+
+
+static int db_upvalueid (lua_State *L) {
+0830                          db_upvalueid_:
+0830    53                        push        ebx 
+0831    51                        push        ecx 
+0832    52                        push        edx 
+0833    89 C1                     mov         ecx,eax 
+
+  int n = checkupval(L, 1, 2);
+0835    BB 02 00 00 00            mov         ebx,0x00000002 
+083A    BA 01 00 00 00            mov         edx,0x00000001 
+083F    E8 00 00 00 00            call        checkupval_ 
+0844    BA 01 00 00 00            mov         edx,0x00000001 
+
+  lua_pushlightuserdata(L, lua_upvalueid(L, 1, n));
+0849    89 C3                     mov         ebx,eax 
+084B    89 C8                     mov         eax,ecx 
+084D    E8 00 00 00 00            call        lua_upvalueid_ 
+0852    89 C2                     mov         edx,eax 
+0854    89 C8                     mov         eax,ecx 
+0856    E8 00 00 00 00            call        lua_pushlightuserdata_ 
+
+  return 1;
+}
+085B    B8 01 00 00 00            mov         eax,0x00000001 
+0860    5A                        pop         edx 
+0861    59                        pop         ecx 
+0862    5B                        pop         ebx 
+0863    C3                        ret         
+0864    8D 80 00 00 00 00         lea         eax,[eax] 
+086A    8D 92 00 00 00 00         lea         edx,[edx] 
+
+
+
+static int db_upvaluejoin (lua_State *L) {
+0870                          db_upvaluejoin_:
+0870    53                        push        ebx 
+0871    51                        push        ecx 
+0872    52                        push        edx 
+0873    56                        push        esi 
+0874    57                        push        edi 
+0875    89 C6                     mov         esi,eax 
+
+  int n1 = checkupval(L, 1, 2);
+0877    BB 02 00 00 00            mov         ebx,0x00000002 
+087C    BA 01 00 00 00            mov         edx,0x00000001 
+0881    E8 00 00 00 00            call        checkupval_ 
+
+  int n2 = checkupval(L, 3, 4);
+0886    BB 04 00 00 00            mov         ebx,0x00000004 
+088B    BA 03 00 00 00            mov         edx,0x00000003 
+0890    89 C7                     mov         edi,eax 
+0892    89 F0                     mov         eax,esi 
+0894    E8 00 00 00 00            call        checkupval_ 
+
+  luaL_argcheck(L, !lua_iscfunction(L, 1), 1, "Lua function expected");
+0899    BA 01 00 00 00            mov         edx,0x00000001 
+089E    89 C1                     mov         ecx,eax 
+08A0    89 F0                     mov         eax,esi 
+08A2    E8 00 00 00 00            call        lua_iscfunction_ 
+08A7    85 C0                     test        eax,eax 
+08A9    74 11                     je          L$49 
+08AB    BB AD 01 00 00            mov         ebx,offset L$127 
+08B0    BA 01 00 00 00            mov         edx,0x00000001 
+08B5    89 F0                     mov         eax,esi 
+08B7    E8 00 00 00 00            call        luaL_argerror_ 
+
+  luaL_argcheck(L, !lua_iscfunction(L, 3), 3, "Lua function expected");
+08BC                          L$49:
+08BC    BA 03 00 00 00            mov         edx,0x00000003 
+08C1    89 F0                     mov         eax,esi 
+08C3    E8 00 00 00 00            call        lua_iscfunction_ 
+08C8    85 C0                     test        eax,eax 
+08CA    75 1C                     jne         L$51 
+08CC                          L$50:
+08CC    BA 01 00 00 00            mov         edx,0x00000001 
+
+  lua_upvaluejoin(L, 1, n1, 3, n2);
+08D1    51                        push        ecx 
+08D2    89 FB                     mov         ebx,edi 
+08D4    89 F0                     mov         eax,esi 
+08D6    B9 03 00 00 00            mov         ecx,0x00000003 
+08DB    E8 00 00 00 00            call        lua_upvaluejoin_ 
+
+  return 0;
+}
+08E0    31 C0                     xor         eax,eax 
+08E2    5F                        pop         edi 
+08E3    5E                        pop         esi 
+08E4    5A                        pop         edx 
+08E5    59                        pop         ecx 
+08E6    5B                        pop         ebx 
+08E7    C3                        ret         
+08E8                          L$51:
+08E8    BB AD 01 00 00            mov         ebx,offset L$127 
+08ED    BA 03 00 00 00            mov         edx,0x00000003 
+08F2    89 F0                     mov         eax,esi 
+08F4    E8 00 00 00 00            call        luaL_argerror_ 
+08F9    EB D1                     jmp         L$50 
+08FB    8D 40 00                  lea         eax,[eax] 
+08FE    8B C9                     mov         ecx,ecx 
+
+
+
+/*
+** Call hook function registered at hook table for the current
+** thread (if there is one)
+*/
+static void hookf (lua_State *L, lua_Debug *ar) {
+0900                          hookf_:
+0900    53                        push        ebx 
+0901    51                        push        ecx 
+0902    56                        push        esi 
+0903    89 C6                     mov         esi,eax 
+0905    89 D1                     mov         ecx,edx 
+
+  static const char *const hooknames[] =
+    {"call", "return", "line", "count", "tail call"};
+  lua_rawgetp(L, LUA_REGISTRYINDEX, &HOOKKEY);
+0907    BB 00 00 00 00            mov         ebx,offset _HOOKKEY 
+090C    BA D8 B9 F0 FF            mov         edx,0xfff0b9d8 
+0911    E8 00 00 00 00            call        lua_rawgetp_ 
+
+  lua_pushthread(L);
+0916    89 F0                     mov         eax,esi 
+
+  if (lua_rawget(L, -2) == LUA_TFUNCTION) {  /* is there a hook function? */
+0918    BA FE FF FF FF            mov         edx,0xfffffffe 
+091D    E8 00 00 00 00            call        lua_pushthread_ 
+0922    89 F0                     mov         eax,esi 
+0924    E8 00 00 00 00            call        lua_rawget_ 
+0929    83 F8 06                  cmp         eax,0x00000006 
+092C    74 04                     je          L$52 
+
+    lua_pushstring(L, hooknames[(int)ar->event]);  /* push event name */
+    if (ar->currentline >= 0)
+      lua_pushinteger(L, ar->currentline);  /* push current line */
+    else lua_pushnil(L);
+    lua_assert(lua_getinfo(L, "lS", ar));
+    lua_call(L, 2, 0);  /* call hook function */
+  }
+}
+092E    5E                        pop         esi 
+092F    59                        pop         ecx 
+0930    5B                        pop         ebx 
+0931    C3                        ret         
+
+0932                          L$52:
+0932    8B 11                     mov         edx,dword ptr [ecx] 
+0934    89 F0                     mov         eax,esi 
+0936    8B 14 95 04 00 00 00      mov         edx,dword ptr L$136[edx*4] 
+093D    E8 00 00 00 00            call        lua_pushstring_ 
+
+0942    8B 41 14                  mov         eax,dword ptr 0x14[ecx] 
+0945    85 C0                     test        eax,eax 
+0947    7C 22                     jl          L$54 
+
+0949    99                        cdq         
+094A    89 D1                     mov         ecx,edx 
+094C    89 C3                     mov         ebx,eax 
+094E    89 F0                     mov         eax,esi 
+0950    E8 00 00 00 00            call        lua_pushinteger_ 
+
+0955                          L$53:
+0955    6A 00                     push        0x00000000 
+0957    BA 02 00 00 00            mov         edx,0x00000002 
+095C    89 F0                     mov         eax,esi 
+095E    31 C9                     xor         ecx,ecx 
+0960    31 DB                     xor         ebx,ebx 
+0962    E8 00 00 00 00            call        lua_callk_ 
+0967    5E                        pop         esi 
+0968    59                        pop         ecx 
+0969    5B                        pop         ebx 
+096A    C3                        ret         
+
+096B                          L$54:
+096B    89 F0                     mov         eax,esi 
+096D    E8 00 00 00 00            call        lua_pushnil_ 
+0972    EB E1                     jmp         L$53 
+0974    8D 80 00 00 00 00         lea         eax,[eax] 
+097A    8D 92 00 00 00 00         lea         edx,[edx] 
+
+
+
+/*
+** Convert a string mask (for 'sethook') into a bit mask
+*/
+static int makemask (const char *smask, int count) {
+0980                          makemask_:
+0980    53                        push        ebx 
+0981    51                        push        ecx 
+0982    56                        push        esi 
+0983    57                        push        edi 
+0984    89 C3                     mov         ebx,eax 
+0986    89 D7                     mov         edi,edx 
+
+  int mask = 0;
+  if (strchr(smask, 'c')) mask |= LUA_MASKCALL;
+0988    B2 63                     mov         dl,0x63 
+098A    89 C6                     mov         esi,eax 
+098C                          L$55:
+098C    8A 06                     mov         al,byte ptr [esi] 
+098E    3A C2                     cmp         al,dl 
+0990    74 12                     je          L$57 
+0992    3C 00                     cmp         al,0x00 
+0994    74 0C                     je          L$56 
+0996    46                        inc         esi 
+0997    8A 06                     mov         al,byte ptr [esi] 
+0999    3A C2                     cmp         al,dl 
+099B    74 07                     je          L$57 
+099D    46                        inc         esi 
+099E    3C 00                     cmp         al,0x00 
+09A0    75 EA                     jne         L$55 
+09A2                          L$56:
+09A2    2B F6                     sub         esi,esi 
+
+09A4                          L$57:
+09A4    31 C9                     xor         ecx,ecx 
+09A6    85 F6                     test        esi,esi 
+09A8    74 05                     je          L$58 
+09AA    B9 01 00 00 00            mov         ecx,0x00000001 
+
+  if (strchr(smask, 'r')) mask |= LUA_MASKRET;
+09AF                          L$58:
+09AF    B2 72                     mov         dl,0x72 
+09B1    89 DE                     mov         esi,ebx 
+09B3                          L$59:
+09B3    8A 06                     mov         al,byte ptr [esi] 
+09B5    3A C2                     cmp         al,dl 
+09B7    74 12                     je          L$61 
+09B9    3C 00                     cmp         al,0x00 
+09BB    74 0C                     je          L$60 
+09BD    46                        inc         esi 
+09BE    8A 06                     mov         al,byte ptr [esi] 
+09C0    3A C2                     cmp         al,dl 
+09C2    74 07                     je          L$61 
+09C4    46                        inc         esi 
+09C5    3C 00                     cmp         al,0x00 
+09C7    75 EA                     jne         L$59 
+09C9                          L$60:
+09C9    2B F6                     sub         esi,esi 
+09CB                          L$61:
+09CB    85 F6                     test        esi,esi 
+09CD    74 03                     je          L$62 
+09CF    80 C9 02                  or          cl,0x02 
+
+  if (strchr(smask, 'l')) mask |= LUA_MASKLINE;
+09D2                          L$62:
+09D2    B2 6C                     mov         dl,0x6c 
+09D4    89 DE                     mov         esi,ebx 
+09D6                          L$63:
+09D6    8A 06                     mov         al,byte ptr [esi] 
+09D8    3A C2                     cmp         al,dl 
+09DA    74 12                     je          L$65 
+09DC    3C 00                     cmp         al,0x00 
+09DE    74 0C                     je          L$64 
+09E0    46                        inc         esi 
+09E1    8A 06                     mov         al,byte ptr [esi] 
+09E3    3A C2                     cmp         al,dl 
+09E5    74 07                     je          L$65 
+09E7    46                        inc         esi 
+09E8    3C 00                     cmp         al,0x00 
+09EA    75 EA                     jne         L$63 
+09EC                          L$64:
+09EC    2B F6                     sub         esi,esi 
+09EE                          L$65:
+09EE    85 F6                     test        esi,esi 
+09F0    74 03                     je          L$66 
+09F2    80 C9 04                  or          cl,0x04 
+
+  if (count > 0) mask |= LUA_MASKCOUNT;
+09F5                          L$66:
+09F5    85 FF                     test        edi,edi 
+09F7    7E 03                     jle         L$67 
+09F9    80 C9 08                  or          cl,0x08 
+
+  return mask;
+}
+09FC                          L$67:
+09FC    89 C8                     mov         eax,ecx 
+09FE    5F                        pop         edi 
+09FF    5E                        pop         esi 
+0A00    59                        pop         ecx 
+0A01    5B                        pop         ebx 
+0A02    C3                        ret         
+0A03    8D 80 00 00 00 00         lea         eax,[eax] 
+0A09    8D 92 00 00 00 00         lea         edx,[edx] 
+0A0F    90                        nop         
+
+
+
+/*
+** Convert a bit mask (for 'gethook') into a string mask
+*/
+static char *unmakemask (int mask, char *smask) {
+0A10                          unmakemask_:
+0A10    53                        push        ebx 
+0A11    51                        push        ecx 
+0A12    89 C1                     mov         ecx,eax 
+
+  int i = 0;
+0A14    31 C0                     xor         eax,eax 
+
+  if (mask & LUA_MASKCALL) smask[i++] = 'c';
+0A16    F6 C1 01                  test        cl,0x01 
+0A19    75 1A                     jne         L$70 
+
+  if (mask & LUA_MASKRET) smask[i++] = 'r';
+0A1B                          L$68:
+0A1B    F6 C1 02                  test        cl,0x02 
+0A1E    74 07                     je          L$69 
+0A20    89 C3                     mov         ebx,eax 
+0A22    40                        inc         eax 
+0A23    C6 04 1A 72               mov         byte ptr [edx+ebx],0x72 
+
+  if (mask & LUA_MASKLINE) smask[i++] = 'l';
+0A27                          L$69:
+0A27    F6 C1 04                  test        cl,0x04 
+0A2A    75 13                     jne         L$71 
+
+  smask[i] = '\0';
+0A2C    C6 04 02 00               mov         byte ptr [edx+eax],0x00 
+
+  return smask;
+}
+0A30    89 D0                     mov         eax,edx 
+0A32    59                        pop         ecx 
+0A33    5B                        pop         ebx 
+0A34    C3                        ret         
+0A35                          L$70:
+0A35    B8 01 00 00 00            mov         eax,0x00000001 
+0A3A    C6 02 63                  mov         byte ptr [edx],0x63 
+0A3D    EB DC                     jmp         L$68 
+0A3F                          L$71:
+0A3F    89 C1                     mov         ecx,eax 
+0A41    40                        inc         eax 
+0A42    C6 04 11 6C               mov         byte ptr [ecx+edx],0x6c 
+0A46    C6 04 02 00               mov         byte ptr [edx+eax],0x00 
+0A4A    89 D0                     mov         eax,edx 
+0A4C    59                        pop         ecx 
+0A4D    5B                        pop         ebx 
+0A4E    C3                        ret         
+0A4F    90                        nop         
+
+
+
+static int db_sethook (lua_State *L) {
+0A50                          db_sethook_:
+0A50    53                        push        ebx 
+0A51    51                        push        ecx 
+0A52    52                        push        edx 
+0A53    56                        push        esi 
+0A54    57                        push        edi 
+0A55    55                        push        ebp 
+0A56    83 EC 08                  sub         esp,0x00000008 
+0A59    89 C6                     mov         esi,eax 
+
+  int arg, mask, count;
+  lua_Hook func;
+  lua_State *L1 = getthread(L, &arg);
+0A5B    89 E2                     mov         edx,esp 
+0A5D    E8 00 00 00 00            call        getthread_ 
+
+  if (lua_isnoneornil(L, arg+1)) {  /* no hook? */
+0A62    8B 14 24                  mov         edx,dword ptr [esp] 
+0A65    89 C7                     mov         edi,eax 
+0A67    42                        inc         edx 
+0A68    89 F0                     mov         eax,esi 
+0A6A    E8 00 00 00 00            call        lua_type_ 
+0A6F    85 C0                     test        eax,eax 
+0A71    0F 8E AF 00 00 00         jle         L$74 
+
+    lua_settop(L, arg+1);
+    func = NULL; mask = 0; count = 0;  /* turn off hooks */
+  }
+  else {
+    const char *smask = luaL_checkstring(L, arg+2);
+0A77    8B 14 24                  mov         edx,dword ptr [esp] 
+0A7A    89 F0                     mov         eax,esi 
+0A7C    31 DB                     xor         ebx,ebx 
+0A7E    83 C2 02                  add         edx,0x00000002 
+0A81    E8 00 00 00 00            call        luaL_checklstring_ 
+
+    luaL_checktype(L, arg+1, LUA_TFUNCTION);
+0A86    8B 14 24                  mov         edx,dword ptr [esp] 
+0A89    BB 06 00 00 00            mov         ebx,0x00000006 
+0A8E    89 C5                     mov         ebp,eax 
+0A90    42                        inc         edx 
+0A91    89 F0                     mov         eax,esi 
+0A93    31 C9                     xor         ecx,ecx 
+0A95    E8 00 00 00 00            call        luaL_checktype_ 
+
+    count = (int)luaL_optinteger(L, arg + 3, 0);
+0A9A    8B 14 24                  mov         edx,dword ptr [esp] 
+0A9D    89 F0                     mov         eax,esi 
+0A9F    31 DB                     xor         ebx,ebx 
+0AA1    83 C2 03                  add         edx,0x00000003 
+0AA4    E8 00 00 00 00            call        luaL_optinteger_ 
+0AA9    89 C1                     mov         ecx,eax 
+0AAB    89 C2                     mov         edx,eax 
+0AAD    89 E8                     mov         eax,ebp 
+
+    func = hookf; mask = makemask(smask, count);
+0AAF    C7 44 24 04 00 00 00 00
+                                  mov         dword ptr 0x4[esp],offset hookf_ 
+0AB7    E8 00 00 00 00            call        makemask_ 
+0ABC    89 C5                     mov         ebp,eax 
+
+  }
+  if (lua_rawgetp(L, LUA_REGISTRYINDEX, &HOOKKEY) == LUA_TNIL) {
+0ABE                          L$72:
+0ABE    BB 00 00 00 00            mov         ebx,offset _HOOKKEY 
+0AC3    BA D8 B9 F0 FF            mov         edx,0xfff0b9d8 
+0AC8    89 F0                     mov         eax,esi 
+0ACA    E8 00 00 00 00            call        lua_rawgetp_ 
+0ACF    85 C0                     test        eax,eax 
+0AD1    74 68                     je          L$75 
+
+    lua_createtable(L, 0, 2);  /* create a hook table */
+    lua_pushvalue(L, -1);
+    lua_rawsetp(L, LUA_REGISTRYINDEX, &HOOKKEY);  /* set it in position */
+    lua_pushstring(L, "k");
+    lua_setfield(L, -2, "__mode");  /** hooktable.__mode = "k" */
+    lua_pushvalue(L, -1);
+    lua_setmetatable(L, -2);  /* setmetatable(hooktable) = hooktable */
+  }
+  checkstack(L, L1, 1);
+0AD3                          L$73:
+0AD3    BB 01 00 00 00            mov         ebx,0x00000001 
+0AD8    89 FA                     mov         edx,edi 
+0ADA    89 F0                     mov         eax,esi 
+0ADC    E8 00 00 00 00            call        checkstack_ 
+
+  lua_pushthread(L1); lua_xmove(L1, L, 1);  /* key (thread) */
+0AE1    89 F8                     mov         eax,edi 
+0AE3    BB 01 00 00 00            mov         ebx,0x00000001 
+0AE8    E8 00 00 00 00            call        lua_pushthread_ 
+0AED    89 F2                     mov         edx,esi 
+0AEF    89 F8                     mov         eax,edi 
+0AF1    E8 00 00 00 00            call        lua_xmove_ 
+
+  lua_pushvalue(L, arg + 1);  /* value (hook function) */
+0AF6    8B 14 24                  mov         edx,dword ptr [esp] 
+0AF9    89 F0                     mov         eax,esi 
+0AFB    42                        inc         edx 
+0AFC    E8 00 00 00 00            call        lua_pushvalue_ 
+
+  lua_rawset(L, -3);  /* hooktable[L1] = new Lua hook */
+0B01    BA FD FF FF FF            mov         edx,0xfffffffd 
+0B06    89 F0                     mov         eax,esi 
+
+  lua_sethook(L1, func, mask, count);
+0B08    89 EB                     mov         ebx,ebp 
+0B0A    E8 00 00 00 00            call        lua_rawset_ 
+0B0F    8B 54 24 04               mov         edx,dword ptr 0x4[esp] 
+0B13    89 F8                     mov         eax,edi 
+0B15    E8 00 00 00 00            call        lua_sethook_ 
+
+  return 0;
+}
+0B1A    31 C0                     xor         eax,eax 
+0B1C    83 C4 08                  add         esp,0x00000008 
+0B1F    5D                        pop         ebp 
+0B20    5F                        pop         edi 
+0B21    5E                        pop         esi 
+0B22    5A                        pop         edx 
+0B23    59                        pop         ecx 
+0B24    5B                        pop         ebx 
+0B25    C3                        ret         
+
+0B26                          L$74:
+0B26    8B 14 24                  mov         edx,dword ptr [esp] 
+0B29    89 F0                     mov         eax,esi 
+
+0B2B    31 C9                     xor         ecx,ecx 
+0B2D    42                        inc         edx 
+0B2E    31 ED                     xor         ebp,ebp 
+0B30    E8 00 00 00 00            call        lua_settop_ 
+0B35    89 4C 24 04               mov         dword ptr 0x4[esp],ecx 
+
+0B39    EB 83                     jmp         L$72 
+
+0B3B                          L$75:
+0B3B    BB 02 00 00 00            mov         ebx,0x00000002 
+0B40    89 F0                     mov         eax,esi 
+0B42    31 D2                     xor         edx,edx 
+0B44    E8 00 00 00 00            call        lua_createtable_ 
+
+0B49    BA FF FF FF FF            mov         edx,0xffffffff 
+0B4E    89 F0                     mov         eax,esi 
+
+0B50    BB 00 00 00 00            mov         ebx,offset _HOOKKEY 
+0B55    E8 00 00 00 00            call        lua_pushvalue_ 
+0B5A    BA D8 B9 F0 FF            mov         edx,0xfff0b9d8 
+0B5F    89 F0                     mov         eax,esi 
+0B61    E8 00 00 00 00            call        lua_rawsetp_ 
+
+0B66    BA C3 01 00 00            mov         edx,offset L$128 
+0B6B    89 F0                     mov         eax,esi 
+
+0B6D    BB C5 01 00 00            mov         ebx,offset L$129 
+0B72    E8 00 00 00 00            call        lua_pushstring_ 
+0B77    BA FE FF FF FF            mov         edx,0xfffffffe 
+0B7C    89 F0                     mov         eax,esi 
+0B7E    E8 00 00 00 00            call        lua_setfield_ 
+
+0B83    BA FF FF FF FF            mov         edx,0xffffffff 
+0B88    89 F0                     mov         eax,esi 
+0B8A    E8 00 00 00 00            call        lua_pushvalue_ 
+
+0B8F    BA FE FF FF FF            mov         edx,0xfffffffe 
+0B94    89 F0                     mov         eax,esi 
+0B96    E8 00 00 00 00            call        lua_setmetatable_ 
+
+0B9B    E9 33 FF FF FF            jmp         L$73 
+
+
+
+static int db_gethook (lua_State *L) {
+0BA0                          db_gethook_:
+0BA0    53                        push        ebx 
+0BA1    51                        push        ecx 
+0BA2    52                        push        edx 
+0BA3    56                        push        esi 
+0BA4    57                        push        edi 
+0BA5    55                        push        ebp 
+0BA6    83 EC 0C                  sub         esp,0x0000000c 
+0BA9    89 C6                     mov         esi,eax 
+
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+0BAB    8D 54 24 08               lea         edx,0x8[esp] 
+0BAF    E8 00 00 00 00            call        getthread_ 
+0BB4    89 C1                     mov         ecx,eax 
+0BB6    89 C5                     mov         ebp,eax 
+
+  char buff[5];
+  int mask = lua_gethookmask(L1);
+0BB8    E8 00 00 00 00            call        lua_gethookmask_ 
+0BBD    89 C7                     mov         edi,eax 
+
+  lua_Hook hook = lua_gethook(L1);
+0BBF    89 C8                     mov         eax,ecx 
+0BC1    E8 00 00 00 00            call        lua_gethook_ 
+
+  if (hook == NULL)  /* no hook? */
+0BC6    85 C0                     test        eax,eax 
+0BC8    74 47                     je          L$77 
+0BCA    3D 00 00 00 00            cmp         eax,offset hookf_ 
+0BCF    74 49                     je          L$78 
+
+    lua_pushnil(L);
+  else if (hook != hookf)  /* external hook? */
+    lua_pushliteral(L, "external hook");
+0BD1    BA CC 01 00 00            mov         edx,offset L$130 
+0BD6    89 F0                     mov         eax,esi 
+0BD8    E8 00 00 00 00            call        lua_pushstring_ 
+
+  else {  /* hook table must exist */
+    lua_rawgetp(L, LUA_REGISTRYINDEX, &HOOKKEY);
+    checkstack(L, L1, 1);
+    lua_pushthread(L1); lua_xmove(L1, L, 1);
+    lua_rawget(L, -2);   /* 1st result = hooktable[L1] */
+    lua_remove(L, -2);  /* remove hook table */
+  }
+  lua_pushstring(L, unmakemask(mask, buff));  /* 2nd result = mask */
+0BDD                          L$76:
+0BDD    89 E2                     mov         edx,esp 
+0BDF    89 F8                     mov         eax,edi 
+0BE1    E8 00 00 00 00            call        unmakemask_ 
+0BE6    89 C2                     mov         edx,eax 
+0BE8    89 F0                     mov         eax,esi 
+0BEA    E8 00 00 00 00            call        lua_pushstring_ 
+
+  lua_pushinteger(L, lua_gethookcount(L1));  /* 3rd result = count */
+0BEF    89 E8                     mov         eax,ebp 
+0BF1    E8 00 00 00 00            call        lua_gethookcount_ 
+0BF6    99                        cdq         
+0BF7    89 D1                     mov         ecx,edx 
+0BF9    89 C3                     mov         ebx,eax 
+0BFB    89 F0                     mov         eax,esi 
+0BFD    E8 00 00 00 00            call        lua_pushinteger_ 
+
+  return 3;
+}
+0C02    B8 03 00 00 00            mov         eax,0x00000003 
+0C07    83 C4 0C                  add         esp,0x0000000c 
+0C0A    5D                        pop         ebp 
+0C0B    5F                        pop         edi 
+0C0C    5E                        pop         esi 
+0C0D    5A                        pop         edx 
+0C0E    59                        pop         ecx 
+0C0F    5B                        pop         ebx 
+0C10    C3                        ret         
+
+0C11                          L$77:
+0C11    89 F0                     mov         eax,esi 
+0C13    E8 00 00 00 00            call        lua_pushnil_ 
+
+0C18    EB C3                     jmp         L$76 
+
+0C1A                          L$78:
+0C1A    BB 00 00 00 00            mov         ebx,offset _HOOKKEY 
+0C1F    BA D8 B9 F0 FF            mov         edx,0xfff0b9d8 
+0C24    89 F0                     mov         eax,esi 
+0C26    E8 00 00 00 00            call        lua_rawgetp_ 
+
+0C2B    BB 01 00 00 00            mov         ebx,0x00000001 
+0C30    89 CA                     mov         edx,ecx 
+0C32    89 F0                     mov         eax,esi 
+0C34    E8 00 00 00 00            call        checkstack_ 
+
+0C39    89 C8                     mov         eax,ecx 
+0C3B    BB 01 00 00 00            mov         ebx,0x00000001 
+0C40    E8 00 00 00 00            call        lua_pushthread_ 
+0C45    89 F2                     mov         edx,esi 
+0C47    89 C8                     mov         eax,ecx 
+0C49    E8 00 00 00 00            call        lua_xmove_ 
+
+0C4E    BA FE FF FF FF            mov         edx,0xfffffffe 
+0C53    89 F0                     mov         eax,esi 
+
+0C55    BB FF FF FF FF            mov         ebx,0xffffffff 
+0C5A    E8 00 00 00 00            call        lua_rawget_ 
+0C5F    BA FE FF FF FF            mov         edx,0xfffffffe 
+0C64    89 F0                     mov         eax,esi 
+0C66    E8 00 00 00 00            call        lua_rotate_ 
+0C6B    BA FE FF FF FF            mov         edx,0xfffffffe 
+0C70    89 F0                     mov         eax,esi 
+0C72    E8 00 00 00 00            call        lua_settop_ 
+
+0C77    E9 61 FF FF FF            jmp         L$76 
+0C7C    8D 44 20 00               lea         eax,[eax] 
+
+
+
+static int db_debug (lua_State *L) {
+0C80                          db_debug_:
+0C80    53                        push        ebx 
+0C81    51                        push        ecx 
+0C82    52                        push        edx 
+0C83    56                        push        esi 
+0C84    57                        push        edi 
+0C85    55                        push        ebp 
+0C86    81 EC FC 00 00 00         sub         esp,0x000000fc 
+0C8C    89 C6                     mov         esi,eax 
+0C8E    31 ED                     xor         ebp,ebp 
+
+  for (;;) {
+    char buffer[250];
+    lua_writestringerror("%s", "lua_debug> ");
+0C90                          L$79:
+0C90    68 DA 01 00 00            push        offset L$131 
+0C95    68 E6 01 00 00            push        offset L$132 
+0C9A    68 38 00 00 00            push        offset ___iob+0x38 
+
+    if (fgets(buffer, sizeof(buffer), stdin) == 0 ||
+0C9F    BB 00 00 00 00            mov         ebx,offset ___iob 
+0CA4    E8 00 00 00 00            call        fprintf_ 
+0CA9    83 C4 0C                  add         esp,0x0000000c 
+0CAC    B8 38 00 00 00            mov         eax,offset ___iob+0x38 
+0CB1    BA FA 00 00 00            mov         edx,0x000000fa 
+0CB6    E8 00 00 00 00            call        fflush_ 
+0CBB    89 E0                     mov         eax,esp 
+0CBD    E8 00 00 00 00            call        fgets_ 
+0CC2    85 C0                     test        eax,eax 
+0CC4    75 0F                     jne         L$81 
+
+        strcmp(buffer, "cont\n") == 0)
+      return 0;
+    if (luaL_loadbuffer(L, buffer, strlen(buffer), "=(debug command)") ||
+        lua_pcall(L, 0, 0, 0))
+      lua_writestringerror("%s\n", lua_tostring(L, -1));
+    lua_settop(L, 0);  /* remove eventual returns */
+  }
+}
+0CC6                          L$80:
+0CC6    31 C0                     xor         eax,eax 
+0CC8    81 C4 FC 00 00 00         add         esp,0x000000fc 
+0CCE    5D                        pop         ebp 
+0CCF    5F                        pop         edi 
+0CD0    5E                        pop         esi 
+0CD1    5A                        pop         edx 
+0CD2    59                        pop         ecx 
+0CD3    5B                        pop         ebx 
+0CD4    C3                        ret         
+0CD5                          L$81:
+0CD5    BA E9 01 00 00            mov         edx,offset L$133 
+0CDA    89 E0                     mov         eax,esp 
+0CDC    E8 00 00 00 00            call        strcmp_ 
+0CE1    85 C0                     test        eax,eax 
+0CE3    74 E1                     je          L$80 
+
+0CE5    55                        push        ebp 
+0CE6    8D 7C 24 04               lea         edi,0x4[esp] 
+0CEA    8D 54 24 04               lea         edx,0x4[esp] 
+0CEE    2B C9                     sub         ecx,ecx 
+0CF0    49                        dec         ecx 
+0CF1    33 C0                     xor         eax,eax 
+0CF3    F2 AE                     repne scasb 
+0CF5    F7 D1                     not         ecx 
+0CF7    49                        dec         ecx 
+0CF8    89 CB                     mov         ebx,ecx 
+0CFA    89 F0                     mov         eax,esi 
+0CFC    B9 EF 01 00 00            mov         ecx,offset L$134 
+0D01    E8 00 00 00 00            call        luaL_loadbufferx_ 
+0D06    85 C0                     test        eax,eax 
+0D08    74 39                     je          L$83 
+0D0A                          L$82:
+0D0A    BA FF FF FF FF            mov         edx,0xffffffff 
+
+0D0F    89 EB                     mov         ebx,ebp 
+0D11    89 F0                     mov         eax,esi 
+0D13    E8 00 00 00 00            call        lua_tolstring_ 
+0D18    50                        push        eax 
+0D19    68 00 02 00 00            push        offset L$135 
+0D1E    68 38 00 00 00            push        offset ___iob+0x38 
+0D23    E8 00 00 00 00            call        fprintf_ 
+0D28    83 C4 0C                  add         esp,0x0000000c 
+0D2B    B8 38 00 00 00            mov         eax,offset ___iob+0x38 
+0D30    E8 00 00 00 00            call        fflush_ 
+
+0D35    89 EA                     mov         edx,ebp 
+0D37    89 F0                     mov         eax,esi 
+0D39    E8 00 00 00 00            call        lua_settop_ 
+
+0D3E    E9 4D FF FF FF            jmp         L$79 
+0D43                          L$83:
+0D43    55                        push        ebp 
+0D44    89 E9                     mov         ecx,ebp 
+0D46    89 EB                     mov         ebx,ebp 
+0D48    55                        push        ebp 
+0D49    89 EA                     mov         edx,ebp 
+0D4B    89 F0                     mov         eax,esi 
+0D4D    E8 00 00 00 00            call        lua_pcallk_ 
+0D52    85 C0                     test        eax,eax 
+0D54    75 B4                     jne         L$82 
+0D56    89 EA                     mov         edx,ebp 
+0D58    89 F0                     mov         eax,esi 
+0D5A    E8 00 00 00 00            call        lua_settop_ 
+0D5F    E9 2C FF FF FF            jmp         L$79 
+0D64    8D 80 00 00 00 00         lea         eax,[eax] 
+0D6A    8D 92 00 00 00 00         lea         edx,[edx] 
+
+
+
+static int db_traceback (lua_State *L) {
+0D70                          db_traceback_:
+0D70    53                        push        ebx 
+0D71    51                        push        ecx 
+0D72    52                        push        edx 
+0D73    56                        push        esi 
+0D74    57                        push        edi 
+0D75    55                        push        ebp 
+0D76    83 EC 08                  sub         esp,0x00000008 
+0D79    89 C6                     mov         esi,eax 
+
+  int arg;
+  lua_State *L1 = getthread(L, &arg);
+0D7B    89 E2                     mov         edx,esp 
+0D7D    E8 00 00 00 00            call        getthread_ 
+0D82    31 DB                     xor         ebx,ebx 
+
+  const char *msg = lua_tostring(L, arg + 1);
+0D84    8B 14 24                  mov         edx,dword ptr [esp] 
+0D87    89 C7                     mov         edi,eax 
+0D89    42                        inc         edx 
+0D8A    89 F0                     mov         eax,esi 
+0D8C    E8 00 00 00 00            call        lua_tolstring_ 
+0D91    89 C5                     mov         ebp,eax 
+
+  if (msg == NULL && !lua_isnoneornil(L, arg + 1))  /* non-string 'msg'? */
+0D93    85 C0                     test        eax,eax 
+0D95    75 29                     jne         L$84 
+0D97    8B 14 24                  mov         edx,dword ptr [esp] 
+0D9A    89 F0                     mov         eax,esi 
+0D9C    42                        inc         edx 
+0D9D    E8 00 00 00 00            call        lua_type_ 
+0DA2    85 C0                     test        eax,eax 
+0DA4    7E 1A                     jle         L$84 
+
+    lua_pushvalue(L, arg + 1);  /* return it untouched */
+0DA6    8B 14 24                  mov         edx,dword ptr [esp] 
+0DA9    89 F0                     mov         eax,esi 
+0DAB    42                        inc         edx 
+0DAC    E8 00 00 00 00            call        lua_pushvalue_ 
+
+  else {
+    int level = (int)luaL_optinteger(L, arg + 2, (L == L1) ? 1 : 0);
+    luaL_traceback(L, L1, msg, level);
+  }
+  return 1;
+}
+0DB1    B8 01 00 00 00            mov         eax,0x00000001 
+0DB6    83 C4 08                  add         esp,0x00000008 
+0DB9    5D                        pop         ebp 
+0DBA    5F                        pop         edi 
+0DBB    5E                        pop         esi 
+0DBC    5A                        pop         edx 
+0DBD    59                        pop         ecx 
+0DBE    5B                        pop         ebx 
+0DBF    C3                        ret         
+
+0DC0                          L$84:
+0DC0    39 FE                     cmp         esi,edi 
+0DC2    0F 94 C0                  sete        al 
+0DC5    8B 0C 24                  mov         ecx,dword ptr [esp] 
+0DC8    0F B6 C0                  movzx       eax,al 
+0DCB    83 C1 02                  add         ecx,0x00000002 
+0DCE    99                        cdq         
+0DCF    89 4C 24 04               mov         dword ptr 0x4[esp],ecx 
+0DD3    89 C3                     mov         ebx,eax 
+0DD5    89 D1                     mov         ecx,edx 
+0DD7    8B 54 24 04               mov         edx,dword ptr 0x4[esp] 
+0DDB    89 F0                     mov         eax,esi 
+0DDD    E8 00 00 00 00            call        luaL_optinteger_ 
+
+0DE2    89 C1                     mov         ecx,eax 
+0DE4    89 EB                     mov         ebx,ebp 
+0DE6    89 FA                     mov         edx,edi 
+0DE8    89 F0                     mov         eax,esi 
+0DEA    E8 00 00 00 00            call        luaL_traceback_ 
+0DEF    B8 01 00 00 00            mov         eax,0x00000001 
+0DF4    83 C4 08                  add         esp,0x00000008 
+0DF7    5D                        pop         ebp 
+0DF8    5F                        pop         edi 
+0DF9    5E                        pop         esi 
+0DFA    5A                        pop         edx 
+0DFB    59                        pop         ecx 
+0DFC    5B                        pop         ebx 
+0DFD    C3                        ret         
+0DFE    8B C0                     mov         eax,eax 
+
+
+
+static const luaL_Reg dblib[] = {
+  {"debug", db_debug},
+  {"getuservalue", db_getuservalue},
+  {"gethook", db_gethook},
+  {"getinfo", db_getinfo},
+  {"getlocal", db_getlocal},
+  {"getregistry", db_getregistry},
+  {"getmetatable", db_getmetatable},
+  {"getupvalue", db_getupvalue},
+  {"upvaluejoin", db_upvaluejoin},
+  {"upvalueid", db_upvalueid},
+  {"setuservalue", db_setuservalue},
+  {"sethook", db_sethook},
+  {"setlocal", db_setlocal},
+  {"setmetatable", db_setmetatable},
+  {"setupvalue", db_setupvalue},
+  {"traceback", db_traceback},
+  {NULL, NULL}
+};
+
+
+LUAMOD_API int luaopen_debug (lua_State *L) {
+
+Routine Size: 3584 bytes,    Routine Base: _TEXT + 0000
+
+0E00                          luaopen_debug_:
+0E00    53                        push        ebx 
+0E01    51                        push        ecx 
+0E02    52                        push        edx 
+0E03    89 C1                     mov         ecx,eax 
+
+  luaL_newlib(L, dblib);
+0E05    68 88 00 00 00            push        0x00000088 
+0E0A    68 00 70 7F 40            push        0x407f7000 
+0E0F    6A 00                     push        0x00000000 
+0E11    BB 10 00 00 00            mov         ebx,0x00000010 
+0E16    31 D2                     xor         edx,edx 
+0E18    E8 00 00 00 00            call        luaL_checkversion__ 
+0E1D    89 C8                     mov         eax,ecx 
+0E1F    E8 00 00 00 00            call        lua_createtable_ 
+0E24    BA 00 00 00 00            mov         edx,offset _dblib 
+0E29    89 C8                     mov         eax,ecx 
+0E2B    31 DB                     xor         ebx,ebx 
+0E2D    E8 00 00 00 00            call        luaL_setfuncs_ 
+
+  return 1;
+}
+0E32    B8 01 00 00 00            mov         eax,0x00000001 
+0E37    5A                        pop         edx 
+0E38    59                        pop         ecx 
+0E39    5B                        pop         ebx 
+0E3A    C3                        ret         
+
+Routine Size: 59 bytes,    Routine Base: _TEXT + 0E00
+
+No disassembly errors
+
+Segment: CONST DWORD USE32 00000204 bytes
+0000                          L$85:
+0000    63 61 6C 6C 00                                  call.
+0005                          L$86:
+0005    72 65 74 75 72 6E 00                            return.
+000C                          L$87:
+000C    6C 69 6E 65 00                                  line.
+0011                          L$88:
+0011    63 6F 75 6E 74 00                               count.
+0017                          L$89:
+0017    74 61 69 6C 20 63 61 6C 6C 00                   tail call.
+0021                          L$90:
+0021    64 65 62 75 67 00                               debug.
+0027                          L$91:
+0027    67 65 74 75 73 65 72 76 61 6C 75 65 00          getuservalue.
+0034                          L$92:
+0034    67 65 74 68 6F 6F 6B 00                         gethook.
+003C                          L$93:
+003C    67 65 74 69 6E 66 6F 00                         getinfo.
+0044                          L$94:
+0044    67 65 74 6C 6F 63 61 6C 00                      getlocal.
+004D                          L$95:
+004D    67 65 74 72 65 67 69 73 74 72 79 00             getregistry.
+0059                          L$96:
+0059    67 65 74 6D 65 74 61 74 61 62 6C 65 00          getmetatable.
+0066                          L$97:
+0066    67 65 74 75 70 76 61 6C 75 65 00                getupvalue.
+0071                          L$98:
+0071    75 70 76 61 6C 75 65 6A 6F 69 6E 00             upvaluejoin.
+007D                          L$99:
+007D    75 70 76 61 6C 75 65 69 64 00                   upvalueid.
+0087                          L$100:
+0087    73 65 74 75 73 65 72 76 61 6C 75 65 00          setuservalue.
+0094                          L$101:
+0094    73 65 74 68 6F 6F 6B 00                         sethook.
+009C                          L$102:
+009C    73 65 74 6C 6F 63 61 6C 00                      setlocal.
+00A5                          L$103:
+00A5    73 65 74 6D 65 74 61 74 61 62 6C 65 00          setmetatable.
+00B2                          L$104:
+00B2    73 65 74 75 70 76 61 6C 75 65 00                setupvalue.
+00BD                          L$105:
+00BD    74 72 61 63 65 62 61 63 6B 00                   traceback.
+00C7                          L$106:
+00C7    73 74 61 63 6B 20 6F 76 65 72 66 6C 6F 77 00    stack overflow.
+00D6                          L$107:
+00D6    6E 69 6C 20 6F 72 20 74 61 62 6C 65 20 65 78 70 nil or table exp
+00E6    65 63 74 65 64 00                               ected.
+00EC                          L$108:
+00EC    66 6C 6E 53 74 75 00                            flnStu.
+00F3                          L$109:
+00F3    3E 25 73 00                                     >%s.
+00F7                          L$110:
+00F7    69 6E 76 61 6C 69 64 20 6F 70 74 69 6F 6E 00    invalid option.
+0106                          L$111:
+0106    73 6F 75 72 63 65 00                            source.
+010D                          L$112:
+010D    73 68 6F 72 74 5F 73 72 63 00                   short_src.
+0117                          L$113:
+0117    6C 69 6E 65 64 65 66 69 6E 65 64 00             linedefined.
+0123                          L$114:
+0123    6C 61 73 74 6C 69 6E 65 64 65 66 69 6E 65 64 00 lastlinedefined.
+0133                          L$115:
+0133    77 68 61 74 00                                  what.
+0138                          L$116:
+0138    63 75 72 72 65 6E 74 6C 69 6E 65 00             currentline.
+0144                          L$117:
+0144    6E 75 70 73 00                                  nups.
+0149                          L$118:
+0149    6E 70 61 72 61 6D 73 00                         nparams.
+0151                          L$119:
+0151    69 73 76 61 72 61 72 67 00                      isvararg.
+015A                          L$120:
+015A    6E 61 6D 65 00                                  name.
+015F                          L$121:
+015F    6E 61 6D 65 77 68 61 74 00                      namewhat.
+0168                          L$122:
+0168    69 73 74 61 69 6C 63 61 6C 6C 00                istailcall.
+0173                          L$123:
+0173    61 63 74 69 76 65 6C 69 6E 65 73 00             activelines.
+017F                          L$124:
+017F    66 75 6E 63 00                                  func.
+0184                          L$125:
+0184    6C 65 76 65 6C 20 6F 75 74 20 6F 66 20 72 61 6E level out of ran
+0194    67 65 00                                        ge.
+0197                          L$126:
+0197    69 6E 76 61 6C 69 64 20 75 70 76 61 6C 75 65 20 invalid upvalue 
+01A7    69 6E 64 65 78 00                               index.
+01AD                          L$127:
+01AD    4C 75 61 20 66 75 6E 63 74 69 6F 6E 20 65 78 70 Lua function exp
+01BD    65 63 74 65 64 00                               ected.
+01C3                          L$128:
+01C3    6B 00                                           k.
+01C5                          L$129:
+01C5    5F 5F 6D 6F 64 65 00                            __mode.
+01CC                          L$130:
+01CC    65 78 74 65 72 6E 61 6C 20 68 6F 6F 6B 00       external hook.
+01DA                          L$131:
+01DA    6C 75 61 5F 64 65 62 75 67 3E 20 00             lua_debug> .
+01E6                          L$132:
+01E6    25 73 00                                        %s.
+01E9                          L$133:
+01E9    63 6F 6E 74 0A 00                               cont..
+01EF                          L$134:
+01EF    3D 28 64 65 62 75 67 20 63 6F 6D 6D 61 6E 64 29 =(debug command)
+01FF    00                                              .
+0200                          L$135:
+0200    25 73 0A 00                                     %s..
+
+Segment: CONST2 DWORD USE32 000000A0 bytes
+0000                          _HOOKKEY:
+0000    00 00 00 00                                     ....
+0004                          L$136:
+0004    00 00 00 00                                     DD	offset L$85
+0008    05 00 00 00                                     DD	offset L$86
+000C    0C 00 00 00                                     DD	offset L$87
+0010    11 00 00 00                                     DD	offset L$88
+0014    17 00 00 00                                     DD	offset L$89
+0018                          _dblib:
+0018    21 00 00 00                                     DD	offset L$90
+001C    00 00 00 00                                     DD	offset db_debug_
+0020    27 00 00 00                                     DD	offset L$91
+0024    00 00 00 00                                     DD	offset db_getuservalue_
+0028    34 00 00 00                                     DD	offset L$92
+002C    00 00 00 00                                     DD	offset db_gethook_
+0030    3C 00 00 00                                     DD	offset L$93
+0034    00 00 00 00                                     DD	offset db_getinfo_
+0038    44 00 00 00                                     DD	offset L$94
+003C    00 00 00 00                                     DD	offset db_getlocal_
+0040    4D 00 00 00                                     DD	offset L$95
+0044    00 00 00 00                                     DD	offset db_getregistry_
+0048    59 00 00 00                                     DD	offset L$96
+004C    00 00 00 00                                     DD	offset db_getmetatable_
+0050    66 00 00 00                                     DD	offset L$97
+0054    00 00 00 00                                     DD	offset db_getupvalue_
+0058    71 00 00 00                                     DD	offset L$98
+005C    00 00 00 00                                     DD	offset db_upvaluejoin_
+0060    7D 00 00 00                                     DD	offset L$99
+0064    00 00 00 00                                     DD	offset db_upvalueid_
+0068    87 00 00 00                                     DD	offset L$100
+006C    00 00 00 00                                     DD	offset db_setuservalue_
+0070    94 00 00 00                                     DD	offset L$101
+0074    00 00 00 00                                     DD	offset db_sethook_
+0078    9C 00 00 00                                     DD	offset L$102
+007C    00 00 00 00                                     DD	offset db_setlocal_
+0080    A5 00 00 00                                     DD	offset L$103
+0084    00 00 00 00                                     DD	offset db_setmetatable_
+0088    B2 00 00 00                                     DD	offset L$104
+008C    00 00 00 00                                     DD	offset db_setupvalue_
+0090    BD 00 00 00                                     DD	offset L$105
+0094    00 00 00 00                                     DD	offset db_traceback_
+0098    00 00 00 00 00 00 00 00                         ........
+
+Segment: _DATA DWORD USE32 00000000 bytes
+

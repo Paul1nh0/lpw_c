@@ -1,0 +1,1 @@
+taskkill /im windbg.exe \ & start  D:\git\lpw_tool\WinDbg\x86\windbg.exe .\vc_debug\culmis_tool.exe -srcpath "D:\git\lpw_c\lpw_self\culmis_std_win" -y "D:\git\lpw_c\lpw_self\culmis_std_win\vc_debug" & exit

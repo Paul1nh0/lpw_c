@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 
 public class ApiActivity extends Activity {
-//    public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
+//    public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;
     private String ReqString;
     private String RspString;
     private String ReqType;
@@ -100,7 +100,7 @@ public class ApiActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- //       this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
+ //       this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.activity_api);
         Intent it = getIntent();
         Bundle bd = it.getExtras();
@@ -122,13 +122,13 @@ public class ApiActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //屏蔽返回键和home键
+
        /*
         if(keyCode == KeyEvent.KEYCODE_BACK ||keyCode == KeyEvent.KEYCODE_HOME){
             return true;
         }
         */
-        //屏蔽所有按键
+
         return true;
     }
     public void onBackPressed() {

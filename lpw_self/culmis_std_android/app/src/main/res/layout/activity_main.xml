@@ -20,21 +20,21 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="æ¶ˆè´¹"
+                android:text="Ïû·Ñ"
                 android:id="@+id/idbRedeem"
                 android:layout_column="0" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="æ’¤é”€"
+                android:text="³·Ïú"
                 android:id="@+id/idbCancel"
                 android:layout_column="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="é€€è´§"
+                android:text="ÍË»õ"
                 android:id="@+id/idbRefund"
                 android:layout_column="2" />
         </TableRow>
@@ -46,21 +46,21 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ä½™é¢æŸ¥è¯¢"
+                android:text="Óà¶î²éÑ¯"
                 android:id="@+id/button2"
                 android:layout_column="0" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="å¡çŠ¶æ€"
+                android:text="¿¨×´Ì¬"
                 android:id="@+id/idbStatus"
                 android:layout_column="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="äº¤æ˜“æ˜Žç»†"
+                android:text="½»Ò×Ã÷Ï¸"
                 android:id="@+id/idbDetail"
                 android:layout_column="2" />
         </TableRow>
@@ -73,21 +73,21 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="å¡æ¿€æ´»"
+                android:text="¿¨¼¤»î"
                 android:id="@+id/idbActive"
                 android:layout_column="0" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="æ¿€æ´»æ’¤é”€"
+                android:text="¼¤»î³·Ïú"
                 android:id="@+id/idbActiveVoid"
                 android:layout_column="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ç»“ç®—"
+                android:text="½áËã"
                 android:id="@+id/idbSettle"
                 android:layout_column="2" />
         </TableRow>
@@ -99,21 +99,21 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ç­¾åˆ°"
+                android:text="Ç©µ½"
                 android:id="@+id/idbLogin"
                 android:layout_column="0" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="å‚æ•°è®¾ç½®"
+                android:text="²ÎÊýÉèÖÃ"
                 android:id="@+id/idbSetting"
                 android:layout_column="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="æ¢å¤é»˜è®¤è®¾ç½®"
+                android:text="»Ö¸´Ä¬ÈÏÉèÖÃ"
                 android:id="@+id/idbRecovery"
                 android:layout_column="2" />
         </TableRow>

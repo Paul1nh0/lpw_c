@@ -1,0 +1,3 @@
+lcode.c(107): Warning! W124: Comparison result always 0
+lcode.c(347): Warning! W124: Comparison result always 1
+lcode.c(1191): Warning! W124: Comparison result always 1

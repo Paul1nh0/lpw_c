@@ -1,0 +1,620 @@
+dofile(cul_get_path() .. "cul_json.wjj")
+dofile(cul_get_path() .. "cul_config.ini")
+--json = require("cul_json")
+
+MISLUA_VERSION="v.0.6.0.0"
+MISLUA_MCHT="mcht_std"
+
+req_fields={}
+rsp_fields={}
+
+local function print_log(log_string)		
+    local info = debug.getinfo( 2, "Sl")
+    if not info  then  return end
+    cul_debug(info.source,info.currentline,log_string)
+end
+
+--给函数赋值
+local print = print
+local tconcat = table.concat
+local tinsert = table.insert
+local srep = string.rep
+local type = type
+local pairs = pairs
+local tostring = tostring
+local next = next
+
+
+local function print_table(root)
+	if not root then
+		return nil
+	end
+	local cache = {  [root] = "." }
+	local function _dump(t,space,name)
+		local temp = {}
+		for k,v in pairs(t) do
+			local key = tostring(k)
+			if cache[v] then
+				tinsert(temp,"+" .. key .. " {" .. cache[v].."}")
+			elseif type(v) == "table" then
+				local new_key = name .. "." .. key
+				cache[v] = new_key
+				tinsert(temp,"+" .. key .. _dump(v,space .. (next(t,k) and "|" or " " ).. srep(" ",#key),new_key))
+			else
+				tinsert(temp,"+" .. key .. " [" .. tostring(v).."]")
+			end
+		end
+		return tconcat(temp,"\n"..space)
+	end 
+	local info = debug.getinfo( 2, "Sl") 
+     if info == nil then return end
+     cul_debug(info.source,info.currentline,"\n" .. _dump(root, "",""))
+end
+
+
+local function bin2hex(s)
+    s=string.gsub(s,"(.)",function (x) return string.format("%02X ",string.byte(x)) end)
+    return s
+end
+
+local h2b = {
+    ["0"] = 0,
+    ["1"] = 1,
+    ["2"] = 2,
+    ["3"] = 3,
+    ["4"] = 4,
+    ["5"] = 5,
+    ["6"] = 6,
+    ["7"] = 7,
+    ["8"] = 8,
+    ["9"] = 9,
+    ["A"] = 10,
+    ["B"] = 11,
+    ["C"] = 12,
+    ["D"] = 13,
+    ["E"] = 14,
+    ["F"] = 15
+}
+
+local function hex2bin( hexstr )
+    local s = string.gsub(hexstr, "(.)(.)%s", function ( h, l )
+         return string.char(h2b[h]*16+h2b[l])
+    end)
+    return s
+end
+
+--根据位置把string分成两个
+local function split_string(str,offset)
+	local str1,str2
+	str1 = string.sub(str,1,offset)
+	str2 = string.sub(str,offset+1,-1)
+	return str1,str2
+end
+
+local function check_config()
+	
+end
+
+local function tran_init()
+	req_fields={}
+	req_fields.tpdu=TERM_CONFIG.TPDU
+	req_fields.package_head="440476000000"
+	local cul_file = io.open(cul_get_path() .. "cul_data","r+")
+	if nil==cul_file then
+		req_fields.field11="000001"
+		req_fields.batch_no="000001"
+		req_fields.login_date="0000"
+		req_fields.settle_date="0000"
+		req_fields.mac_key="00000000"
+		req_fields.pin_key="00000000"
+	else
+		req_fields.field11= cul_file:read("*line")
+		req_fields.batch_no=cul_file:read("*line")
+		req_fields.login_date=cul_file:read("*line")
+		req_fields.settle_date=cul_file:read("*line")
+		req_fields.mac_key=cul_file:read("*line")
+		req_fields.pin_key=cul_file:read("*line")
+		assert(io.close(cul_file))
+	end	
+	req_fields.field41=TERM_CONFIG.TermId
+	req_fields.field42=TERM_CONFIG.MerId
+end
+
+local function write_cul_data()
+	local cul_file = io.open(cul_get_path() .. "cul_data","w")
+	cul_file:write(req_fields.field11,"\n")
+	cul_file:write(req_fields.batch_no,"\n")
+	cul_file:write(req_fields.login_date,"\n")
+	cul_file:write(req_fields.settle_date,"\n")
+	cul_file:write(req_fields.mac_key,"\n")
+	cul_file:write(req_fields.pin_key,"\n")
+	assert(io.close(cul_file))
+end
+
+local function write_tran_data(result_json)
+	local tran_file = io.open(cul_get_path() .. "tran_data","a+")
+	tran_file:write(result_json,"\n")
+	assert(io.close(tran_file))
+end
+
+--tran function
+local function tran_login(req_table)
+	req_fields.message_type="0800"
+	req_fields.field60="00" .. req_fields.batch_no .. "001"
+	req_fields.field64 = nil
+	return "00"
+end
+
+local function tran_resume(req_table)
+	req_fields.field64 = 1	
+	req_fields.field2,result = check_medium_info(req_table.MediumInfo)
+	if result == 0 then
+		return "N1"
+	end
+	if result == 1 then --刷磁道交易
+		req_fields.field35 = req_table.MediumInfo
+		req_fields.field22 = "02"
+	elseif result == 2 or result == 3 then --手输卡号
+		req_fields.field22 = "01"
+	else
+		return "N1"
+	end
+
+	if req_table.PassWord == nil then
+		req_fields.field22 = req_fields.field22 .. "2"
+	elseif #req_table.PassWord == 6 then
+		req_fields.field22 = req_fields.field22 .. "1"
+		req_fields.field26 = "06"
+		req_fields.field53 = "2000000000000000"
+		req_fields.field52 = cul_soft_pin(TERM_CONFIG.MkIndex,req_fields.pin_key,req_fields.field2,req_table.PassWord)
+	else
+		return "A3"
+	end
+
+	if 0 == check_amount(req_table.OrderAmount) then
+		return "M3"
+	end
+	req_fields.message_type = "0200"
+	req_fields.field3 = "000808"
+	req_fields.field25 = "00"
+	req_fields.field49 = "156"
+	req_fields.field60="10" .. req_fields.batch_no
+	req_fields.field63=string.format("01%02d%s000000%s00001",#req_fields.field2,req_fields.field2,string.sub(req_table.OrderAmount,3,12))
+	return "00"
+end
+
+local function tran_resume_void(req_table)
+	local tran_file = io.open(cul_get_path() .. "tran_data","r+")
+	if tran_file ~= nil then
+		local offset = 0
+		local is_find = 0
+		local org_tran_table
+		--从流水文件中找原始交易
+		for line in tran_file:lines() do  
+			org_tran_table = json.decode(line)
+			if req_table.OrgTrace == org_tran_table.TraceNo and org_tran_table.TranType == "01" and org_tran_table.RespCode == "00" then
+				if org_tran_table.RespCode == "YY" then
+					return "YY"
+				end
+				is_find = 1
+				break
+			else
+				offset = tran_file:seek();
+			end
+		end  
+		if is_find == 1 then
+			req_fields.field64 = 1	
+			req_fields.field2,result = check_medium_info(req_table.MediumInfo)
+			if result == 0 then
+				return "N1"
+			end
+			if result == 1 then --刷磁道交易
+				req_fields.field35 = req_table.MediumInfo
+				req_fields.field22 = "02"
+			elseif result == 2 or result == 3 then --手输卡号
+				req_fields.field22 = "01"
+			else
+				return "N1"
+			end
+			--判断本地流水中卡号
+			if req_fields.field2 ~= org_tran_table.CardNo then
+			    return "NH"
+			end
+			
+			if req_table.PassWord == nil then
+				req_fields.field22 = req_fields.field22 .. "2"
+			elseif #req_table.PassWord == 6 then
+				req_fields.field22 = req_fields.field22 .. "1"
+				req_fields.field26 = "06"
+				req_fields.field53 = "2000000000000000"
+				req_fields.field52 = cul_soft_pin(TERM_CONFIG.MkIndex,req_fields.pin_key,req_fields.field2,req_table.PassWord)
+			else
+				return "A3"
+			end
+
+			if 0 == check_amount(req_table.OrderAmount) then
+				return "M3"
+			end
+		    --org_tran_table.RespCode = "YY"
+		    --local org_tran = json.encode(org_tran_table)
+		    --print_log(org_tran)
+		    --tran_file:seek("set",offset)
+		    --tran_file:write(org_tran)
+		else
+			return "Y4"
+		end
+		--local org_tran = tran_file:read("*line")
+		--local offset = tran_file:seek()
+		--print_log(offset)
+		--local org_tran = tran_file:read("*line")
+		--print_log(org_tran)
+		--local tran_table = json.decode(org_tran)
+		--tran_table.resp_code="YY"
+		--org_tran = json.encode(tran_table)
+		--print_log(org_tran)
+		--tran_file:seek("set",offset)
+		--tran_file:write(org_tran)
+		assert(io.close(tran_file))
+	else
+		return "YX"
+	end
+end
+
+local function tran_balance(req_table)
+	req_fields.field64 = 1	
+	req_fields.field2,result = check_medium_info(req_table.MediumInfo)
+	print_log(req_fields.field2)
+	print_log(result)
+	if result == 0 then
+		return "N1"
+	end
+	if result == 1 then --刷磁道交易
+		req_fields.field35 = req_table.MediumInfo
+		req_fields.field22 = "02"
+	elseif result == 2 then --手输卡号
+		req_fields.field22 = "01"
+	elseif result == 3 then --条码
+		return "NG"
+	else
+		return "N1"
+	end
+
+	if req_table.PassWord == nil then
+		req_fields.field22 = req_fields.field22 .. "2"
+	elseif #req_table.PassWord == 6 then
+		req_fields.field22 = req_fields.field22 .. "1"
+		req_fields.field26 = "06"
+		req_fields.field53 = "2000000000000000"
+		req_fields.field52 = cul_soft_pin(TERM_CONFIG.MkIndex,req_fields.pin_key,req_fields.field2,req_table.PassWord)
+
+	else
+		return "A3"
+	end
+
+	req_fields.message_type = "0200"
+	req_fields.field3 = "310008"
+	req_fields.field25 = "00"
+	req_fields.field49 = "156"
+	req_fields.field60="01" .. req_fields.batch_no
+	return "00"
+end
+
+local function tran_settle(req_table)
+	req_fields.field64 = nil
+	req_fields.message_type = "0500"
+	req_fields.field60="00" .. req_fields.batch_no .. "201"
+	req_fields.field48 = string.rep("0",166)
+	return "00"
+end
+
+local function tran_refund(req_table)
+
+end
+
+local function tran_reprint(req_table)
+end
+
+local function tran_vc_resume(req_table)
+end
+
+local function tran_vc_resume_void(req_table)
+end
+
+local function tran_vc_refund(req_table)
+end
+
+local function tran_active(req_table)
+end
+
+local function tran_active_void(req_table)
+end
+
+local function tran_inquire(req_table)
+end
+
+--add tran type here
+
+
+local tran_table={}
+tran_table["00"]=tran_login
+tran_table["01"]=tran_resume
+tran_table["02"]=tran_resume_void
+tran_table["03"]=tran_refund
+tran_table["04"]=tran_balance
+tran_table["05"]=tran_refund
+tran_table["07"]=tran_reprint
+tran_table["11"]=tran_vc_resume
+tran_table["12"]=tran_vc_resume_void
+tran_table["15"]=tran_vc_refund
+tran_table["21"]=tran_active
+tran_table["22"]=tran_active_void
+tran_table["99"]=tran_settle
+--tran type end
+
+------------------------------分割线--------------------------------
+
+--解析返回62域
+local function process_field62()
+	local field62_table = {}
+	local tag_name = nil
+	local tag_len = nil
+	if rsp_fields.field62 ~= nil then
+		local tag_num,str = split_string(rsp_fields.field62,2)
+		local i = 1
+		for i=1,tag_num,1 do
+			tag_name,str = split_string(str,2)
+			tag_len,str = split_string(str,2)
+			field62_table[tag_name],str = split_string(str,tag_len)			
+		end
+	end
+	if field62_table.CH == nil then
+		field62_table.CH = "PREPAY"
+	end
+	print_table(field62_table)
+	return field62_table
+end
+
+local function process_field63_balance(field62_table)
+	local field63_table = {}
+	if rsp_fields.field63 ~= nil then
+		if field62_table.CH == "PREPAY" then
+			local num,str = split_string(rsp_fields.field63,2)
+			print_log(num)
+			if num ~= "01" then
+				return "V3"
+			end
+			num,str =  split_string(str,2)
+			field63_table.card_club,str = split_string(str,num)
+			field63_table.card_name,str = split_string(str,20)
+			field63_table.sign,str = split_string(str,1)
+			field63_table.balance,str = split_string(str,12)
+			field63_table.balance = "00" .. string.sub(field63_table.balance,1,10)
+			field63_table.use_balance,str = split_string(str,12)
+			field63_table.use_balance = "00" .. string.sub(field63_table.use_balance,1,10)
+			field63_table.expr,field63_table.reserved = split_string(str,4)
+		else
+			return "V2"
+		end
+	end
+	print_table(field63_table)
+	return field63_table
+end
+
+local function process_field63_resume(field62_table)
+	local field63_table = {}
+	local num = nil 
+	local str = nil
+	local len = nil
+	if rsp_fields.field63 ~= nil then
+		num,str = split_string(rsp_fields.field63,2)
+		if field62_table.CH == "PREPAY" then
+			if num ~= "01" then
+				return "V3"
+			end
+			len,str =  split_string(str,2)
+			field63_table.card_club,str = split_string(str,len)
+			field63_table.card_name,str = split_string(str,20)
+			field63_table.point1,str = split_string(str,12)  --积分加值金额
+			field63_table.point2,str = split_string(str,12)  --积分加值点数
+			field63_table.sign,str = split_string(str,1)
+			field63_table.use_balance,str = split_string(str,12)
+			field63_table.use_balance = "00" .. string.sub(field63_table.use_balance,1,10)
+			field63_table.expr,str = split_string(str,4)
+			field63_table.special_day_info,str = split_string(str,16)
+			field63_table.redeem_amount,str = split_string(str,12)
+			field63_table.redeem_point,str = split_string(str,12)
+			field63_table.ins_amount,field63_table.reserved = split_string(str,12) --不足金额以及预留域
+		elseif field62_table.CH == "VPAY" then
+			if num > 10 or num<1 then
+				return "V3"	
+			end
+			
+		else
+			return "V2"
+		end
+	end
+	print_table(field63_table)
+	return field63_table
+end
+
+local function tran_process(rsp_table)
+	rsp_table.RespCode = rsp_fields.field39
+	rsp_table.RespInfo = RSP_CODE[rsp_table.RespCode]
+	rsp_table.TranDate = rsp_fields.field13
+	rsp_table.TranTime = rsp_fields.field12
+	rsp_table.TermNo = rsp_fields.field41
+	rsp_table.MchtNo = rsp_fields.field42
+	rsp_table.MchtName = TERM_CONFIG.MchtName
+	rsp_table.BatchNo = string.sub(rsp_fields.field60,3,8)
+	rsp_table.TraceNo = rsp_fields.field11
+	rsp_table.RefNo = rsp_fields.field37
+end
+
+local function process_login(rsp_table)
+	rsp_table.RespCode,rsp_table.RespInfo = cul_check_value(TERM_CONFIG.MkIndex,rsp_fields.field62)
+	if rsp_table.RespCode == "00" then
+		req_fields.login_date = os.date("%m%d")
+		req_fields.batch_no = string.sub(rsp_fields.field60,3,8)
+		req_fields.pin_key = string.sub(rsp_fields.field62,1,8)
+		req_fields.mac_key = string.sub(rsp_fields.field62,13,20)
+		write_cul_data()
+	end
+end
+
+local function process_resume(rsp_table)
+	local field62_table = process_field62()
+	local field63_table = process_field63_resume(field62_table)
+	rsp_table.Channel = field62_table.ch
+	rsp_table.CardNo = rsp_fields.field2
+	rsp_table.CardName = field63_table.card_name
+	rsp_table.CardClub = field63_table.card_club
+	rsp_table.Expr = field63_table.expr
+	rsp_table.Balance = field63_table.use_balance
+	rsp_table.TranAmount = field63_table.redeem_amount
+	if 1 == check_reserved_info(field63_table.reserved) then
+		rsp_table.Reserved = field63_table.reserved
+	end
+	if 1 == check_special_day_info(field63_table.special_day_info) then
+		rsp_table.SpecialDay = field63_table.special_day_info
+	end
+	if 1 ==  check_remark_info(field62_table.RM) then
+		rsp_table.Remark = field62_table.RM
+	end
+end
+
+local function process_resume_void(rsp_table)
+	local field62_table = process_field62()
+	local field63_table = process_field63_resume(field62_table)
+	rsp_table.Channel = field62_table.ch
+	rsp_table.CardNo = rsp_fields.field2
+	rsp_table.CardName = field63_table.card_name
+	rsp_table.CardClub = field63_table.card_club
+	rsp_table.Expr = field63_table.expr
+	rsp_table.Balance = field63_table.use_balance
+	rsp_table.TranAmount = field63_table.redeem_amount
+	if 1 == check_reserved_info(field63_table.reserved) then
+		rsp_table.Reserved = field63_table.reserved
+	end
+	if 1 == check_special_day_info(field63_table.special_day_info) then
+		rsp_table.SpecialDay = field63_table.special_day_info
+	end
+	if 1 ==  check_remark_info(field62_table.RM) then
+		rsp_table.Remark = field62_table.RM
+	end
+end
+
+local function process_balance(rsp_table)
+	local field62_table = process_field62()
+	local field63_table = process_field63_balance(field62_table)
+	rsp_table.Channel = field62_table.ch
+	rsp_table.CardNo = rsp_fields.field2
+	rsp_table.CardName = field63_table.card_name
+	rsp_table.CardClub = field63_table.card_club
+	rsp_table.Expr = field63_table.expr
+	rsp_table.Balance = field63_table.use_balance
+	if 1 == check_reserved_info(field63_table.reserved) then
+		rsp_table.Reserved = field63_table.reserved
+	end
+end
+
+local function process_settle(rsp_table)
+	req_fields.login_date = "0000"
+	req_fields.settle_date = os.date("%m%d")
+	req_fields.field11 = "000001"
+	req_fields.batch_no = string.format("%06d",req_fields.batch_no + 1)
+	req_fields.pin_key = "00000000"
+	req_fields.mac_key = "00000000"
+	write_cul_data()
+end
+
+local process_recv={}
+process_recv["00"]=process_login
+process_recv["01"]=process_resume
+process_recv["02"]=process_resume_void
+process_recv["03"]=process_settle
+process_recv["04"]=process_balance
+process_recv["05"]=process_refund
+process_recv["07"]=process_reprint
+process_recv["11"]=process_vc_resume
+process_recv["12"]=process_vc_resume_void
+process_recv["15"]=process_vc_refund
+process_recv["21"]=process_active
+process_recv["22"]=process_active_void
+process_recv["23"]=process_inquire
+process_recv["99"]=process_settle
+
+
+--返回json字符串
+function lua_do_fields(req_string,mode)	
+	local rsp_table={}
+	print_log(req_string)
+	print_log(mode)
+	local req_table = json.decode(req_string)
+	print_table(req_table)
+	tran_init()
+	if tran_table[req_table.TranType] == nil then
+	    rsp_table.RespCode = "X1"
+	    rsp_table.RespInfo = "不支持的交易类型"
+	    return json.encode(rsp_table)
+	end
+	rsp_table.RespCode = tran_table[req_table.TranType](req_table)
+	if rsp_table.RespCode ~= "00" then
+		rsp_table.RespInfo = RSP_CODE[rsp_table.RespCode]
+		return json.encode(rsp_table)
+	end
+	print_table(req_fields)
+	local iso8583_stream = cul_iso8583_pack(ISO_8583_LEN)
+	if nil ~= req_fields.field64 then
+		iso8583_stream = iso8583_stream .. cul_soft_mac(TERM_CONFIG.MkIndex,req_fields.mac_key,iso8583_stream,#iso8583_stream)
+	end
+	local stream_len = #iso8583_stream
+	local len_interger = math.modf(stream_len/256)
+	iso8583_stream = string.char(len_interger) .. string.char(stream_len%256) .. iso8583_stream
+	local log_stream = bin2hex(iso8583_stream)
+	print_log(log_stream)
+	if 0 ~= cul_socket_send(TERM_CONFIG.HostIp,TERM_CONFIG.HostPort,iso8583_stream,#iso8583_stream) then
+		print_log("send faild" .. TERM_CONFIG.HostIp .. ":" ..TERM_CONFIG.HostPort)
+		rsp_table.RespCode = "Y8"
+		rsp_table.RespInfo = "socket建立连接失败,请检查线路".. TERM_CONFIG.HostIp .. ":" .. TERM_CONFIG.HostPort
+		return json.encode(rsp_table)
+	end
+	req_fields.field11 = string.format("%06d",req_fields.field11 + 1)
+	local recv_buf = cul_socket_recv(ISO_8583_LEN,60)
+	if recv_buf == nil then
+		write_cul_data()
+		rsp_table.RespCode = "Z1"
+		rsp_table.RespInfo = "接收超时" .. TERM_CONFIG.HostIp .. ":" .. TERM_CONFIG.HostPort .. " " .. TERM_CONFIG.TPDU
+		return json.encode(rsp_table)
+	end
+	local log_stream=bin2hex(recv_buf)
+	print_log(log_stream)
+	rsp_table.RespCode = cul_iso8583_unpack(recv_buf)
+	print_table(rsp_fields)
+	if rsp_table.RespCode ~= "00" then
+		rsp_table.RespInfo = RSP_CODE[rsp_table.RespCode]
+		return json.encode(rsp_table)
+	end
+	write_cul_data()
+	rsp_table={}
+	rsp_table.TranType = req_table.TranType
+	tran_process(rsp_table)
+	if rsp_table.RespCode == "00" then
+		process_recv[req_table.TranType](rsp_table)
+	end
+	print_table(rsp_table)
+	local result_json = json.encode(rsp_table)
+	write_tran_data(result_json)
+	if rsp_table.TranType == "99" then
+	     --记录历史流水到his_tran文件夹
+		--os.execute("md " .. cul_get_path().. "his_tran")
+		--assert(os.rename(cul_get_path() .. "tran_data",cul_get_path() .. "his_tran\\tran_data_" .. os.date("%m%d")))	
+		assert(os.remove(cul_get_path() .. "tran_data"))
+	end	
+	return result_json
+end
+
+
+
+
+
+

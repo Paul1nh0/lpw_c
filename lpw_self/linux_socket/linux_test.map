@@ -1,0 +1,254 @@
+Open Watcom Linker Version 1.9
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       18/03/19 15:37:26
+Executable Image: linux_test.elf
+creating a Linux x86 executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0804b000             00001024
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+BEGTEXT                CODE           AUTO           08048100        00000007
+_TEXT                  CODE           AUTO           08048110        00002059
+_NULL                  BEGDATA        DGROUP         0804b000        00000004
+_AFTERNULL             BEGDATA        DGROUP         0804b004        00000000
+CONST                  DATA           DGROUP         0804b004        0000003c
+CONST2                 DATA           DGROUP         0804b040        00000000
+_DATA                  DATA           DGROUP         0804b040        0000024c
+XIB                    DATA           DGROUP         0804b28c        00000000
+XI                     DATA           DGROUP         0804b28c        0000000c
+XIE                    DATA           DGROUP         0804b298        00000000
+YIB                    DATA           DGROUP         0804b298        00000000
+YI                     DATA           DGROUP         0804b298        00000006
+YIE                    DATA           DGROUP         0804b29e        00000000
+TIB                    DATA           DGROUP         0804b29e        00000000
+TI                     DATA           DGROUP         0804b29e        00000000
+TIE                    DATA           DGROUP         0804b29e        00000000
+DATA                   DATA           DGROUP         0804b29e        00000000
+_BSS                   BSS            DGROUP         0804c000        00000024
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: main.obj(D:\git\lpw_c\lpw_self\linux_socket\main.c)
+08048110       main_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(stk)
+08048171*      __STK
+08048175       __CHK
+0804816e*      __GRO
+0804818e*      __STKOVERFLOW_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(printf.c)
+08048200       printf_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(cstart)
+08048222       _cstart_
+08048222*      _start
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(xmsglnx.c)
+08048290+      __exit_with_msg_
+080482e0       __fatal_runtime_error_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(crwdata)
+0804b048*      __LpCmdLine
+0804b04c       __LpPgmName
+0804b040*      __dynend
+0804b044       __curbrk
+0804b050       __STACKLOW
+0804b054       __STACKTOP
+0804b058       __ASTACKSIZ
+0804b05c       __ASTACKPTR
+0804b060*      __cbyte
+0804b064*      __cbyte2
+0804b068*      __child
+0804b06e*      __Envptr
+0804b072*      __Envseg
+0804b06c*      __no87
+0804b074*      ___FPE_handler
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(iob.c)
+0804b078       ___iob
+0804c000       ___OpenStreams
+0804c004       ___ClosedStreams
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(fprtf.c)
+08048330       __fprtf_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(cmainlnx.c)
+080483c0       __LinuxMain
+0804c008+      __argc
+0804c00c+      __argv
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(segdefns)
+08048103       ___begtext
+0804b000*      __nullarea
+0804b28c       __Start_XI
+0804b298       __End_XI
+0804b298       __Start_YI
+0804b29e       __End_YI
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(write.c)
+08048450       write_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(sys_exit.c)
+08048480       sys_exit_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(enterdb.c)
+08048490       __EnterWVIDEO_
+0804b238+      ___WD_Present
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(initfile.c)
+080484f0       __InitFiles_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(ioexit.c)
+080485f0*      fcloseall_
+08048600       __full_io_exit_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(fputc.c)
+08048610       fputc_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(ioalloc.c)
+080486a0       __ioalloc_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(prtf.c)
+08048740       __prtf_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(flush.c)
+08049260       __flush_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(sbrklnx.c)
+08049330       sbrk_
+08049340       __brk_
+08049370*      brk_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(environ.c)
+0804c010       ___env_mask
+0804c014       _environ
+0804c018*      __wenviron
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(initrtns.c)
+080493b0       __InitRtns
+08049400       __FiniRtns
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(amblksiz.c)
+0804b23c       __amblksiz
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(exit.c)
+08049460       exit_
+08049472*      _exit_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(dosseg)
+00001234       __DOSseg__
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(errno.c)
+08049480       __get_errno_ptr_
+0804c01c+      _errno
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(nmalloc.c)
+08049490       _nmalloc_
+08049490       malloc_
+0804b240       ___nheapbeg
+0804b244       ___MiniHeapRover
+0804b248       ___LargestSizeB4MiniHeapRover
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(fclose.c)
+08049580+      __doclose_
+080495f0       __shutdown_stream_
+08049610*      fclose_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(freefp.c)
+08049640       __freefp_
+08049680       __purgefp_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(seterrno.c)
+080496a2       __set_errno_
+080496ae*      __set_EDOM_
+080496ba*      __set_ERANGE_
+080496c6*      __set_EINVAL_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(chktty.c)
+080496e0       __chktty_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(itoa.c)
+08049710+      utoa_
+08049760       itoa_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(strupr.c)
+08049790       strupr_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(noefgfmt.c)
+0804b24c       ___EFG_printf
+0804b250*      ___EFG_scanf
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(lltoa.c)
+08049800       ulltoa_
+08049870*      lltoa_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(ltoa.c)
+080498a0       ultoa_
+080498f0*      ltoa_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(__lseek.c)
+08049920       __lseek_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(qwritunx.c)
+08049950       __qwrite_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(fsync.c)
+080499a0       fsync_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(sys_brk.c)
+080499d0       sys_brk_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(setenvp.c)
+080499f0       __setenvp_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(mainlnx.c)
+0804b254+      ___FirstThreadData
+0804b258+      ___GetThreadPtr
+0804b25c*      __AccessFileH
+0804b260*      __ReleaseFileH
+0804b264*      __AccessIOB
+0804b268*      __ReleaseIOB
+0804b26c*      __AccessNHeap
+0804b270*      __AccessFHeap
+0804b274*      __ReleaseNHeap
+0804b278*      __ReleaseFHeap
+08049a60*      __threadid_
+08049a90*      __LinuxInit_
+08049aa0       __exit_
+0804b27c*      __AccessTDList
+0804b280*      __ReleaseTDList
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(nmemneed.c)
+08049ac0       __nmemneed_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(mem.c)
+08049ad0       __MemAllocator
+08049b80       __MemFree
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(grownear.c)
+08049d40+      __LastFree_
+08049dc0       __ExpandDGROUP_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(close.c)
+08049ec0       close_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(nfree.c)
+08049ef0       _nfree_
+08049ef0       free_
+0804c020+      ___MiniHeapFreeRover
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(isattlnx.c)
+08049ff0       isatty_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(alphabet.c)
+0804b018       ___Alphabet
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(memset.c)
+0804a030       memset_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(mthrdini.c)
+0804a050       __InitThreadData_
+0804b284*      ___ThreadDataSize
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(heapen.c)
+0804a060*      _heapenable_
+0804b288       ___heap_enabled
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(tcgattr.c)
+0804a070       tcgetattr_
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(__stos)
+0804a080       __STOSB
+0804a0b7*      __STOSD
+Module: D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib(ioctl.c)
+0804a130       ioctl_
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+D:\git\lpw_c\WATCOM\/lib386/linux\clib3r.lib
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  1000 (4096.)
+Memory size:  308d (12429.)
+Entry point address: 08048222
+Link time: 00:00.31

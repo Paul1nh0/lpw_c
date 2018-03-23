@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         makeDir("/data/data/com.culmis.zero.culmis/cul/");
         makeDir("/data/data/com.culmis.zero.culmis/cul_log/");
-    //    makeDir("/mnt/sdcard/cul_receipt/");
+		Log.d("LOGCAT","[culmis] test debug");
+
         try {
             copyFile("cul_pos.ini","/data/data/com.culmis.zero.culmis/cul_pos.ini");
         } catch (IOException e) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSetting = (Button)findViewById(R.id.idbSetting);
         assert btnSetting != null;
         btnSetting.setOnClickListener(new View.OnClickListener() {
-            //重载
+
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnLog = (Button)findViewById(R.id.idbRecovery);
         assert btnLog != null;
         btnLog.setOnClickListener(new View.OnClickListener() {
-            //重载
+
             public void onClick(View v) {
                 delete_file("/data/data/com.culmis.zero.culmis/cul_pos.ini");
                 try {

@@ -1,0 +1,277 @@
+!define BLANK ""
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lapi.obj : D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\lapi.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lapi.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -b&
+t=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lauxlib.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lauxlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lauxlib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lbaselib.obj : D:\git\lpw_c\lpw_s&
+elf\culmis_std_linux\lua\lbaselib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lbaselib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6&
+r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lbitlib.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lbitlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lbitlib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lcode.obj : D:\git\lpw_c\lpw_self&
+\culmis_std_linux\lua\lcode.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lcode.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -&
+bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lcorolib.obj : D:\git\lpw_c\lpw_s&
+elf\culmis_std_linux\lua\lcorolib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lcorolib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6&
+r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lctype.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\lctype.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lctype.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ldblib.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\ldblib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ldblib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ldebug.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\ldebug.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ldebug.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ldo.obj : D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\ldo.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ldo.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -bt&
+=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ldump.obj : D:\git\lpw_c\lpw_self&
+\culmis_std_linux\lua\ldump.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ldump.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -&
+bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lfunc.obj : D:\git\lpw_c\lpw_self&
+\culmis_std_linux\lua\lfunc.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lfunc.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -&
+bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lgc.obj : D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\lgc.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lgc.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -bt&
+=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\linit.obj : D:\git\lpw_c\lpw_self&
+\culmis_std_linux\lua\linit.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 linit.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -&
+bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\liolib.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\liolib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 liolib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\llex.obj : D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\llex.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 llex.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -b&
+t=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lmathlib.obj : D:\git\lpw_c\lpw_s&
+elf\culmis_std_linux\lua\lmathlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lmathlib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6&
+r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lmem.obj : D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\lmem.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lmem.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -b&
+t=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\loadlib.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\loadlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 loadlib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lobject.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lobject.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lobject.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lopcodes.obj : D:\git\lpw_c\lpw_s&
+elf\culmis_std_linux\lua\lopcodes.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lopcodes.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6&
+r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\loslib.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\loslib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 loslib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lparser.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lparser.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lparser.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lstate.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\lstate.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lstate.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lstring.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lstring.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lstring.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lstrlib.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lstrlib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lstrlib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ltable.obj : D:\git\lpw_c\lpw_sel&
+f\culmis_std_linux\lua\ltable.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ltable.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r &
+-bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ltablib.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\ltablib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ltablib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ltm.obj : D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\ltm.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 ltm.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -bt&
+=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lundump.obj : D:\git\lpw_c\lpw_se&
+lf\culmis_std_linux\lua\lundump.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lundump.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r&
+ -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lutf8lib.obj : D:\git\lpw_c\lpw_s&
+elf\culmis_std_linux\lua\lutf8lib.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lutf8lib.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6&
+r -bt=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lvm.obj : D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\lvm.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lvm.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -bt&
+=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lzio.obj : D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\lzio.c .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ *wcc386 lzio.c -i="D:\git\lpw_c\WATCOM\/lh" -w4 -e25 -zq -otexan -d1 -6r -b&
+t=linux -fo=.obj -mf
+
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lua.lib : D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\lapi.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\laux&
+lib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lbaselib.obj D:\git\lpw_c&
+\lpw_self\culmis_std_linux\lua\lbitlib.obj D:\git\lpw_c\lpw_self\culmis_std_&
+linux\lua\lcode.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lcorolib.obj &
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lctype.obj D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\ldblib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\l&
+debug.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ldo.obj D:\git\lpw_c\lp&
+w_self\culmis_std_linux\lua\ldump.obj D:\git\lpw_c\lpw_self\culmis_std_linux&
+\lua\lfunc.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lgc.obj D:\git\lpw&
+_c\lpw_self\culmis_std_linux\lua\linit.obj D:\git\lpw_c\lpw_self\culmis_std_&
+linux\lua\liolib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\llex.obj D:\&
+git\lpw_c\lpw_self\culmis_std_linux\lua\lmathlib.obj D:\git\lpw_c\lpw_self\c&
+ulmis_std_linux\lua\lmem.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\load&
+lib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lobject.obj D:\git\lpw_c\&
+lpw_self\culmis_std_linux\lua\lopcodes.obj D:\git\lpw_c\lpw_self\culmis_std_&
+linux\lua\loslib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lparser.obj &
+D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lstate.obj D:\git\lpw_c\lpw_self\&
+culmis_std_linux\lua\lstring.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\&
+lstrlib.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\ltable.obj D:\git\lpw&
+_c\lpw_self\culmis_std_linux\lua\ltablib.obj D:\git\lpw_c\lpw_self\culmis_st&
+d_linux\lua\ltm.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lundump.obj D&
+:\git\lpw_c\lpw_self\culmis_std_linux\lua\lutf8lib.obj D:\git\lpw_c\lpw_self&
+\culmis_std_linux\lua\lvm.obj D:\git\lpw_c\lpw_self\culmis_std_linux\lua\lzi&
+o.obj .AUTODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_linux\lua
+ %create lua.lb1
+!ifneq BLANK "lapi.obj lauxlib.obj lbaselib.obj lbitlib.obj lcode.obj lcorol&
+ib.obj lctype.obj ldblib.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj &
+linit.obj liolib.obj llex.obj lmathlib.obj lmem.obj loadlib.obj lobject.obj &
+lopcodes.obj loslib.obj lparser.obj lstate.obj lstring.obj lstrlib.obj ltabl&
+e.obj ltablib.obj ltm.obj lundump.obj lutf8lib.obj lvm.obj lzio.obj"
+ @for %i in (lapi.obj lauxlib.obj lbaselib.obj lbitlib.obj lcode.obj lcoroli&
+b.obj lctype.obj ldblib.obj ldebug.obj ldo.obj ldump.obj lfunc.obj lgc.obj l&
+init.obj liolib.obj llex.obj lmathlib.obj lmem.obj loadlib.obj lobject.obj l&
+opcodes.obj loslib.obj lparser.obj lstate.obj lstring.obj lstrlib.obj ltable&
+.obj ltablib.obj ltm.obj lundump.obj lutf8lib.obj lvm.obj lzio.obj) do @%app&
+end lua.lb1 +'%i'
+!endif
+!ifneq BLANK ""
+ @for %i in () do @%append lua.lb1 +'%i'
+!endif
+ *wlib -b -c -n -q -p=512 lua.lib @lua.lb1
+

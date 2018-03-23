@@ -1,0 +1,11 @@
+D:\git\lpw_c\WATCOM\/h\elib.h(25): Warning! W138: No newline at end of file
+tcp\netback.c(15): Warning! W131: No prototype found for function 'disable'
+tcp\netback.c(17): Error! E1011: Symbol '_SS' has not been declared
+tcp\netback.c(18): Error! E1011: Symbol '_SP' has not been declared
+tcp\netback.c(21): Warning! W131: No prototype found for function 'enable'
+tcp\netback.c(34): Warning! W131: No prototype found for function 'getvect'
+tcp\netback.c(34): Warning! W102: Type mismatch (warning)
+tcp\netback.c(34): Note! I2003: source conversion type is 'unsigned long '
+tcp\netback.c(34): Note! I2004: target conversion type is 'void (__interrupt *)(void )'
+tcp\netback.c(35): Warning! W131: No prototype found for function 'setvect'
+tcp\netback.c(47): Warning! W138: No newline at end of file

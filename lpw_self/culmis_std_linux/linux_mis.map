@@ -1,0 +1,59 @@
+Open Watcom Linker Version 1.9
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       18/03/21 16:37:54
+Executable Image: linux_mis.elf
+creating a Linux x86 executable
+Error! E2028: __CHK is an undefined reference
+Error! E2028: time_ is an undefined reference
+Error! E2028: localtime_ is an undefined reference
+Error! E2028: strftime_ is an undefined reference
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          08049000             00000004
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+_TEXT                  CODE           AUTO           08048100        000000db
+CONST                  DATA           DGROUP         08049000        00000003
+CONST2                 DATA           DGROUP         08049004        00000000
+_DATA                  DATA           DGROUP         08049004        00000000
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: cul_common.obj(D:\git\lpw_c\lpw_self\culmis_std_linux\cul_common.c)
+08048100*      replace_byte_
+08048167*      get_current_year_
+Warning! W1023: no starting address found, using 00000000
+Error! E2044: exported symbol __CHK not found
+Error! E2044: exported symbol time_ not found
+Error! E2044: exported symbol localtime_ not found
+Error! E2044: exported symbol strftime_ not found
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+

@@ -15,6 +15,9 @@ model {
             sourceCompatibility = JavaVersion.VERSION_1_7
             targetCompatibility = JavaVersion.VERSION_1_7
         }
+        lintOptions {
+	        abortOnError false
+        }
     }
     android.sources {
         main {
@@ -26,14 +29,14 @@ model {
         // cppFlags += "-std=c++11"
         //  cppFlags += "-fexceptions"
         //  cppFlags += "-I${file("src/main/jni//include")}".toString()
-        //  ldLibs += ["android", "log"]
+          ldLibs += ["android", "log"]
         //   stl = "gnustl_shared"
     }
     android.buildTypes {
         release {
             minifyEnabled = true
-            proguardFiles = getDefaultProguardFile('proguard-android.txt')
-            //proguardFiles.add(file("proguard-rules.pro")) //紫色代码是改过了的
+           // proguardFiles = getDefaultProguardFile('proguard-android.txt')
+            proguardFiles.add(file("proguard-rules.pro")) //紫色代码是改过了的
         }
     }
     //  android.productFlavors {

@@ -32,8 +32,6 @@
         <activity android:name=".SettingActivity" >
 
         </activity>
-        <activity android:name=".TraceActivity" >
-        </activity>
     </application>
 
 </manifest>
