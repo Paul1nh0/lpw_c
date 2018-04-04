@@ -1,0 +1,47 @@
+!define BLANK ""
+D:\git\lpw_c\lpw_self\culmis_std_dos\dos_mis1.lib : D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lib\accept.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\bind.ob&
+j D:\git\lpw_c\lpw_self\culmis_std_dos\lib\bughalt.obj D:\git\lpw_c\lpw_self&
+\culmis_std_dos\lib\close.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\conne&
+ct.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\dump.obj D:\git\lpw_c\lpw_se&
+lf\culmis_std_dos\lib\fcntl.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\get&
+etcdi.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\gethoste.obj D:\git\lpw_c&
+\lpw_self\culmis_std_dos\lib\gethosti.obj D:\git\lpw_c\lpw_self\culmis_std_d&
+os\lib\gethostn.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\getprote.obj D:&
+\git\lpw_c\lpw_self\culmis_std_dos\lib\getserve.obj D:\git\lpw_c\lpw_self\cu&
+lmis_std_dos\lib\getsockn.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\getso&
+cko.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\gettimeo.obj D:\git\lpw_c\l&
+pw_self\culmis_std_dos\lib\globals.obj D:\git\lpw_c\lpw_self\culmis_std_dos\&
+lib\inet.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\ioctl.obj D:\git\lpw_c&
+\lpw_self\culmis_std_dos\lib\listen.obj D:\git\lpw_c\lpw_self\culmis_std_dos&
+\lib\perror.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\read.obj D:\git\lpw&
+_c\lpw_self\culmis_std_dos\lib\recv.obj D:\git\lpw_c\lpw_self\culmis_std_dos&
+\lib\select.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\send.obj D:\git\lpw&
+_c\lpw_self\culmis_std_dos\lib\shutdown.obj D:\git\lpw_c\lpw_self\culmis_std&
+_dos\lib\sleep.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\socket.obj D:\gi&
+t\lpw_c\lpw_self\culmis_std_dos\lib\stdio.obj D:\git\lpw_c\lpw_self\culmis_s&
+td_dos\lib\syslog.obj D:\git\lpw_c\lpw_self\culmis_std_dos\lib\write.obj .AU&
+TODEPEND
+ @D:
+ cd D:\git\lpw_c\lpw_self\culmis_std_dos
+ %create dos_mis1.lb1
+!ifneq BLANK "lib\accept.obj lib\bind.obj lib\bughalt.obj lib\close.obj lib\&
+connect.obj lib\dump.obj lib\fcntl.obj lib\getetcdi.obj lib\gethoste.obj lib&
+\gethosti.obj lib\gethostn.obj lib\getprote.obj lib\getserve.obj lib\getsock&
+n.obj lib\getsocko.obj lib\gettimeo.obj lib\globals.obj lib\inet.obj lib\ioc&
+tl.obj lib\listen.obj lib\perror.obj lib\read.obj lib\recv.obj lib\select.ob&
+j lib\send.obj lib\shutdown.obj lib\sleep.obj lib\socket.obj lib\stdio.obj l&
+ib\syslog.obj lib\write.obj"
+ @for %i in (lib\accept.obj lib\bind.obj lib\bughalt.obj lib\close.obj lib\c&
+onnect.obj lib\dump.obj lib\fcntl.obj lib\getetcdi.obj lib\gethoste.obj lib\&
+gethosti.obj lib\gethostn.obj lib\getprote.obj lib\getserve.obj lib\getsockn&
+.obj lib\getsocko.obj lib\gettimeo.obj lib\globals.obj lib\inet.obj lib\ioct&
+l.obj lib\listen.obj lib\perror.obj lib\read.obj lib\recv.obj lib\select.obj&
+ lib\send.obj lib\shutdown.obj lib\sleep.obj lib\socket.obj lib\stdio.obj li&
+b\syslog.obj lib\write.obj) do @%append dos_mis1.lb1 +'%i'
+!endif
+!ifneq BLANK ""
+ @for %i in () do @%append dos_mis1.lb1 +'%i'
+!endif
+ *wlib -b -c -n -q -p=512 dos_mis1.lib @dos_mis1.lb1
+

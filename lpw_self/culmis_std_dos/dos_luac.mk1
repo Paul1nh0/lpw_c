@@ -284,6 +284,6 @@ bj,loadlib.obj,lobject.obj,lopcodes.obj,loslib.obj,lparser.obj,lstate.obj,ls&
 tring.obj,lstrlib.obj,ltable.obj,ltablib.obj,ltm.obj,lundump.obj,lutf8lib.ob&
 j,lvm.obj,lzio.obj
  @%append dos_luac.lk1 
- *wlink name dos_luac sys dos op m libr DOS_SOCK.LIB op maxe=25 op q op symf&
- @dos_luac.lk1
+ *wlink name dos_luac sys dos op m libr dos_mis1 op maxe=25 op q op symf @do&
+s_luac.lk1
 

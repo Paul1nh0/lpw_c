@@ -1,9 +1,2 @@
-cul_socket.c(3): Error! E1055: Unable to open 'sys/socket.h'
-cul_socket.c(4): Error! E1055: Unable to open 'netinet/in.h'
-cul_socket.c(22): Warning! W131: No prototype found for function 'connect'
-cul_socket.c(22): Error! E1113: Expression has incomplete type
-cul_socket.c(22): Note! I2003: source conversion type is 'struct sockaddr '
-cul_socket.c(19): Error! E1044: Variable 'server' has incomplete type
-cul_socket.c(20): Warning! W202: Symbol 'he' has been defined, but not referenced
-cul_socket.c(13): Error! E1044: Variable 'client_addr' has incomplete type
-cul_socket.c(13): Error! E1044: Variable 'server_addr' has incomplete type
+cul_socket.c(23): Warning! W131: No prototype found for function '_connect'
+cul_socket.c(21): Warning! W202: Symbol 'he' has been defined, but not referenced

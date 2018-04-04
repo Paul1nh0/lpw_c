@@ -1,6 +1,6 @@
 Open Watcom Linker Version 1.9
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       18/03/23 13:36:55
+Created on:       18/04/04 13:56:04
 Executable Image: dos_luac.exe
 creating a DOS executable
 Error! E2028: _connect_ is an undefined reference
@@ -13,7 +13,7 @@ Error! E2028: _connect_ is an undefined reference
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          32bf:0000            00004ad0
+DGROUP                          32bf:0000            000052c0
 
 
 
@@ -75,8 +75,8 @@ STRINGS                DATA           DGROUP         36a4:000e       00000000
 DATA                   DATA           DGROUP         36a4:000e       00000000
 _emu_init_start        EMU            DGROUP         36a4:000e       00000000
 _emu_init_end          EMU            DGROUP         36a4:000e       00000000
-_BSS                   BSS            DGROUP         36a4:000e       00000468
-STACK                  STACK          DGROUP         36ec:0000       00000800
+_BSS                   BSS            DGROUP         36a4:000e       00000c58
+STACK                  STACK          DGROUP         376b:0000       00000800
 
 
                         +----------------+
@@ -91,6 +91,10 @@ Address        Symbol
 
 Module: cul_socket.obj(D:\git\lpw_c\lpw_self\culmis_std_dos\cul_socket.c)
 0000:0000      main_
+32bf:3e5e*     _recvbuf
+32bf:4246*     _server_addr
+32bf:4256*     _client_addr
+32bf:4266*     _sendbuf
 Module: lapi.obj(D:\git\lpw_c\lpw_self\culmis_std_dos\lapi.c)
 0000:00d0      lua_checkstack_
 0000:0176      lua_xmove_
@@ -465,8 +469,8 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(strncmp.c)
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(errno.c)
 2402:040d      __get_errno_ptr_
 2402:0414      __get_doserrno_ptr_
-32bf:3e5e+     _errno
-32bf:3e60+     __doserrno
+32bf:464e+     _errno
+32bf:4650+     __doserrno
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(strerror.c)
 2402:041b      strerror_
 2402:0443*     _strerror_
@@ -480,8 +484,8 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(fgetc.c)
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(iob.c)
 32bf:3870      ___iob
 32bf:39d8      __fmode
-32bf:3f62      ___OpenStreams
-32bf:3f66      ___ClosedStreams
+32bf:4752      ___OpenStreams
+32bf:4756      ___ClosedStreams
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(fopen.c)
 2402:089b+     __open_flags_
 2402:0a9b+     _fsopen_
@@ -491,7 +495,7 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(fclose.c)
 2402:0c53      __doclose_
 2402:0d04      __shutdown_stream_
 2402:0d1e      fclose_
-32bf:3f6a      ___RmTmpFileFn
+32bf:475a      ___RmTmpFileFn
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(strstr.c)
 2402:0d69      strstr_
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(ffree.c)
@@ -777,7 +781,7 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(fmalloc.c)
 32bf:3ad2      ___LargestSizeB4Rover
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(nfree.c)
 2402:7a44      _nfree_
-32bf:3fa4+     ___MiniHeapFreeRover
+32bf:4794+     ___MiniHeapFreeRover
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(fmsize.c)
 2402:7b3f*     _msize_
 2402:7b3f      _fmsize_
@@ -827,9 +831,9 @@ Module: D:\git\lpw_c\WATCOM\/lib286\math87l.lib(math87e.c)
 Module: D:\git\lpw_c\WATCOM\/lib286\math87l.lib(log87e.c)
 2402:881a      __log87_err_
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(environ.c)
-32bf:3fa6      ___env_mask
-32bf:3faa      _environ
-32bf:3fae*     __wenviron
+32bf:4796      ___env_mask
+32bf:479a      _environ
+32bf:479e*     __wenviron
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(mbterm.c)
 2402:885e      _mbterm_
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(mbsnextc.c)
@@ -901,8 +905,8 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(enterdb.c)
 2402:ba99      __EnterWVIDEO_
 32bf:3ce0+     ___WD_Present
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(___argc.c)
-32bf:3fb2      ____Argv
-32bf:3fb6      ____Argc
+32bf:47a2      ____Argv
+32bf:47a6      ____Argc
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(amblksiz.c)
 32bf:3ce2      __amblksiz
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(sgdef086)
@@ -985,10 +989,10 @@ Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(setenvp.c)
 2402:ccb7      __setenvp_
 2402:cdba      __freeenvp_
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(mbisdbcs.c)
-32bf:3fbe      ___IsDBCS
+32bf:47ae      ___IsDBCS
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(mbislead.c)
 2402:ce18*     _ismbblead_
-32bf:3fc0      ___MBCSIsTable
+32bf:47b0      ___MBCSIsTable
 Module: D:\git\lpw_c\WATCOM\/lib286/dos\clibl.lib(mbinit.c)
 2402:ce72      __mbinit_
 32bf:3d96      ___MBCodePage

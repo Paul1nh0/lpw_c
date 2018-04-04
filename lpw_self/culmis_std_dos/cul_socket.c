@@ -1,9 +1,10 @@
-#include <time.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "inc/time.h"
+#include "inc/types.h"
+#include "inc/in.h"
+#include "inc/socket.h"
+#include "inc/netdb.h"
+#include "stdio.h"
+#include "stdlib.h"
             
 #define BUFFER_SIZE 1000
 #define LINE_LEN    70
@@ -16,12 +17,12 @@ struct sockaddr_in server_addr, client_addr;
 
 int main()
 {
-	struct sockaddr_in server;
-	struct hostent *he;
-//	he=gethostbyname("180.168.71.178");
-	connect(0,(struct sockaddr *) &server,sizeof(struct sockaddr ));
+        struct sockaddr_in server;
+        struct hostent *he;
+//      he=gethostbyname("180.168.71.178");
+        connect(0,(struct sockaddr *) &server,sizeof(struct sockaddr ));
 
-	return 0;
+        return 0;
 }
 
 #if 0
